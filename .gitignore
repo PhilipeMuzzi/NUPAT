@@ -7,32 +7,32 @@ __pycache__/
 *.swo
 .idea/
 
-# Virtual environment
+
 venv/
 env/
 .venv/
 .env/
 
-# Django stuff:
+
 *.log
 local_settings.py
 db.sqlite3
 
-# Ignore migrations
+
 */migrations/
 
-# Ignore static and media folders (if not part of version control)
+
 static/
 media/
 
-# VSCode settings
+
 .vscode/
 
-# Byte-compiled / optimized / DLL files
+
 *.py[cod]
 *$py.class
 
-# Distribution / packaging
+
 .Python
 build/
 develop-eggs/
@@ -49,13 +49,13 @@ wheels/
 pip-wheel-metadata/
 share/python-wheels/
 
-# C extensions
+
 *.so
 
-# Jupyter Notebook
+
 .ipynb_checkpoints
 
-# IDEs and editors
+
 .idea/
 *.sublime-project
 *.sublime-workspace
