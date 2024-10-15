@@ -1,0 +1,60 @@
+# Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.swp
+*.swo
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+
+# Ignore migrations
+*/migrations/
+
+# Ignore static and media folders (if not part of version control)
+static/
+media/
+
+# VSCode settings
+.vscode/
+
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+
+# C extensions
+*.so
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs and editors
+.idea/
+*.sublime-project
+*.sublime-workspace
