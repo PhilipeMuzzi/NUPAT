@@ -7,7 +7,7 @@ from .models import Perfil, Projeto, Pesquisador, Parceiro, Instituicao
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
 
-
+# view para  editar usuários pelo admin (staff)
 @staff_member_required
 def editar_tipo_usuario(request, usuario_id):
     perfil = get_object_or_404(Perfil, user_id=usuario_id)
@@ -20,13 +20,13 @@ def editar_tipo_usuario(request, usuario_id):
     return render(request, 'admin/editar_tipo_usuario.html', {'perfil': perfil})
 
 
-# Página inicial
+# Página inicial do projeto contendo as opções
 
 
 def inicio(request):
     return render(request, 'index.html')
 
-# Novos usuários
+# view para registro de novos usuários
 def registro(request):
     if request.method == 'POST':
         formulario = RegistroUsuarioForm(request.POST)
@@ -68,7 +68,7 @@ def login_view(request):
 def is_admin(user):
     return user.is_staff
 
-# View protegida para apenas admins
+# view que controla a rota apenas admins (é o que é mostrado se entrar como admin do terminal)
 @user_passes_test(is_admin)
 def admin_dashboard(request):
     return render(request, 'admin/dashboardAdmin.html')
@@ -79,12 +79,12 @@ def listar_projetos(request):
     projetos = Projeto.objects.all()
     return render(request, 'projetos/lista_projetos.html', {'projetos': projetos})
 
-# Detalhes de um projeto
+# view para ver detalhes de um projeto
 @login_required
 def detalhes_projeto(request, projeto_id):
     projeto = get_object_or_404(Projeto, id=projeto_id)
     alunos = projeto.alunos.all()  # Assumindo que há uma relação ManyToMany com Alunos
-    parceiros = projeto.parceiros.all()  # Assumindo que há uma relação ManyToMany com Parceiros
+    parceiros = projeto.parceiros.all()  # Tem uma relação ManyToMany com Parceiros
     return render(request, 'projetos/detalhes_projeto.html', {'projeto': projeto, 'alunos': alunos, 'parceiros': parceiros})
 
 # Adicionar um novo projeto (Apenas o admin pode acessar)
@@ -112,25 +112,24 @@ def adicionar_projeto(request):
             artigos=artigos
         )
 
-        # Adiciona os pesquisadores ao projeto
+
         pesquisadores = request.POST.getlist('pesquisadores')
         for pesquisador_id in pesquisadores:
             pesquisador = Pesquisador.objects.get(id=pesquisador_id)
             projeto.pesquisadores.add(pesquisador)
 
-        # Adiciona as instituições ao projeto
+
         instituicoes = request.POST.getlist('instituicoes')
         for instituicao_id in instituicoes:
             instituicao = Instituicao.objects.get(id=instituicao_id)
             projeto.instituicoes.add(instituicao)
 
-        # Salva o projeto com todas as relações
         projeto.save()
 
         messages.success(request, 'Projeto cadastrado com sucesso.')
         return redirect('listar_projetos')
 
-    # Carrega pesquisadores e instituições para o formulário
+
     pesquisadores = Pesquisador.objects.all()
     instituicoes = Instituicao.objects.all()
 
@@ -139,7 +138,7 @@ def adicionar_projeto(request):
         'instituicoes': instituicoes
     })
 
-# Editar projeto
+# View para editar projeto
 @login_required
 def editar_projeto(request, projeto_id):
     projeto = get_object_or_404(Projeto, id=projeto_id)
@@ -185,7 +184,7 @@ def deletar_projeto(request, projeto_id):
 def inscricao_projeto(request, projeto_id):
     projeto = get_object_or_404(Projeto, id=projeto_id)
     if request.method == 'POST':
-        aluno = request.user.perfil  # Assumindo que o aluno é o perfil do usuário logado
+        aluno = request.user.perfil  # usuário logado
         projeto.alunos.add(aluno)
         projeto.save()
         messages.success(request, 'Inscrição realizada com sucesso.')
@@ -275,12 +274,12 @@ def adicionar_instituicao(request):
 #listagem de usuários
 @login_required
 def lista_usuarios(request):
-    # Supondo que você queira listar os usuários e seus perfis
+    # listar os usuários e seus perfis
     usuarios = Perfil.objects.all()
     return render(request, 'usuarios/lista_usuarios.html', {'usuarios': usuarios})
 
 @login_required
 def detalhes_usuario(request, usuario_id):
-    perfil = get_object_or_404(Perfil, usuario_id=usuario_id)  # Ou o nome correto do campo que referencia o usuário
+    perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
 
     return render(request, 'usuarios/detalhes_usuario.html', {'perfil': perfil})
