@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NUPAT</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <!-- Todos os usuários podem ver os projetos -->
+                <li><a href="{% url 'listar_projetos' %}">Ver Projetos</a></li>
+
+                <!-- Verifica se o usuário está autenticado -->
+                {% if user.is_authenticated %}
+
+                    <!-- Se o usuário for um servidor (admin) -->
+                    {% if user.perfil.tipo_usuario == 'servidor' %}
+                        <li><a href="{% url 'adicionar_projeto' %}">Criar Projeto</a></li>
+                        <li><a href="{% url 'lista_usuarios' %}">Gerenciar Usuários</a></li>
+                        <li><a href="{% url 'adicionar_parceiro' %}">Adicionar Parceiro</a></li>
+
+                    <!-- Se o usuário for um aluno -->
+                    {% elif user.perfil.tipo_usuario == 'aluno' %}
+                        <li><a href="{% url 'listar_projetos' %}">Inscrever-se em Projetos</a></li>
+
+                    <!-- Caso o tipo de usuário seja outro -->
+                    {% else %}
+                       <li><a href="{% url 'detalhes_usuario' usuario_id=user.id %}">Meu Perfil</a></li>
+
+                    {% endif %}
+
+                    <!-- Link para o logout, disponível para todos os usuários autenticados -->
+                    <li><a href="{% url 'logout' %}">Sair</a></li>
+
+                <!-- Se o usuário não estiver autenticado -->
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+</body>
+</html>

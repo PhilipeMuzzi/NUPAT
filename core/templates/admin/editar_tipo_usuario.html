@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="POST">
+    {% csrf_token %}
+    <label for="tipo_usuario">Tipo de Usuário:</label>
+    <select id="tipo_usuario" name="tipo_usuario">
+        <option value="comum" {% if perfil.tipo_usuario == "comum" %}selected{% endif %}>Comum</option>
+        <option value="pesquisador" {% if perfil.tipo_usuario == "pesquisador" %}selected{% endif %}>Pesquisador</option>
+        <option value="parceiro" {% if perfil.tipo_usuario == "parceiro" %}selected{% endif %}>Parceiro</option>
+        <!-- Adicione outros tipos conforme necessário -->
+    </select>
+    <button type="submit">Atualizar Tipo</button>
+</form>
+
+</body>
+</html>

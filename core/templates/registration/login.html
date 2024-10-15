@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrar</title>
+
+</head>
+<body>
+    <div class="login-container">
+        <h2>Entrar</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            <div>
+                <label for="id_username">Usuário:</label>
+                <input type="text" name="username" id="id_username" required>
+            </div>
+            <div>
+                <label for="id_password">Senha:</label>
+                <input type="password" name="password" id="id_password" required>
+            </div>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+<p> Ainda não possui uma conta? <a href="{% url 'registro' %}">Registre-se aqui</a> </p>
+
+</body>
+</html>

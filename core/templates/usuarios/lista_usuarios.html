@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Lista de Usuários</h2>
+<ul>
+    {% for usuario in usuarios %}
+        <li>{{ usuario.username }} - {{ usuario.perfil.tipo_usuario }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

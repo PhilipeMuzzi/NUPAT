@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Criar Novo Projeto</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" required>
+
+    <label for="resumo">Resumo:</label>
+    <textarea id="resumo" name="resumo" required></textarea>
+
+    <label for="pesquisadores">Pesquisadores:</label>
+    <select id="pesquisadores" name="pesquisadores" multiple>
+        {% for pesquisador in pesquisadores %}
+            <option value="{{ pesquisador.id }}">{{ pesquisador.nome }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="situacao">Situação:</label>
+    <select id="situacao" name="situacao">
+        <option value="planejamento">Em Planejamento</option>
+        <option value="andamento">Em Andamento</option>
+        <option value="concluido">Concluído</option>
+    </select>
+
+    <label for="descricao">Descrição:</label>
+    <textarea id="descricao" name="descricao"></textarea>
+
+    <label for="artigos">Artigos (opcional):</label>
+    <input type="file" id="artigos" name="artigos">
+
+    <button type="submit">Criar Projeto</button>
+</form>
+{% endblock %}

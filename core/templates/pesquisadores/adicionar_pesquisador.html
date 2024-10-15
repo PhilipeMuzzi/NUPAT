@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Adicionar Pesquisador</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Salvar</button>
+  </form>
+  <a href="{% url 'lista_pesquisadores' %}">Voltar à lista de Pesquisadores</a>
+{% endblock %}

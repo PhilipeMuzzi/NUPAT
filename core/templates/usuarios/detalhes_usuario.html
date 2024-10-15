@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalhes do Usuário</title>
+</head>
+<body>
+<h2>{{ perfil.user.username }} - Detalhes do Perfil</h2>
+<p>Telefone: {{ perfil.telefone }}</p>
+<p>Endereço: {{ perfil.endereco }}</p>
+<p>Profissão: {{ perfil.profissao }}</p>
+<p>Tipo de Usuário: {{ perfil.get_tipo_usuario_display }}</p>
+
+</body>
+</html>

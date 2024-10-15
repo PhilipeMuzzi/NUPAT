@@ -1,0 +1,12 @@
+
+{% block content %}
+<h2>Lista de Projetos</h2>
+<ul>
+    {% for projeto in projetos %}
+        <li>
+            <a href="{% url 'detalhes_projeto' projeto.id %}">{{ projeto.titulo }}</a>
+            <p>{{ projeto.resumo|truncatewords:20 }}</p>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

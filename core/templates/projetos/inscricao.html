@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Inscrição em Projeto</h2>
+
+<p>Você está se inscrevendo no projeto "{{ projeto.titulo }}"</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirmar Inscrição</button>
+</form>
+{% endblock %}

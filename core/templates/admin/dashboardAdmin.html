@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}"> <!-- Link para o arquivo CSS do admin -->
+    <!-- Bootstrap ou outro framework CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Barra de Navegação do Admin -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Painel de Administração</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'index' %}">Voltar ao Site</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Menu Lateral do Admin -->
+                <ul class="list-group">
+                    <li class="list-group-item"><a href="#">Visão Geral</a></li>
+                    <li class="list-group-item"><a href="#">Gerenciar Usuários</a></li>
+                    <li class="list-group-item"><a href="#">Gerenciar Posts</a></li>
+                    <li class="list-group-item"><a href="#">Relatórios</a></li>
+                    <li class="list-group-item"><a href="#">Configurações</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-9">
+                <!-- Painel de Admin -->
+                <h2>Bem-vindo, Admin!</h2>
+                <p>Este é o seu painel de administração. Aqui você pode gerenciar o conteúdo do site, usuários e muito mais.</p>
+
+                <div class="row">
+                    <!-- Cards com Informações Importantes -->
+                    <div class="col-md-4">
+                        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Usuários</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Total de Usuários</h5>
+                                <p class="card-text">X usuários registrados.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Posts</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Total de Posts</h5>
+                                <p class="card-text">X posts no site.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                            <div class="card-header">Relatórios</div>
+                            <div class="card-body">
+                                <h5 class="card-title">Relatórios Pendentes</h5>
+                                <p class="card-text">X relatórios pendentes para revisão.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Conteúdo Gerenciável (Exemplo de Tabela) -->
+                <h3>Últimos Usuários Cadastrados</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Data de Cadastro</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Exemplo de Loop para Listar Usuários -->
+                        {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{ usuario.id }}</td>
+                            <td>{{ usuario.username }}</td>
+                            <td>{{ usuario.email }}</td>
+                            <td>{{ usuario.date_joined }}</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="#" class="btn btn-sm btn-danger">Excluir</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

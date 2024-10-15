@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Deletar Pesquisador</h2>
+  <p>Tem certeza de que deseja deletar o pesquisador "{{ pesquisador.nome }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Confirmar</button>
+    <a href="{% url 'lista_pesquisadores' %}" class="btn btn-secondary">Cancelar</a>
+  </form>
+{% endblock %}

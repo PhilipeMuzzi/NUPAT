@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Lista de Instituições</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Contato</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for instituicao in instituicoes %}
+        <tr>
+          <td>{{ instituicao.nome }}</td>
+          <td>{{ instituicao.contato }}</td>
+          <td>
+            <a href="{% url 'editar_instituicao' instituicao.id %}" class="btn btn-sm btn-warning">Editar</a>
+            <a href="{% url 'deletar_instituicao' instituicao.id %}" class="btn btn-sm btn-danger">Deletar</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3">Nenhuma instituição cadastrada.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <a href="{% url 'adicionar_instituicao' %}" class="btn btn-primary">Adicionar Instituição</a>
+{% endblock %}

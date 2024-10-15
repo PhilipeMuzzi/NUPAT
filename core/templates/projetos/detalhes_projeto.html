@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ projeto.titulo }}</h2>
+<p><strong>Resumo:</strong> {{ projeto.resumo }}</p>
+<p><strong>Pesquisadores Envolvidos:</strong>
+    <ul>
+        {% for pesquisador in projeto.pesquisadores.all %}
+            <li>{{ pesquisador.nome }} ({{ pesquisador.instituicao.nome }})</li>
+        {% endfor %}
+    </ul>
+</p>
+<p><strong>Situação:</strong> {{ projeto.get_situacao_display }}</p>
+<p><strong>Descrição:</strong> {{ projeto.descricao }}</p>
+<p><strong>Artigos:</strong>
+    {% if projeto.artigos %}
+        <a href="{{ projeto.artigos.url }}">Baixar Artigo</a>
+    {% else %}
+        Nenhum artigo disponível.
+    {% endif %}
+</p>
+
+{% if user.is_authenticated and user.perfil.tipo_usuario == 'servidor' %}
+    <a href="{% url 'editar_projeto' projeto.id %}">Editar Projeto</a>
+    <a href="{% url 'deletar_projeto' projeto.id %}">Deletar Projeto</a>
+{% elif user.is_authenticated and user.perfil.tipo_usuario == 'aluno' %}
+    <a href="{% url 'inscricao' projeto.id %}">Inscrever-se no Projeto</a>
+{% endif %}
+
+{% endblock %}

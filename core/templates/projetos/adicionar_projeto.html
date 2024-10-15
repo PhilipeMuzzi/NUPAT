@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Adicionar Novo Projeto</h2>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+
+    <div class="form-group">
+      <label for="titulo">Título:</label>
+      <input type="text" id="titulo" name="titulo" class="form-control" required>
+    </div>
+
+
+    <div class="form-group">
+      <label for="resumo">Resumo:</label>
+      <textarea id="resumo" name="resumo" class="form-control" rows="4" required></textarea>
+    </div>
+
+
+    <div class="form-group">
+      <label for="resultados">Resultados:</label>
+      <textarea id="resultados" name="resultados" class="form-control" rows="3"></textarea>
+    </div>
+
+
+    <div class="form-group">
+      <label for="situacao">Situação:</label>
+      <input type="text" id="situacao" name="situacao" class="form-control" required>
+    </div>
+
+
+    <div class="form-group">
+      <label for="descricao">Descrição:</label>
+      <textarea id="descricao" name="descricao" class="form-control" rows="5" required></textarea>
+    </div>
+
+
+    <div class="form-group">
+      <label for="fotos">Fotos:</label>
+      <input type="file" id="fotos" name="fotos" class="form-control-file">
+    </div>
+
+
+    <div class="form-group">
+      <label for="artigos">Artigos:</label>
+      <input type="file" id="artigos" name="artigos" class="form-control-file">
+    </div>
+
+
+    <div class="form-group">
+      <label for="pesquisadores">Pesquisadores:</label>
+      <select id="pesquisadores" name="pesquisadores" class="form-control" multiple required>
+        {% for pesquisador in pesquisadores %}
+          <option value="{{ pesquisador.id }}">{{ pesquisador.nome }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+
+    <div class="form-group">
+      <label for="instituicoes">Instituições:</label>
+      <select id="instituicoes" name="instituicoes" class="form-control" multiple required>
+        {% for instituicao in instituicoes %}
+          <option value="{{ instituicao.id }}">{{ instituicao.nome }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Adicionar Projeto</button>
+  </form>
+
+
+  <a href="{% url 'listar_projetos' %}" class="btn btn-secondary mt-3">Voltar</a>
+{% endblock %}

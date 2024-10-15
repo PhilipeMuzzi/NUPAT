@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Lista de Pesquisadores</h2>
+  <a href="{% url 'adicionar_pesquisador' %}" class="btn btn-success">Adicionar Pesquisador</a>
+  <table class="table table-striped mt-4">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Instituição</th>
+        <th>Contato</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pesquisador in pesquisadores %}
+        <tr>
+          <td>{{ pesquisador.nome }}</td>
+          <td>{{ pesquisador.instituicao.nome }}</td>
+          <td>{{ pesquisador.contato }}</td>
+          <td>
+            <a href="{% url 'editar_pesquisador' pesquisador.id %}" class="btn btn-primary btn-sm">Editar</a>
+            <a href="{% url 'deletar_pesquisador' pesquisador.id %}" class="btn btn-danger btn-sm">Deletar</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
