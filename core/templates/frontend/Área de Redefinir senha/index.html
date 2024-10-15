@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redefinir Senha</title>
+    <link rel="stylesheet" type="text/css" href="Redefinir.css">
+    <link rel="icon" href="img/icon_uu.webp" sizes="16x16">
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+        <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <nav class="Acessibilidade">
+        <img src="img/logo_02.webp" alt="Logo - Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT." >
+        <h1> Redefinir Senha</h1>
+        <img class="seg-img" src="#" alt="Foto do usário logado">
+        <div class="Nomeuser">
+            <a href="#"> Nome do User </a>
+            <button class="hamburger" id="hamburger">
+                <i class="fi fi-sr-menu"></i>
+            </button>
+        </div>
+    </nav>
+    <!--Menu Vertical-->
+    <div class="container">
+        <section>
+            <a href="#">
+                <i class="fi fi-sr-user"></i>
+                <p>Minha Conta</p>
+            </a>
+            <a class="RedefinirSenha" href="#">
+                <i class="fi fi-sr-lock"></i>
+                <p>Redefinir Senha</p>
+            </a>        
+            <a href="#">
+                <i class="fi fi-ss-book"></i>
+                <p>Meus Projetos</p>
+            </a>
+            <a href="#">
+                <i class="fi fi-sr-square-plus"></i>
+                <p>Adicionar Projeto</p>
+            </a>
+            <a href="#" id="btn-sair">
+                <i class="fi fi-br-exit"></i>
+                <p>Sair</p>
+            </a>
+        </section>
+    </div>
+    <div class="linha-vertical"></div>
+    <!--Fecha Menu Vertical-->
+    <div class="button">
+        <button class="burger-menu">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                <path d="M4 6l16 0"></path>
+                <path d="M4 12l16 0"></path>
+                <path d="M4 18l16 0"></path>
+            </svg>
+        </button>
+    </div>
+    <div class="arearedefinir">
+        <h2>Redefinir Senha - Por favor confirme seu email:</h2>
+        <p>Não recebeu?</p>
+        <a href="#">Reenviar.
+        </a>
+        <div class="linha-horizontal"></div>
+    </div>
+    <form action="/submit" method="post">
+        <div>
+            <ul><i class="fi fi-ss-shield-check"></i></ul>
+            <label for="email"></label>
+            <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required>
+            <span class="error">Por favor, insira um endereço de e-mail válido.</span>
+        </div>
+        <div class="buttonenv">
+            <a href="#" id="btn-enviar">
+                <p>Enviar</p>
+            </a>
+        </div>
+    </form>
+    <footer>
+        <div class="copyright">
+            <p> Política de privacidade | Termo de uso | Cookies </p>
+            <p> Copyright &copy; 2024 | Núcleo de Pesquisa em Acessibilidade e Tecnologia | IFRN - Campus Canguaretama</p>
+        </div>
+    </footer>
+       <!-- acessibilidade de libras -->
+       <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+          <div class="vw-plugin-top-wrapper"></div>
+        </div>
+      </div>
+      <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+      <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+      </script>
+    <!---adicionei uma mensagem de confirmação para o usário (pode sofrer alteração)--->
+    <script>
+        function exibirAlerta() {
+            alert('Enviamos um código para seu email. '); // mensagem de exibição ao clicar o botão.
+        }
+        document.getElementById('btn-enviar').addEventListener('click', function(event) {
+            event.preventDefault(); // esta linha de código evita que o link seja seguido :)
+            exibirAlerta();
+        });
+    </script>
+</body>
+</html>

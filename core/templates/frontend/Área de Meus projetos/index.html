@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/af6c14a78e.js" crossorigin="anonymous"></script>
+    <title>Area do Meus Projetos</title>
+
+</head>
+
+<body>
+     <!-- cabeçalho acessibilidade desktop -->
+     <div class="cbc-acessibilidade">
+        <a href="" id="title-acessibilidade">Acessibilidade</a>
+        <div class="contraste">
+            Contraste |
+            <div class="icons-contraste">
+                <a onclick="mudarTema('claro')">
+                    <i class="fa-solid fa-sun" id="tema-claro"></i>
+                </a>
+                <a onclick="mudarTema('escuro')">
+                    <i class="fa-solid fa-moon" id="tema-escuro"></i>
+                </a>
+            </div>
+        </div>
+        <li>
+            <nav>
+                <ul>
+                    Tamanho da Letra |
+                    <li class="btn-a sb-ab-ft-menor" title="Menor">
+                        <span>A-</span>
+                    </li>
+                    <li class="btn-a sb-ab-ft-normal" title="Normal">
+                        <span>Aa</span>
+                    </li>
+                    <li class="btn-a sb-ab-ft-maior" title="Maior">
+                        <span>A+</span>
+                    </li>
+                </ul>
+            </nav>
+        </li>
+        <a href="">Leitura por voz |
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bibi-mic-fill"
+                viewBox="0 0 16 16">
+                <path d="M5 3a3 3 0 0 1 6 0v5a3 3 0 0 1-6 0z" />
+                <path
+                    d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
+            </svg>
+        </a>
+        <a href="">Português | BR</a>
+    </div>
+    <header>
+        <img src="img/logo_02.png" class="logo" alt="Logo da página">
+        <div class="perfil">
+            <i class="fa-solid fa-circle-user" style="color: #ffffff;"></i>
+            <Strong>Nome do user</Strong>
+        </div>
+    </header>
+    <div class="submenu">
+        <ul>
+            <li>
+                <p>Projetos <i class="fa-solid fa-chevron-down"></i></p>
+                <ul>
+                    <li><a href="#">Projetos Iniciados</a></li>
+                    <li><a href="#">Projetos em Andamento</a></li>
+                    <li><a href="#">Projetos Concluídos</a></li>
+                </ul>
+            </li>
+            <li>
+                <p>Suporte <i class="fa-solid fa-chevron-down"></i></p>
+                <ul id="btn-suporte">
+                    <li><a href="atendimento_virtual.html">Atendimento Virtual</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>  
+    <div class="corpo_principal">
+        <main>
+            <h1>Meus Projetos</h1>
+            <hr>
+        </main>
+        <div class="container">
+            <section>
+                <a href="#">
+                    <i class="fi fi-sr-user"></i>
+                    <p>Minha Conta</p>
+                </a>
+                <a href="#">
+                    <i class="fi fi-sr-lock"></i>
+                    <p>Redefinir Senha</p>
+                </a>
+                <a href="#" id="btn-meusProjetos">
+                    <i class="fi fi-ss-book"></i>
+                    <p>Meus Projetos</p>
+                </a>
+                <a href="#">
+                    <i class="fi fi-sr-square-plus"></i>
+                    <p>Adicionar Projeto</p>
+                </a>
+                <a href="#" id="btn-sair">
+                    <i class="fi fi-br-exit"></i>
+                    <p>Sair</p>
+                    
+                </a>
+            </section>
+            <div class="linha-vertical"></div>
+            <article>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+                <nav class="card1">
+                    <div class="image">
+                        <img src="img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                            alt="Imagem do projeto">
+                    </div>
+                    <div class="conteudo">
+                        <a href="">
+                            <Strong>Nome do Projeto</Strong>
+                            <p>Autores, data da publicação</p>
+                        </a>
+                    </div>
+                </nav>
+            </article>
+        </div>
+    </div>
+    <footer class="primeiro-rodape">
+        <div class="voltar-ao-topo">
+            <hr>
+            <i class="fa-solid fa-arrow-up-long" style="color: #304d30;"></i>
+            <a style="cursor: pointer;" onclick="subiraoTopo();">Voltar ao topo</a>
+            <hr>
+        </div>
+        <article>
+            <div class="container-texto">
+                <div class="primeiro-txt">
+                    <h3>
+                        <strong style="cursor: default;">Institucional</strong>
+                    </h3>
+                    <p>
+                        <a href="">Portal IFRN</a>
+                        <a href="">FAQs</a>
+                        <a href="">Portal do Suap</a>
+                        <a href="">Sobre Nós</a>
+                    </p>
+
+                </div>
+                <div class="segundo-txt">
+                    <h3>
+                        <strong style="cursor: default;">Serviços</strong>
+                    </h3>
+                    <p>
+                        <a href="">Atendimento Virtual</a>
+                        <a href="">Suporte ao Usuário</a>
+                        <a href="">Feedback</a>
+                    </p>
+                </div>
+            </div>
+            <div class="img-dados">
+                <div class="img-logo">
+                    <img src="img/4Iwakb0M_400x400.png"  alt="Logo do IFRN" 
+                    width="180px" height="180px"
+                    id="logo-ifrn"
+                    style="mix-blend-mode: multiply;" >
+                    <img src="img/icon_u.webp" alt="Logo do NUPAT" 
+                    width="300px" height="300px"
+                    id="logo-nupat">
+                </div>
+                <div class="dados-icons">
+                    <h3>Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT</h3>
+                    <p>
+                        Endereço: BR 101, km 106, s/n, Areia branca  <br>
+                        E-mail: XXXXXXXXX@gmail.com - Canguaretama-RN | CEP: 59190-000 <br>
+                        Telefone: (84) X XXXX-XXXX <br>
+                    </p>
+                    <nav class="icons">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#"> <i class="fa-brands fa-square-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>    
+                    </nav>
+                </div>
+            </div>
+        </article>
+    </footer>
+    <footer class="segundo-rodape">
+        <div class="copyright">
+            <p> Política de privacidade | Termo de uso | Cookies </p>
+            <p> Copyright &copy; 2024 | Núcleo de Pesquisa em Acessibilidade e Tecnologia | IFRN - Campus Canguaretama
+            </p>
+        </div>
+    </footer>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

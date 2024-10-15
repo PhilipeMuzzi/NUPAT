@@ -1,0 +1,457 @@
+:root {
+    --cinza: #E7E4D7;
+    --preto: #000000;
+    --meiobranco: #ececec;
+    --verde: #304D30;
+    --branconeve:rgb(255, 255, 255);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    
+}
+
+body {
+    width: 100%;
+    background-color: var(--cinza);
+    font-family: "Red Hat Display", sans-serif;
+}
+/* cabeçalho acessibilidade */
+.cbc-acessibilidade ul, a{
+    list-style: none;
+    text-decoration: none;
+    color: black;
+}
+#title-acessibilidade {
+    font-weight: bold;
+}
+.cbc-acessibilidade {
+    height: 6%;
+    padding: 5px 50px;
+    background-color: #EEF0E5;
+}
+.cbc-acessibilidade ul {
+    display: flex;
+    justify-content: space-around;
+}
+.cbc-acessibilidade li {
+    color: black;
+}
+.cbc-acessibilidade .icons1 {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+.cbc-acessibilidade .icons {
+    display: flex;
+}
+.cbc-acessibilidade.icons .bibi-moon-fill, .bibi-sun-fill, .bibi-mic-fill {
+    padding: 1px 5px;
+
+}
+
+/* fim do cabeçalho de acessibilidade */
+header {
+    width: 100%;
+    height: 70px;
+    background-color: var(--verde);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: #ffffff;
+}
+
+header>.logo {
+    width: 250px;
+    height: 240px;
+}
+
+header .perfil {
+    width: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+header .perfil i {
+    font-size: 30px;
+}
+
+.corpo_principal {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin: 90px;
+}
+
+.corpo_principal>article {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    font-size: 23px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.corpo_principal>article>hr {
+    flex: 1;
+}
+
+.container {
+    display: grid;
+    height: 500px;
+    place-items: center;
+    grid-template-columns: 25% 70%;
+    grid-template-areas:
+        "section article"
+    ;
+}
+
+.container section {
+    display: grid;
+    grid-area: section;
+    gap: 10px;
+}
+
+.container article {
+    grid-area: article;
+    width: 100%;
+    padding: 30px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+    background-color: var(--meiobranco);
+    border-radius: 10px;
+    overflow: auto;
+
+}
+.container article::-webkit-scrollbar {
+    display: none;
+}
+.container>article>strong {
+    font-size: 22px;
+    display: flex;
+}
+.container > article > nav {
+    width: 250px;
+    height: 120px;
+    border-radius: 20px;
+    background-color: white;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.container > article > nav > .image {
+    width: 90%;
+    height: 40%;    
+}
+.container > article > nav > .image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+.container > article > nav > .conteudo {
+    width: 90%;
+    height: 40%;
+    justify-content: center;
+}
+.container section>a {
+    width: 150px;
+    text-decoration: none;
+    color: #000000;
+    display: flex;
+    gap: 10px;
+    font-size: 15px;
+    line-height: 30px;
+    padding: 9px;
+}
+
+.container section a:hover {
+    background-color: var(--verde);
+    border-radius: 3px;
+    color: white;
+    border-bottom: 2px solid white;
+    transition: all 0.6s ease;
+}
+
+#btn-sair:hover {
+    color: white;
+    border-radius: 3px;
+    border-bottom: 2px solid white;
+    background-color: rgb(202, 0, 0);
+}
+/* submenu */
+.submenu {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: #EEF0E5;
+    font-weight: bold;
+    height: 35px;
+}
+
+.submenu ul {
+    display: flex;
+    list-style: none;
+    padding: 10px;
+    gap: 500px;
+}
+
+.submenu ul li {
+    position: relative;
+    cursor: pointer;
+
+}
+
+.submenu ul li a,
+.submenu ul li p {
+    color: #304D30;
+    transition: background .3s, color .3s;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.submenu ul li a:hover,
+.submenu ul li p:hover {
+    background-color: #afc9afa8;
+    color: #000000;
+}
+
+.submenu ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    width: 220px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background-color: #EEF0E5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.submenu ul li:hover ul {
+    display: block;
+}
+
+.submenu ul ul li {
+    margin: 0;
+}
+
+.submenu ul ul li a {
+    display: block;
+
+}
+/* rodape */
+footer {
+    width: 100%;
+    height: 100%;
+}
+.voltar-ao-topo {
+    display: flex;
+    font-size: 17px;
+    padding: 10px;
+    gap: 12px;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+.voltar-ao-topo hr {
+    flex: 1;
+}
+.voltar-ao-topo i {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+footer article {
+    display: block;
+    padding: 20px;
+}
+.container-texto {
+    display: flex;
+    gap: 50px;
+    height: 300px;
+    align-items: center;
+    justify-content: center;
+}
+.primeiro-txt,
+.segundo-txt {
+    height: 200px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+.primeiro-txt p,
+.segundo-txt p{
+    display: grid;
+    gap: 7px;
+    
+}
+.img-dados {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.img-logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.dados-icons {
+    color: var(--verde);
+}
+.dados-icons > .icons {
+    font-size: 28px;
+    display: flex;
+    gap: 12px;
+}
+
+.segundo-rodape{
+    background-color: var(--verde);
+    padding: 20px;
+    text-align: center;
+}
+.copyright {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.copyright p {
+    margin: 1px 0;
+    font-size: 14px;
+    color: var(--branconeve);
+}
+@media screen and (max-width:1300px) {
+    .container section>a {
+        width: 129%;
+        font-size: 10px;
+    }
+
+    .corpo_principal {
+        padding: 20px;
+    }
+
+    .submenu ul {
+        gap: 299px;
+    }
+}
+
+@media screen and (max-width:490px) {
+    .cbc-acessibilidade ul{
+        display: flex;
+        justify-content: center;
+        column-gap: 20px;
+        row-gap: 7px;
+        flex-wrap: wrap;
+    }
+    .icons1 svg{
+        width: 15px;
+        height: 14px;
+    }
+    .icons svg {
+        width: 14px;
+        height: 14px;
+    }
+    header {
+        justify-content: space-around;
+    }
+
+    header>.perfil>strong {
+        display: none;
+    }
+
+    header>.logo {
+        width: 190px;
+        height: 190px;
+    }
+
+    .container {
+        display: flex;
+        gap: 30px;
+        flex-direction: column;
+        grid-template-columns: auto auto;
+        grid-template-areas:
+            "section"
+            "article";
+            height: 100%;
+    }
+
+    .corpo_principal>article>h3 {
+        font-size: 17px;
+    }
+
+    .container section {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 9px;
+    }
+
+    .container section a {
+        padding: 0;
+        gap: 6px;
+        justify-content: center;
+        width: 100px;
+    }
+
+    .container article {
+        gap: 13px;
+        font-size: 13px;
+        height: 500px;
+    }
+
+    .container>article>strong {
+        font-size: 13px;
+    }
+    .corpo_principal {
+        padding: 20px;
+    }
+
+    .submenu ul {
+        gap: 150px;
+    }
+
+    .submenu p,
+    a {
+        font-size: 12px;
+    }
+
+    #btn-suporte {
+        right: 0;
+    }
+    footer {
+        height: 100%;
+        color: white;
+    }
+    .img-dados{
+        display: block;
+    }
+    .img-logo {
+        justify-content: end;
+    }
+    #logo-nupat {
+        width: 200px;
+        height: 200px;
+    }
+    #logo-ifrn {
+        width: 150px;
+        height: 150px;
+    }
+    .dados-icons {
+        width: 90%;
+    }
+}
