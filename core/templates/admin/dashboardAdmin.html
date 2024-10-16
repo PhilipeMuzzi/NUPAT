@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="{% static 'css/admin.css' %}"> <!-- Link para o arquivo CSS do admin -->
-    <!-- Bootstrap ou outro framework CSS -->
+
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Barra de Navegação do Admin -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Painel de Administração</a>
@@ -20,9 +19,6 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'index' %}">Voltar ao Site</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="{% url 'logout' %}">Sair</a>
                     </li>
                 </ul>
@@ -30,27 +26,26 @@
         </div>
     </nav>
 
-    <!-- Conteúdo Principal -->
+
     <div class="container my-5">
         <div class="row">
             <div class="col-md-3">
-                <!-- Menu Lateral do Admin -->
+
                 <ul class="list-group">
                     <li class="list-group-item"><a href="#">Visão Geral</a></li>
                     <li class="list-group-item"><a href="#">Gerenciar Usuários</a></li>
-                    <li class="list-group-item"><a href="#">Gerenciar Posts</a></li>
-                    <li class="list-group-item"><a href="#">Relatórios</a></li>
-                    <li class="list-group-item"><a href="#">Configurações</a></li>
+                    <li class="list-group-item"><a href="#">Gerenciar Projetos</a></li>
+
                 </ul>
             </div>
 
             <div class="col-md-9">
-                <!-- Painel de Admin -->
+
                 <h2>Bem-vindo, Admin!</h2>
                 <p>Este é o seu painel de administração. Aqui você pode gerenciar o conteúdo do site, usuários e muito mais.</p>
 
                 <div class="row">
-                    <!-- Cards com Informações Importantes -->
+
                     <div class="col-md-4">
                         <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
                             <div class="card-header">Usuários</div>
@@ -82,7 +77,7 @@
                     </div>
                 </div>
 
-                <!-- Conteúdo Gerenciável (Exemplo de Tabela) -->
+
                 <h3>Últimos Usuários Cadastrados</h3>
                 <table class="table table-striped">
                     <thead>
@@ -95,7 +90,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Exemplo de Loop para Listar Usuários -->
+
                         {% for usuario in usuarios %}
                         <tr>
                             <td>{{ usuario.id }}</td>
@@ -114,7 +109,6 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

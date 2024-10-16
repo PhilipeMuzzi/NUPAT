@@ -4,11 +4,23 @@
     <title>Detalhes do Usuário</title>
 </head>
 <body>
-<h2>{{ perfil.user.username }} - Detalhes do Perfil</h2>
-<p>Telefone: {{ perfil.telefone }}</p>
-<p>Endereço: {{ perfil.endereco }}</p>
-<p>Profissão: {{ perfil.profissao }}</p>
-<p>Tipo de Usuário: {{ perfil.get_tipo_usuario_display }}</p>
 
+
+
+<form method="post">
+    {% csrf_token %}
+    <h2> Detalhes do Perfil</h2>
+    <p>Telefone: <input type="text" name="telefone" value="{{ perfil.telefone }}" required></p>
+    <p>Endereço: <input type="text" name="endereco" value="{{ perfil.endereco }}" required></p>
+    <p>Profissão: <input type="text" name="profissao" value="{{ perfil.profissao }}" required></p>
+    <p>Tipo de Usuário: {{ perfil.get_tipo_usuario_display }}</p>
+    <button type="submit" onclick="return confirm('Você tem certeza que deseja salvar as alterações?');">Salvar Alterações</button>
+</form>
+
+{% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+{% endif %}
 </body>
 </html>

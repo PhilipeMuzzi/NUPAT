@@ -1,8 +1,11 @@
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
-from .forms import RegistroUsuarioForm
+from django.urls import reverse
+
+from .forms import RegistroUsuarioForm, PerfilForm
 from .models import Perfil, Projeto, Pesquisador, Parceiro, Instituicao
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
@@ -27,6 +30,7 @@ def inicio(request):
     return render(request, 'index.html')
 
 # view para registro de novos usuários
+
 def registro(request):
     if request.method == 'POST':
         formulario = RegistroUsuarioForm(request.POST)
@@ -39,6 +43,23 @@ def registro(request):
         formulario = RegistroUsuarioForm()
     return render(request, 'registration/registro.html', {'formulario': formulario})
 
+
+def detalhes_usuario(request, user_id):
+    perfil = get_object_or_404(Perfil, id=user_id)
+
+    if request.method == 'POST':
+        formulario = PerfilForm(request.POST, instance=perfil)
+        if formulario.is_valid():
+            formulario.save()
+            messages.success(request, 'As alterações foram salvas com sucesso!')
+            return redirect('detalhes_usuario', user_id=perfil.id)
+        else:
+            messages.error(request, 'Ocorreu um erro ao salvar as alterações.')
+    else:
+        formulario = PerfilForm(instance=perfil)
+
+    return render(request, 'detalhes_usuario.html', {'perfil': perfil, 'formulario': formulario})
+
 # Login
 @login_required
 def login_view(request):
@@ -50,8 +71,8 @@ def login_view(request):
         if user is not None:
             login(request, user)
 
-            # Verifica se o usuário é staff (admin)
-            if user.is_staff:
+            # Verifica se o usuário é superuser ou staff (admin)
+            if user.is_superuser or user.is_staff:
                 # Redireciona para o dashboard de admin
                 return redirect('admin_dashboard')
             else:
@@ -59,12 +80,29 @@ def login_view(request):
                 return redirect('index')
         else:
             # Caso as credenciais estejam incorretas
-            return render(request, 'login.html', {'error': 'Credenciais inválidas.'})
+            messages.error(request, 'Credenciais inválidas.')
+            return render(request, 'login.html')
 
     return render(request, 'login.html')
 
 
-# Função para verificar se o usuário é admin (is_staff)
+# Verifica se é administrador
+def admin_check(user):
+    return user.is_staff or user.is_superuser
+
+@staff_member_required
+def admin_dashboard(request):
+    # lógica do dashboard
+    return render(request, 'admin/dashboard.html')
+
+class CustomLoginView(LoginView):
+    def get_success_url(self):
+        if self.request.user.is_staff:
+            return reverse('admin_dashboard')  # envia administradores para o painel de administração html
+        return reverse('inicio')  # envia usuários comuns para a página inicial
+
+
+# função para verificar se o usuário é admin (is_staff)
 def is_admin(user):
     return user.is_staff
 
@@ -97,7 +135,7 @@ def adicionar_projeto(request):
         situacao = request.POST.get('situacao')
         descricao = request.POST.get('descricao')
 
-        # Verifica se há arquivos sendo enviados
+
         fotos = request.FILES.get('fotos', None)
         artigos = request.FILES.get('artigos', None)
 
