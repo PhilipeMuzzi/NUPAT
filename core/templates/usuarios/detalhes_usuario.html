@@ -1,26 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
     <title>Detalhes do Usuário</title>
+    <style>
+        /* Estilo básico para o formulário */
+        .form-section {
+            display: none; /* Esconde o formulário por padrão */
+        }
+    </style>
+    <script>
+        function toggleForm() {
+            var formSection = document.getElementById("form-section");
+            // Alterna a exibição do formulário
+            if (formSection.style.display === "none") {
+                formSection.style.display = "block"; // Mostra o formulário
+            } else {
+                formSection.style.display = "none"; // Esconde o formulário
+            }
+        }
+    </script>
 </head>
 <body>
 
+<h2>{{ perfil.usuario.username }} - Detalhes do Perfil</h2>
+
+<h3>Informações Atuais</h3>
+<p>Telefone: {{ perfil.telefone }}</p>
+<p>Endereço: {{ perfil.endereco }}</p>
+<p>Profissão: {{ perfil.profissao }}</p>
+<p>Tipo de Usuário: {{ perfil.get_perfil_display }}</p>
+
+<!-- Botão para editar -->
+<!-- Botão para editar -->
+<a href="{% url 'editar_detalhes' usuario_id=perfil.usuario.id %}">Atualizar</a>
 
 
-<form method="post">
-    {% csrf_token %}
-    <h2> Detalhes do Perfil</h2>
-    <p>Telefone: <input type="text" name="telefone" value="{{ perfil.telefone }}" required></p>
-    <p>Endereço: <input type="text" name="endereco" value="{{ perfil.endereco }}" required></p>
-    <p>Profissão: <input type="text" name="profissao" value="{{ perfil.profissao }}" required></p>
-    <p>Tipo de Usuário: {{ perfil.get_tipo_usuario_display }}</p>
-    <button type="submit" onclick="return confirm('Você tem certeza que deseja salvar as alterações?');">Salvar Alterações</button>
-</form>
+<!-- Formulário para editar informações -->
+<div id="form-section" class="form-section">
+    <h3>Editar Informações</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Renderiza os campos do formulário -->
+        <button type="submit" onclick="return confirm('Você tem certeza que deseja salvar as alterações?');">Salvar Alterações</button>
+    </form>
+</div>
 
+<!-- Mensagens de sucesso -->
 {% if messages %}
     {% for message in messages %}
-        <p>{{ message }}</p>
+        <div class="alert alert-success">{{ message }}</div>
     {% endfor %}
 {% endif %}
+
 </body>
 </html>

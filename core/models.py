@@ -4,18 +4,20 @@ from django.contrib.auth.models import User
 
 class Perfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    telefone = models.CharField(max_length=15, blank=True)  # Campo para telefone
-    endereco = models.CharField(max_length=255, blank=True)  # Campo para endereço
-    profissao = models.CharField(max_length=100, blank=True)  # Campo para profissão
-    PERFIL_CHOICES = (
+    telefone = models.CharField(max_length=15)
+    endereco = models.CharField(max_length=255)
+    profissao = models.CharField(max_length=100)
+
+    # Defina o campo tipo_usuario
+    TIPO_USUARIO_CHOICES = [
         ('Aluno', 'Aluno'),
         ('Professor', 'Professor'),
         ('Pesquisador', 'Pesquisador'),
-    )
-    perfil = models.CharField(max_length=30, choices=PERFIL_CHOICES, default='Aluno')
+    ]
+    tipo_usuario = models.CharField(max_length=20, choices=TIPO_USUARIO_CHOICES, default='Aluno')
 
     def __str__(self):
-        return f"{self.usuario.username} - {self.get_perfil_display()}"
+        return self.usuario.username
 
 
 

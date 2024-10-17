@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Detalhes do Perfil</title>
+</head>
+<body>
+    <h2>Editar Detalhes do Perfil de {{ perfil.usuario.username }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Renderiza os campos do formulário -->
+        <button type="submit">Salvar Atualizações</button>
+    </form>
+
+    <a href="{% url 'detalhes_usuario' usuario_id=perfil.usuario.id %}">Cancelar</a>
+</body>
+</html>

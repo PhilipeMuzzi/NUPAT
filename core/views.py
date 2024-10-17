@@ -23,8 +23,6 @@ def editar_tipo_usuario(request, usuario_id):
     return render(request, 'admin/editar_tipo_usuario.html', {'perfil': perfil})
 
 
-# Página inicial do projeto contendo as opções
-
 
 def inicio(request):
     return render(request, 'index.html')
@@ -35,31 +33,52 @@ def registro(request):
     if request.method == 'POST':
         formulario = RegistroUsuarioForm(request.POST)
         if formulario.is_valid():
-            usuario = formulario.save()
-            login(request, usuario)
-            messages.success(request, 'Registro bem-sucedido! Bem-vindo, {}.'.format(usuario.username))
-            return redirect('inicio')
+            formulario.save()
+            return redirect('login')  # redirecionando para a página de login
     else:
         formulario = RegistroUsuarioForm()
     return render(request, 'registration/registro.html', {'formulario': formulario})
 
 
-def detalhes_usuario(request, user_id):
-    perfil = get_object_or_404(Perfil, id=user_id)
+def atualiza_perfil(request, usuario_id):
+    perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
 
     if request.method == 'POST':
-        formulario = PerfilForm(request.POST, instance=perfil)
-        if formulario.is_valid():
-            formulario.save()
-            messages.success(request, 'As alterações foram salvas com sucesso!')
-            return redirect('detalhes_usuario', user_id=perfil.id)
-        else:
-            messages.error(request, 'Ocorreu um erro ao salvar as alterações.')
+        form = PerfilForm(request.POST, instance=perfil)
+        if form.is_valid():
+            form.save()
+            return redirect('detalhes_usuario', usuario_id=usuario_id)  # Redireciona após salvar
     else:
-        formulario = PerfilForm(instance=perfil)
+        form = PerfilForm(instance=perfil)
 
-    return render(request, 'detalhes_usuario.html', {'perfil': perfil, 'formulario': formulario})
+    return render(request, 'usuarios/editardetalhes.html', {'form': form, 'perfil': perfil})
+# views.py
+def detalhes_usuario(request, usuario_id):
+    print(f"Usuario ID: {usuario_id}")
+    try:
+        perfil = Perfil.objects.get(usuario__id=usuario_id)
+        print(f"Perfil encontrado: {perfil}")
+    except Perfil.DoesNotExist:
+        print("Perfil não encontrado")
+        return render(request, '404.html')
 
+    return render(request, 'usuarios/detalhes_usuario.html', {'perfil': perfil})
+
+
+
+def editar_detalhes(request, usuario_id):
+    perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
+
+    if request.method == 'POST':
+        form = PerfilForm(request.POST, instance=perfil)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'As informações foram atualizadas com sucesso!')
+            return redirect('detalhes_usuario', usuario_id=usuario_id)
+    else:
+        form = PerfilForm(instance=perfil)
+
+    return render(request, 'usuarios/editardetalhes.html', {'form': form, 'perfil': perfil})
 # Login
 @login_required
 def login_view(request):
@@ -86,7 +105,7 @@ def login_view(request):
     return render(request, 'login.html')
 
 
-# Verifica se é administrador
+# verificando se é administrador
 def admin_check(user):
     return user.is_staff or user.is_superuser
 
@@ -98,8 +117,8 @@ def admin_dashboard(request):
 class CustomLoginView(LoginView):
     def get_success_url(self):
         if self.request.user.is_staff:
-            return reverse('admin_dashboard')  # envia administradores para o painel de administração html
-        return reverse('inicio')  # envia usuários comuns para a página inicial
+            return reverse('admin_dashboard')  # envia administradores para o painel de administração html (dashboard)
+        return reverse('inicio')  # envia usuários comuns para a página inicial do site
 
 
 # função para verificar se o usuário é admin (is_staff)
@@ -269,8 +288,6 @@ def save(self, commit=True):
                 tipo_usuario=tipo_usuario,
             )
     return user
-
-
 
 
 # parceiros
