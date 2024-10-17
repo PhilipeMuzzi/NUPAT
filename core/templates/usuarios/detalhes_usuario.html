@@ -4,19 +4,18 @@
     <meta charset="UTF-8">
     <title>Detalhes do Usuário</title>
     <style>
-        /* Estilo básico para o formulário */
         .form-section {
-            display: none; /* Esconde o formulário por padrão */
+            display: none;
         }
     </style>
     <script>
         function toggleForm() {
             var formSection = document.getElementById("form-section");
-            // Alterna a exibição do formulário
+
             if (formSection.style.display === "none") {
-                formSection.style.display = "block"; // Mostra o formulário
+                formSection.style.display = "block";
             } else {
-                formSection.style.display = "none"; // Esconde o formulário
+                formSection.style.display = "none";
             }
         }
     </script>
@@ -29,24 +28,21 @@
 <p>Telefone: {{ perfil.telefone }}</p>
 <p>Endereço: {{ perfil.endereco }}</p>
 <p>Profissão: {{ perfil.profissao }}</p>
-<p>Tipo de Usuário: {{ perfil.get_perfil_display }}</p>
+<p>Tipo de Usuário: {% if perfil.tipo_usuario %}{{ perfil.get_tipo_usuario_display }}{% else %}Ainda não definido{% endif %}</p>
 
-<!-- Botão para editar -->
-<!-- Botão para editar -->
 <a href="{% url 'editar_detalhes' usuario_id=perfil.usuario.id %}">Atualizar</a>
 
 
-<!-- Formulário para editar informações -->
 <div id="form-section" class="form-section">
     <h3>Editar Informações</h3>
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}  <!-- Renderiza os campos do formulário -->
+        {{ form.as_p }}
         <button type="submit" onclick="return confirm('Você tem certeza que deseja salvar as alterações?');">Salvar Alterações</button>
     </form>
 </div>
 
-<!-- Mensagens de sucesso -->
+
 {% if messages %}
     {% for message in messages %}
         <div class="alert alert-success">{{ message }}</div>
