@@ -1,14 +1,81 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+    <script src="https://kit.fontawesome.com/af6c14a78e.js" crossorigin="anonymous"></script>
 </head>
-<body>
 
+{% block content %}
 
- >>>>>>>>>>>>>>>>>>>>>>> AQUI FICA PARTES DE CÓDIGO QUE SE REPETEM, COMO O HEADER, FOOTER.. <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+{% endblock %}
+<footer class="primeiro-rodape">
+    <div class="voltar-ao-topo">
+        <hr>
+        <i class="fa-solid fa-arrow-up-long" style="color: #304d30;"></i>
+        <a href="" onclick="subiraoTopo();">Voltar ao topo</a>
+        <hr>
+    </div>
+    <article>
+        <div class="container-texto">
+            <div class="primeiro-txt">
+                <h3>
+                    <strong style="cursor: default;">Institucional</strong>
+                </h3>
+                <p>
+                    <a href="">Portal IFRN</a>
+                    <a href="">FAQs</a>
+                    <a href="">Portal do Suap</a>
+                    <a href="">Sobre Nós</a>
+                </p>
 
-
-</body>
-</html>
+            </div>
+            <div class="segundo-txt">
+                <h3>
+                    <strong style="cursor: default;">Serviços</strong>
+                </h3>
+                <p>
+                    <a href="">Atendimento Virtual</a>
+                    <a href="">Suporte ao Usuário</a>
+                    <a href="">Feedback</a>
+                </p>
+            </div>
+        </div>
+        <div class="img-dados">
+            <div class="img-logo">
+                <img src="img/4Iwakb0M_400x400.png"  alt="Logo do IFRN" 
+                width="180px" height="180px"
+                id="logo-ifrn"
+                style="mix-blend-mode: multiply;" >
+                <img src="img/icon_u.webp" alt="Logo do NUPAT" 
+                width="300px" height="300px"
+                id="logo-nupat">
+            </div>
+            <div class="dados-icons">
+                <h3>Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT</h3>
+                <p>
+                    Endereço: BR 101, km 106, s/n, Areia branca  <br>
+                    E-mail: XXXXXXXXX@gmail.com - Canguaretama-RN | CEP: 59190-000 <br>
+                    Telefone: (84) X XXXX-XXXX <br>
+                </p>
+                <nav class="icons">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#"> <i class="fa-brands fa-square-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>    
+                </nav>
+            </div>
+        </div>
+    </article>
+</footer>
+<footer class="segundo-rodape">
+    <div class="copyright">
+        <p> Política de privacidade | Termo de uso | Cookies </p>
+        <p> Copyright &copy; 2024 | Núcleo de Pesquisa em Acessibilidade e Tecnologia | IFRN - Campus Canguaretama
+        </p>
+    </div>
+</footer>
