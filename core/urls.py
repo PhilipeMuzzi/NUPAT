@@ -1,18 +1,21 @@
 from django.contrib.auth.views import LoginView
 from django.urls import path, include
+
 from . import views
+from .views import CustomLoginView, detalhes_usuario
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
     path('contas/', include('django.contrib.auth.urls')),
-    path('registro/', views.registro, name='registro'),
-    path('login/', LoginView.as_view(), name='login'),
+    path('register', views.registro, name='register'),
+    path('login/', CustomLoginView.as_view(), name='login'),
 
 
 
     # gerenciamento de usuários
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
     path('usuarios/<int:usuario_id>/', views.detalhes_usuario, name='detalhes_usuario'),
+
 
 
 
@@ -50,4 +53,8 @@ urlpatterns = [
     # ADMIN
     path('usuarios/editar/<int:usuario_id>/', views.editar_tipo_usuario, name='editar_tipo_usuario'),
     path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
+
+
+
+
 ]

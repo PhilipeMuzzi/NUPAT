@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 
 class Perfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+    telefone = models.CharField(max_length=15, blank=True)  # Campo para telefone
+    endereco = models.CharField(max_length=255, blank=True)  # Campo para endereço
+    profissao = models.CharField(max_length=100, blank=True)  # Campo para profissão
     PERFIL_CHOICES = (
         ('Aluno', 'Aluno'),
         ('Professor', 'Professor'),
