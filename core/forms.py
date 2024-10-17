@@ -8,13 +8,13 @@ from .models import Perfil
 class PerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
-        fields = ['telefone', 'endereco', 'profissao',]
+        fields = ['telefone', 'endereco', 'instituto',]
 
 
 class RegistroUsuarioForm(UserCreationForm):
     telefone = forms.CharField(max_length=15, required=True)
     endereco = forms.CharField(max_length=255, required=True)
-    profissao = forms.CharField(max_length=100)
+    instituto = forms.CharField(max_length=100)
 
     class Meta:
         model = User
@@ -31,7 +31,7 @@ class RegistroUsuarioForm(UserCreationForm):
                 usuario=user,
                 telefone=self.cleaned_data['telefone'],
                 endereco=self.cleaned_data['endereco'],
-                profissao=self.cleaned_data['profissao'],
+                instituto=self.cleaned_data['instituto'],
                 perfil='Aluno'
             )
         return user
@@ -47,7 +47,7 @@ class RegistroUsuarioForm(UserCreationForm):
                 usuario=user,
                 telefone=self.cleaned_data['telefone'],
                 endereco=self.cleaned_data['endereco'],
-                profissao=self.cleaned_data['profissao'],
+                instituto=self.cleaned_data['instituto'],
                 tipo_usuario='comum'
             )
         return user

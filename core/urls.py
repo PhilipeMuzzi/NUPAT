@@ -2,7 +2,7 @@ from django.contrib.auth.views import LoginView
 from django.urls import path, include
 
 from . import views
-from .views import CustomLoginView, detalhes_usuario
+from .views import CustomLoginView, detalhes_usuario, quem_somos, area_suporte, atendimento_virtual
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
@@ -11,6 +11,9 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('usuarios/<int:usuario_id>/editar/', views.editar_detalhes, name='editar_detalhes'),
     path('usuarios/<int:usuario_id>/', detalhes_usuario, name='detalhes_usuario'),
+    path('quem-somos/', quem_somos, name='quem_somos'),
+    path('area-suporte/', area_suporte, name='area_suporte'),
+    path('atendimento-virtual/', atendimento_virtual, name='atendimento_virtual'),
 
     # gerenciamento de usuários
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),

@@ -6,7 +6,7 @@ class Perfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     telefone = models.CharField(max_length=15)
     endereco = models.CharField(max_length=255)
-    profissao = models.CharField(max_length=100)
+    instituto = models.CharField(max_length=100)
 
     # Defina o campo tipo_usuario
     TIPO_USUARIO_CHOICES = [
@@ -15,6 +15,7 @@ class Perfil(models.Model):
         ('Pesquisador', 'Pesquisador'),
     ]
     tipo_usuario = models.CharField(max_length=20, choices=TIPO_USUARIO_CHOICES, default='Aluno')
+
 
     def __str__(self):
         return self.usuario.username
@@ -74,9 +75,6 @@ class Parceiro(models.Model):
 
     def __str__(self):
         return self.nome
-
-
-
 
 #models de imagens
 class ImagemSite(models.Model):

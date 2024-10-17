@@ -27,6 +27,19 @@ def editar_tipo_usuario(request, usuario_id):
 def inicio(request):
     return render(request, 'index.html')
 
+def quem_somos(request):
+    return render(request, 'quem_somos.html')
+
+def area_suporte(request):
+    return render(request, 'area_suporte.html')
+
+
+def atendimento_virtual(request):
+    return render(request, 'atendimento_virtual.html')
+
+
+
+
 # view para registro de novos usuários
 
 def registro(request):
