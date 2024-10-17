@@ -78,7 +78,6 @@ def detalhes_usuario(request, usuario_id):
     return render(request, 'usuarios/detalhes_usuario.html', {'perfil': perfil})
 
 
-
 def editar_detalhes(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
 
