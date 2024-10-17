@@ -28,14 +28,14 @@ def inicio(request):
     return render(request, 'index.html')
 
 def quem_somos(request):
-    return render(request, 'quem_somos.html')
+    return render(request, 'Quem Somos/quem_somos.html')
 
 def area_suporte(request):
-    return render(request, 'area_suporte.html')
+    return render(request, 'Área de Suporte/area_suporte.html')
 
 
 def atendimento_virtual(request):
-    return render(request, 'atendimento_virtual.html')
+    return render(request, 'Atendimento virtual/atendimento_virtual.html')
 
 
 
