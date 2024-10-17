@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>Página Principal - NUPAT</title>
     <link rel="stylesheet" type="text/css" href="{% static 'css\principal.css' %}">
-    <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="16x16">
+    <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="12x12">
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
@@ -68,7 +68,7 @@
         <div class="menu">
             <ul>
                 <li>
-                    <a href="#"><img src="img/logo_02.png"
+                    <a href="#"><img src="static/img/logo_02.png"
                             alt="Logo do Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT"></a>
                 </li>
                 <li class="buscar-box">
@@ -81,27 +81,33 @@
                     </div>
                 </li>
                 <li class="profile">
-                    <p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="currentColor"
-                            class="bibi-person-fill" viewBox="0 0 16 16">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                        </svg>
-                    </p>
-                    <a href="#">
+<p>
+    <a href="{% url 'detalhes_usuario' usuario_id=user.id %}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="currentColor"
+            class="bibi-person-fill" viewBox="0 0 16 16">
+            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+        </svg>
+    </a>
+</p>
+
+
+
+               {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}">
+                        <p>Sair</p>
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}">
                         <p>Entrar</p>
                     </a>
+                {% endif %}
+
                 </li>
             </ul>
         </div>
         <!--back end-->
         <nav>
             <ul>
-
-
-                <li><a href="{% url 'listar_projetos' %}">Ver Projetos</a></li>
-
-                <!-- Todos os usuários podem ver os projetos -->
-                <li><a href="{% url 'listar_projetos' %}">Projetos</a></li>
 
 
 
@@ -119,16 +125,12 @@
 
 
                     {% else %}
-                       <li><a href="{% url 'detalhes_usuario' usuario_id=user.id %}">Meu Perfil</a></li>
+
 
                     {% endif %}
 
                     <!-- Link para o logout, que só estará disponível para todos os usuários autenticados -->
-                    <li><a href="{% url 'logout' %}">Sair</a></li>
 
-                <!-- Se o usuário não estiver autenticado -->
-                {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -272,13 +274,7 @@
             </article>
         </div>
         <div class="segundo-corpo"> <!--segundo corpo-->
-            <div class="cadastro">
-                <img src="/Atendimento Virtual/img/Nucleo-de-Pesquisa-ESEG.jpg"
-                    alt="Foto de sobre cadastro de projeto no NUPAT">
-                <a href=".">
-                    <input type="submit" value="CADASTRE SEU PROJETO AQUI">
-                </a>
-            </div>
+
             <div class="notice">
                 <div onload="carregarNoticias()">
                     <div class="card-noticias">
@@ -330,7 +326,7 @@
                 <div class="img-logo">
                     <img src="img/4Iwakb0M_400x400.png" alt="Logo do IFRN" width="180px" height="180px" id="logo-ifrn"
                         style="mix-blend-mode: multiply;">
-                    <img src="img/icon_u.webp" alt="Logo do NUPAT" width="300px" height="300px" id="logo-nupat">
+                    <img src="static/img/icon_u.webp" alt="Logo do NUPAT" width="300px" height="300px" id="logo-nupat">
                 </div>
                 <div class="dados-icons">
                     <h3>Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT</h3>
