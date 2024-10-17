@@ -133,7 +133,14 @@ def admin_dashboard(request):
 # Listagem de projetos
 
 def listar_projetos(request):
-    projetos = Projeto.objects.all()
+    pesquisa= request.GET.get('pesquisa')
+    print(pesquisa)
+
+    if pesquisa:
+        projetos = Projeto.objects.filter(titulo__icontains=pesquisa)
+    else:
+        projetos = Projeto.objects.all()
+    
     return render(request, 'projetos/lista_projetos.html', {'projetos': projetos})
 
 # view para ver detalhes de um projeto
