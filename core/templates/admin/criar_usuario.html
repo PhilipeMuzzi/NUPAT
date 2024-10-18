@@ -1,0 +1,6 @@
+<h2>Criar Novo Usuário</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Criar Usuário</button>
+</form>

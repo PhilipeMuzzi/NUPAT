@@ -322,27 +322,49 @@ nav ul {
     row-gap: 20px;
 }
 
+
 .cards-container {
     display: flex;
-    align-items: center;
-    flex-wrap:wrap;
-    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
     gap: 20px;
 }
 
 .card {
-    width: 200px;
-    height: 150px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-sizing: border-box;
+    flex: 1 1 calc(33.333% - 20px); /* 3 cards por linha */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 0px;
+    background-color: #fff;
+    border-radius: 8px;
+    text-align: center;
 }
 
-.card {
-    background-color: antiquewhite;
+.card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
 }
+
+.card p {
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+    .card {
+        flex: 1 1 calc(50% - 20px); /* 2 cards por linha em telas menores */
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        flex: 1 1 100%; /* 1 card por linha em telas muito pequenas */
+    }
+}
+
+
 
 
 .segundo-corpo {

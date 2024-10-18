@@ -1,110 +1,26 @@
-
-{% load static %}
 {% block content %}
+<h1>Lista de Projetos</h1>
 
-<link rel="stylesheet" href="{% static 'css/projetos_iniciados.css' %}">
-<main>
-    <h1><strong>Projetos</strong><hr class="linha-fina"></h1>
-    <article>
-        <section class="filtro">
-            <form class="buscar-box" action="{% url 'listar_projetos' %}" method="GET">
-                <div class="input-buscar">
-                    <input type="text" name="pesquisa" value="{{request.GET.pesquisa}}" placeholder="Pesquise um artigo" class="form-control">
-                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
-                    </button>
-                </div>
-            </form>
-            <ul class="fi">
-                <li><h2 ><strong>Filtros</strong><hr class="lineex"></h2></li>
-                <ul>
-                    <li><h3><strong>Categorias</strong></h3>
-                    <ul>
-                        <li><input type="checkbox" id="categorias" name="categorias" value="acessibilidade-web"><label for="acessibilidade-web"> Acessibilidade Web</label></li>
-                        <li><input type="checkbox" id="categorias" name="categorias" value="tecnologia"><label for="tecnologia">Tecnologia</label> </li>
-                        <li><input type="checkbox" id="categorias" name="categorias" value="educacao-e-pedagogia"><label for="educacao-e-pedagogia">Educação e Pedagogia</label></li>
-                        <li><input type="checkbox" id="categorias" name="categorias" value="ciencias-humanas"><label for="ciencias-humanas">Ciências Humanas</label></li>
-                        <li >
-                            <details>
-                            <summary class="mais">Mais<i class="fa-solid fa-chevron-down"></i>
-                            </summary>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum, impedit? Consectetur totam non odio, id labore dignissimos nam cupiditate ad possimus? Fuga ullam perferendis mollitia. Harum totam corporis nulla culpa.</p>
-                        </details>
-                    </li>
-                    </ul></li>
-                    <li><h3><strong>Ano</strong></h3>
-                    <ul>
-                        <li><input type="checkbox" id="ano" name="ano" value="2024"><label for="2024">2024</label></li>
-                        <li><input type="checkbox" id="ano" name="ano" value="2023"><label for="2023">2023</label></li>
-                        <li><input type="checkbox" id="ano" name="ano" value="2022"><label for="2022">2022</label></li>
-                        <li >
-                            <details>
-                            <summary class="mais">Mais<i class="fa-solid fa-chevron-down"></i>
-                            </summary>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum, impedit? Consectetur totam non odio, id labore dignissimos nam cupiditate ad possimus? Fuga ullam perferendis mollitia. Harum totam corporis nulla culpa.</p>
-                        </details>
-                    </li>
-                    </ul></li>
-                    
-                    <div class="form-group">
-                        <label for="idioma">Idioma:</label>
-                        <select id="idioma" name="idioma" class="form-control">
-                            <i class="fa-solid fa-chevron-down">
-                                <option value="pt/br">Português</option>
-                                <option value="en">Inglês</option>
-                                <option value="es">Espanhol</option>
-                            </i>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="situacao">Situação:</label>
-                        <select id="situacao" name="situacao" class="form-control">
-                            <i class="fa-solid fa-chevron-down">
-                                <option value="planejamento">Em Planejamento</option>
-                                <option value="andamento">Em Andamento</option>
-                                <option value="concluido">Concluído</option>
-                            </i>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="instituicoes">Instituições:</label>
-                        <select id="instituicoes" name="instituicoes" class="form-control" multiple required>
-                            <i class="fa-solid fa-chevron-down">
-                                {% for instituicao in instituicoes %}
-                                <option value="{{ instituicao.id }}">{{ instituicao.nome }}</option>
-                                {% endfor %}
-                            </i>
-                        </select>
-                    </div>
-                </ul>
-            </ul>
-        </section>
-        <section>
-            {% if projeto == 'planejamento' %}
-            <h1><strong>Projetos em Planejamento</strong></h1>
-            {% elif projeto == 'andamento' %}
-            <h1><strong>Projetos em Andamento</strong></h1>
-            {% elif projeto == 'concluido' %}
-            <h1><strong>Projetos Concluídos</strong></h1>
-            {% else %}
-            <h1><strong>Todos os Projetos</strong></h1>
-            {% endif %}
-            {% for projeto in projetos %}
-            <div class="pro">
-                <article class="projetos">
-                    <nav class="card1">
-                        <div class="image">
-                            <a href="{% url 'detalhes_projeto' projeto.id %}">{{ projeto.titulo }}</a>
-                        </div>
-                        <div class="conteudo">
-                            <a href="{% url 'detalhes_projeto' projeto.id %}">{{ projeto.titulo }}</a>
-                            <p>{{ projeto.resumo|truncatewords:20 }}</p>
-                        </div>
-                    </nav>
-                </article>
-            </div>
-            {% endfor %}
-        </section>
-    </article>
-</main>
-
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Resumo</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for projeto in projetos %}
+        <tr>
+            <td>{{ projeto.titulo }}</td>
+            <td>{{ projeto.resumo }}</td>
+            <td>
+                <a href="{% url 'editar_projeto' projeto.id %}" class="btn btn-warning">Editar</a>
+                <a href="{% url 'deletar_projeto' projeto.id %}" class="btn btn-danger">Deletar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'adicionar_projeto' %}" class="btn btn-primary">Adicionar Projeto</a>
 {% endblock %}

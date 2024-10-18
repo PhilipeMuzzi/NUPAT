@@ -10,6 +10,11 @@ class PerfilForm(forms.ModelForm):
         fields = ['telefone', 'endereco', 'instituto', 'foto_perfil']
 
 
+class ProjetoForm(forms.ModelForm):
+    class Meta:
+        model = Projeto
+        fields = ['titulo', 'resumo', 'resultados', 'fotos', 'situacao', 'descricao', 'artigos', 'pesquisadores', 'instituicoes', 'alunos']  # Adicione todos os campos que você deseja editar
+
 class RegistroUsuarioForm(UserCreationForm):
     telefone = forms.CharField(max_length=15, required=True)
     endereco = forms.CharField(max_length=255, required=True)
