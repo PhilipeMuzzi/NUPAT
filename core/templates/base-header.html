@@ -89,11 +89,9 @@
 
 </p>
 
-
-
 {% if user.is_authenticated %}
     {% if user.is_staff %}
-        <a href="{% url 'admin_dashboard' %}"> <!-- Substitua 'dashboard_admin' pelo nome da URL do seu dashboard -->
+        <a href="{% url 'admin_dashboard' %}">
             <p>ADMIN</p>
         </a>
     {% else %}
