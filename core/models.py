@@ -45,6 +45,9 @@ class Pesquisador(models.Model):
 
 #Models para status do projeto e suas informações
 
+
+
+
 class Projeto(models.Model):
     SITUACAO_CHOICES = [
         ('concluido', 'Concluído'),
@@ -61,6 +64,8 @@ class Projeto(models.Model):
     artigos = models.FileField(upload_to='projetos/artigos/', blank=True, null=True)
     pesquisadores = models.ManyToManyField(Pesquisador)
     instituicoes = models.ManyToManyField(Instituicao)
+
+    alunos = models.ManyToManyField(Perfil, related_name='projetos', blank=True)
 
 
 

@@ -162,12 +162,16 @@ def listar_projetos(request):
     return render(request, 'projetos/lista_projetos.html', {'projetos': projetos})
 
 # view para ver detalhes de um projeto
-@login_required
+
 def detalhes_projeto(request, projeto_id):
     projeto = get_object_or_404(Projeto, id=projeto_id)
     alunos = projeto.alunos.all()
-    parceiros = projeto.parceiros.all()
-    return render(request, 'projetos/detalhes_projeto.html', {'projeto': projeto, 'alunos': alunos, 'parceiros': parceiros})
+    parceiros = projeto.pesquisadores.all()
+    return render(request, 'projetos/detalhes_projeto.html', {
+        'projeto': projeto,
+        'alunos': alunos,
+        'parceiros': parceiros
+    })
 
 # Adicionar um novo projeto (Apenas o admin pode acessar)
 @staff_member_required
@@ -194,13 +198,13 @@ def adicionar_projeto(request):
             artigos=artigos
         )
 
-        # Adicionando pesquisadores selecionados
+
         pesquisadores = request.POST.getlist('pesquisadores')
         for pesquisador_id in pesquisadores:
             pesquisador = Pesquisador.objects.get(id=pesquisador_id)
             projeto.pesquisadores.add(pesquisador)
 
-        # Adicionando instituições selecionadas
+
         instituicoes = request.POST.getlist('instituicoes')
         for instituicao_id in instituicoes:
             instituicao = Instituicao.objects.get(id=instituicao_id)
@@ -211,7 +215,7 @@ def adicionar_projeto(request):
         messages.success(request, 'Projeto cadastrado com sucesso.')
         return redirect('listar_projetos')
 
-    # Obtendo todos os pesquisadores e instituições para o formulário
+
     pesquisadores = Pesquisador.objects.all()
     instituicoes = Instituicao.objects.all()
 
@@ -220,7 +224,7 @@ def adicionar_projeto(request):
         'instituicoes': instituicoes
     })
 
-# View para editar projeto
+# View para admin editar um projeto
 @login_required
 def editar_projeto(request, projeto_id):
     projeto = get_object_or_404(Projeto, id=projeto_id)
@@ -261,29 +265,15 @@ def deletar_projeto(request, projeto_id):
 
 
 
-# Inscrição de aluno em um projeto
-@login_required
-def inscricao_projeto(request, projeto_id):
-    projeto = get_object_or_404(Projeto, id=projeto_id)
-    if request.method == 'POST':
-        aluno = request.user.perfil  # usuário logado
-        projeto.alunos.add(aluno)
-        projeto.save()
-        messages.success(request, 'Inscrição realizada com sucesso.')
-        return redirect('detalhes_projeto', projeto_id=projeto_id)
-    return render(request, 'projetos/inscricao_projeto.html', {'projeto': projeto})
 
-
-
-# Listagem de pesquisadores
+# listagem de pesquisadores
 @login_required
 def listar_pesquisadores(request):
     pesquisadores = Pesquisador.objects.all()
     return render(request, 'pesquisadores/lista_pesquisadores.html', {'pesquisadores': pesquisadores})
 
 
-
-# Adicionar novo pesquisador
+# adicionar novo pesquisador
 @login_required
 def adicionar_pesquisador(request):
     if request.method == 'POST':
@@ -320,6 +310,7 @@ def save(self, commit=True):
 def listar_parceiros(request):
     parceiros = Parceiro.objects.all()
     return render(request, 'parceiros/lista_parceiros.html', {'parceiros': parceiros})
+
 
 # Adicionar novo parceiro
 @login_required
