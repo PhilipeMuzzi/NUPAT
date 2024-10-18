@@ -105,37 +105,7 @@
 
 
 
-<<<<<<< HEAD
                     {% if user.is_authenticated %}
-=======
-{% if user.is_authenticated %}
-    {% if user.is_staff %}
-        <a href="{% url 'admin_dashboard' %}"> <!-- Substitua 'dashboard_admin' pelo nome da URL do seu dashboard -->
-            <p>ADMIN</p>
-        </a>
-    {% else %}
-        <a href="{% url 'logout' %}">
-            <p>Sair</p>
-        </a>
-    {% endif %}
-{% else %}
-    <a href="{% url 'login' %}">
-        <p>Entrar</p>
-    </a>
-{% endif %}
-
-
-                </li>
-            </ul>
-        </div>
-        <!--back end-->
-        <nav>
-            <ul>
-
-
-
-                {% if user.is_authenticated %}
->>>>>>> 56a55a33cee5917b0470a6a365face7527184cf1
 
 
                     {% if user.perfil.tipo_usuario == 'servidor' %}
