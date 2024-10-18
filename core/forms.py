@@ -47,6 +47,6 @@ class RegistroUsuarioForm(UserCreationForm):
                 telefone=self.cleaned_data['telefone'],
                 endereco=self.cleaned_data['endereco'],
                 instituto=self.cleaned_data['instituto'],
-                tipo_usuario='comum'
+                tipo_usuario=''  #deixando vazio até que o admin de fato defina
             )
         return user

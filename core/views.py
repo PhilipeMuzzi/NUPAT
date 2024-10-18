@@ -73,8 +73,8 @@ def atualiza_perfil(request, usuario_id):
             print("Nenhuma imagem enviada")
 
         if form.is_valid():
-            form.save()  # Salva o formulário e a imagem
-            # Adicionando log para confirmar que a imagem foi salva no banco de dados
+            form.save()
+
             if perfil.foto_perfil:
                 print(f"Imagem salva com sucesso: {perfil.foto_perfil.url}")
             else:
@@ -110,11 +110,11 @@ def editar_detalhes(request, usuario_id):
         form = PerfilForm(request.POST, request.FILES, instance=perfil)  # Aqui o request.FILES é essencial para processar arquivos
 
         if form.is_valid():
-            form.save()  # Aqui o arquivo da foto_perfil é salvo junto com os outros campos
+            form.save()
             messages.success(request, 'As informações foram atualizadas com sucesso!')
             return redirect('detalhes_usuario', usuario_id=usuario_id)
         else:
-            print(form.errors)  # Isso mostrará erros no formulário se houver algum problema
+            print(form.errors)
     else:
         form = PerfilForm(instance=perfil)
 
@@ -131,7 +131,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
 
-            # Verifica se o usuário é superuser ou staff (admin)
+            # Verifica se o usuário é superuser (admin)
             if user.is_superuser or user.is_staff:
                 # Redireciona para o dashboard de admin
                 return redirect('admin_dashboard')
@@ -377,3 +377,4 @@ def detalhes_usuario(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
 
     return render(request, 'usuarios/detalhes_usuario.html', {'perfil': perfil})
+
