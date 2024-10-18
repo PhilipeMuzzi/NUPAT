@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quem Somos?</title>
     <link rel="stylesheet" type="text/css" href= "{% static 'css/master.css' %}">
-    <link rel="icon" href="img/icon_uu.webp" sizes="16x16">
+    <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="16x16">
     <link rel="stylesheet" href="{% static 'css/quemsomos.css' %}">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
@@ -64,8 +64,9 @@
         <div class="menu">
             <ul>
                 <li>
-                    <a href="#"><img src="img/logo_02.webp" alt="Logo do Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT"></a>
+                    <a href="#"><img src="{%static 'img/logo_02.webp' %} " alt="Logo do Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT"></a>
                 </li>
+                <!--
                 <li class="buscar-box">
                     <div class="input-buscar">
                         <input type="text" name="#" id="#" placeholder="Buscar"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -73,6 +74,7 @@
                         </svg>
                     </div>
                 </li>
+                -->
                 <li class="profile">
                     <p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bibi-person-fill" viewBox="0 0 16 16">
@@ -293,11 +295,11 @@
             </div>
             <div class="img-dados">
                 <div class="img-logo">
-                    <img src="img/4Iwakb0M_400x400.png"  alt="Logo do IFRN"
+                    <img src="{% static 'img/4Iwakb0M_400x400.png' %}"  alt="Logo do IFRN"
                     width="200px" height="200px"
                     id="logo-ifrn"
                     style="mix-blend-mode: multiply;" >
-                    <img src="img/icon_u.webp" alt="Logo do NUPAT"
+                    <img src="{% static 'img/icon_u.webp'%}" alt="Logo do NUPAT"
                     width="300px" height="300px"
                     id="logo-nupat">
                 </div>

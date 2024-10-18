@@ -51,7 +51,6 @@ header p{
 header .title{
     font-weight: bold;
 }
-/*Estilizando tamanho das letras (recomendo olhar o restante as alterações no github)-------------- */
 
 .font-size-small {
     font-size: 12px; 
@@ -126,12 +125,12 @@ nav ul {
     display: flex;
     margin-left: 400px;
     align-items: center;
-    margin-top: -5.5%;
+    margin-top: -6.4%;
 }
 .menu img{ /* controle de designer da logo no menu principal*/ 
     margin-top: -15.6%;
     margin-right: 400px;
-    margin-left: -20%;
+    margin-left: -24%;
     width: 40%; 
     height: 230px;
 }
@@ -473,11 +472,11 @@ button.next {
     gap: 5px;
 }
 .primeiro-txt p :hover{
-    color: #00ff00;
+    color: #82a482;
     transition: 0.4s;
 }
 .segundo-txt p :hover{
-    color: #00ff00;
+    color: #82a482;
     transition: 0.4s;
 } 
 .img-dados {
