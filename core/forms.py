@@ -7,7 +7,7 @@ from .models import Perfil, Projeto
 class PerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
-        fields = ['telefone', 'endereco', 'instituto',]
+        fields = ['telefone', 'endereco', 'instituto', 'foto_perfil']
 
 
 class RegistroUsuarioForm(UserCreationForm):

@@ -7,14 +7,15 @@ class Perfil(models.Model):
     telefone = models.CharField(max_length=15)
     endereco = models.CharField(max_length=255)
     instituto = models.CharField(max_length=100)
+    foto_perfil = models.ImageField(upload_to='fotos_perfil/', blank=True, null=True)
 
-    # Defina o campo tipo_usuario
     TIPO_USUARIO_CHOICES = [
         ('Aluno', 'Aluno'),
         ('Professor', 'Professor'),
         ('Pesquisador', 'Pesquisador'),
     ]
     tipo_usuario = models.CharField(max_length=20, choices=TIPO_USUARIO_CHOICES, default='Aluno')
+
 
 
     def __str__(self):

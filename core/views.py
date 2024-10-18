@@ -60,13 +60,14 @@ def registro(request):
 
 
 def atualiza_perfil(request, usuario_id):
-    perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
+    perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
 
     if request.method == 'POST':
-        form = PerfilForm(request.POST, instance=perfil)
+        form = PerfilForm(request.POST, request.FILES, instance=perfil)
         if form.is_valid():
             form.save()
-            return redirect('detalhes_usuario', usuario_id=usuario_id)  # Redireciona após salvar
+            messages.success(request, 'As informações foram atualizadas com sucesso!')
+            return redirect('detalhes_usuario', usuario_id=usuario_id)
     else:
         form = PerfilForm(instance=perfil)
 

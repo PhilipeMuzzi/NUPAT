@@ -107,18 +107,22 @@
                 <p>Email: {{ perfil.usuario.email }}</p>
 
 
-
-
-
                 <div class="linha-horizontal"></div>
                 <main class="dados-perfil">
                     <div class="dados">
 
                     </div>
-                    <div class="image">
-                        <i class="fa-solid fa-circle-user" style="color: #304d30;"></i>
-                        <a href="alterarimagem">Alterar foto do perfil</a>
-                    </div>
+
+    <div class="image">
+        {% if perfil.foto_perfil %}
+            <img src="{{ perfil.foto_perfil.url }}" alt="Foto de Perfil" style="width: 100px; height: 100px; border-radius: 50%;">
+        {% else %}
+            <i class="fa-solid fa-circle-user" style="color: #304d30; font-size: 100px;"></i>
+        {% endif %}
+        <a href="{% url 'editar_detalhes' usuario_id=perfil.usuario.id %}">Alterar Imagem</a>
+    </div>
+
+
                 </main>
                 <div class="btn-salvar">
                     <a href="{% url 'editar_detalhes' usuario_id=perfil.usuario.id %}">Atualizar Informações</a>
