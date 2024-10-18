@@ -103,9 +103,33 @@
             <nav>
                 <ul>
 
+{% if user.is_authenticated %}
+    {% if user.is_staff %}
+        <a href="{% url 'admin_dashboard' %}">
+            <p>ADMIN</p>
+        </a>
+    {% else %}
+        <a href="{% url 'logout' %}">
+            <p>Sair</p>
+        </a>
+    {% endif %}
+{% else %}
+    <a href="{% url 'login' %}">
+        <p>Entrar</p>
+    </a>
+{% endif %}
 
 
-                    {% if user.is_authenticated %}
+                </li>
+            </ul>
+        </div>
+        <!--back end-->
+        <nav>
+            <ul>
+
+
+
+                {% if user.is_authenticated %}
 
 
                     {% if user.perfil.tipo_usuario == 'servidor' %}
