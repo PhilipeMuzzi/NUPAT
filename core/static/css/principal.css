@@ -5,6 +5,7 @@
     --bege: #E7E4D7;
     --verdefraco: #afc9afa8;
     --brancosolar: #EEF0E5;
+    --verde:#304D30;
     --navbar-height: 4.75rem;
 
 }
@@ -15,6 +16,7 @@ body {
     font-size: 16px;
     background-color: var(--brancogelo);
     overflow-x: hidden;
+    scroll-behavior: smooth;
 
 }
 

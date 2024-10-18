@@ -10,35 +10,24 @@
 </head>
 <body>
     <main>
-        <div style="height: 1000px;" class="container-fluid bg-dark">
-            <div class="col-md-4 offset-md-4">
-                <form method="post" class="card card-body bg-dark text-light">
-                    {% csrf_token %}
-                    <div class="row g-3">
-                        <div class="text-center">
-                            <h1>Faça seu Login</h1>
-                        </div>
+        <img src="{% static 'img/img-login.png'%}" alt="">
 
-                        <div class="col-md-12">
-                            <label for="id_username" class="form-label">E-mail:</label>
-                            <input type="text" class="form-control" name="username" id="id_username" required>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="id_password" class="form-label">Senha:</label>
-                            <input type="password" class="form-control" name="password" id="id_password" required>
-                        </div>
-                        <div class="col-12">
-                            <p>Esqueceu a Senha? Que peninha.</p>
-                            <p>Ainda não possui uma conta? <a href="{% url 'register' %}">Registre-se aqui</a></p>
-                        </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-danger">Entrar</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+        <div class="container">
+            <form method="post" class="card card-body">
+                {% csrf_token %}
+                <h1>Login</h1>
+                
+                <label for="id_username" class="form-label">E-mail:</label>
+                <input type="text" class="form-control" name="username" id="id_username" required style="margin-bottom: 10px;">
+                
+                <label for="id_password" class="form-label">Senha:</label>
+                <input type="password" class="form-control" name="password" id="id_password" required style="margin-bottom: 10px;">
+                <p>Esqueceu a senha? <a href="">Clique aqui</a></p>
+                <p>Ainda não possui uma conta? <a href="{% url 'register' %}">Registre-se aqui</a></p>
+                
+                <button type="submit" class="btn btn-danger">Entrar</button>
+            </form>
         </div>
     </main>
-
 </body>
 </html>
