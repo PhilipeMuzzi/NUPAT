@@ -19,18 +19,17 @@
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 </head>
-<body>
-
+<body> 
 
 {% include 'base-header.html' %}
 
     <div class="container">
-
-        <div class="primeiro-corpo"> <!--primeiro corpo-->
+       
+        <div class="primeiro-corpo">
+             {% if projeto %} <!--primeiro corpo-->
             <article class="primary">
                 <h1 class="title1">Adicionados recentemente</h1>
-                <div class="cards-container">
-                  <div class="cards-container">
+                <div class="cards-container"> 
                     {% for projeto in ultimos_projetos %}
                         <div class="card">
                             <a href="{% url 'detalhes_projeto' projeto.id %}">
@@ -40,8 +39,9 @@
                         </div>
                     {% endfor %}
                 </div>
-
-            </article>
+                  
+            </article>{% endif %}
+          
             <!--Carrossel princinpal-->
             <div class="carrosel">
                 <section class="slider">
@@ -53,21 +53,21 @@
                         <div class="slider-box primeiro">
                             <div class="img-container">
                                 <img class="img-desktop"
-                                    src="/Atendimento Virtual/img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                                    src="{% static 'img/carrosel1.jpg' %}"
                                     alt="">
                             </div>
                         </div>
                         <div class="slider-box">
                             <div class="img-container">
                                 <img class="img-desktop"
-                                    src="/Atendimento Virtual/img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                                    src="{% static 'img/carrosel2.png' %}"
                                     alt="">
                             </div>
                         </div>
                         <div class="slider-box">
                             <div class="img-container">
                                 <img class="img-desktop"
-                                    src="/Atendimento Virtual/img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg"
+                                    src="{% static 'img/carrosel1.jpg' %}"
                                     alt="">
                             </div>
                         </div>
@@ -122,11 +122,15 @@
             </article>
         </div>
         <div class="segundo-corpo"> <!--segundo corpo-->
-
             <div class="notice">
                 <div onload="carregarNoticias()">
+                    <div class="card-noticias">
+                      <h2>Notícias</h2>
+                      <div id="noticias"></div>
+                    </div>
                 </div>
             </div>
+
             <div class="nupat">
                 <a href="{% url 'quem_somos' %}">
                     <p> Quem somos?</p>
@@ -134,9 +138,12 @@
             </div>
         </div>
     </div>
-    
 
+    <script src="{% static 'js/main-pagprincipal.js' %}"></script>
+    <script src="{% static 'js/slider.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 
+</body>
 
 </html>
 

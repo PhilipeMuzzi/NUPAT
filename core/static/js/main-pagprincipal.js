@@ -25,39 +25,43 @@ document.querySelector(".sb-ab-ft-normal").addEventListener("click", function(){
 
 //script de noticias
 function carregarNoticias() {
-    const apiKey = '72dcdf0d822749b68d3d62b8bddcb653';
-    const url = `https://newsapi.org/v2/top-headlines?country=br&apiKey=${apiKey}`;
-  
-    fetch(url)
+  const apiKey = '62e47d3fe0e2457888544f4d4515448a';
+  const url = `https://newsapi.org/v2/top-headlines?country=br&apiKey=${apiKey}`;
+
+  console.log('Requisitando notícias...');
+
+  fetch(url)
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Não foi possível carregar as notícias.');
-        }
-        return response.json();
+          console.log('Resposta da API:', response);
+          if (!response.ok) {
+              throw new Error('Não foi possível carregar as notícias.');
+          }
+          return response.json();
       })
       .then(data => {
-        const noticiasLimitadas = data.articles.slice(0, 5);
-        exibirNoticias(noticiasLimitadas);
+          const noticiasLimitadas = data.articles.slice(0, 5);
+          exibirNoticias(noticiasLimitadas);
       })
       .catch(error => {
-        console.error('Erro ao carregar as notícias:', error);
-        document.getElementById('noticias').innerHTML = '<p>Erro ao carregar as notícias. Verifique o console para mais detalhes.</p>';
+          console.error('Erro ao carregar as notícias:', error);
+          document.getElementById('noticias').innerHTML = '<p>Erro ao carregar as notícias. Verifique o console para mais detalhes.</p>';
       });
-  }
-  
-  function exibirNoticias(articles) {
-    let html = '';
-  
-    articles.forEach(article => {
-      html += `
-        <div class="noticia">
-          <h4>${article.title}</h4>
-          <a href="${article.url}" target="_blank">Leia mais</a>
-        </div>
-      `;
-    });
-  
-    document.getElementById('noticias').innerHTML = html;
 }
-  
+
+function exibirNoticias(articles) {
+  let html = '';
+
+  articles.forEach(article => {
+      html += `
+          <div class="noticia">
+              <h4>${article.title}</h4>
+              <a href="${article.url}" target="_blank">Leia mais</a>
+          </div>
+      `;
+  });
+
+  document.getElementById('noticias').innerHTML = html;
+}
+
 carregarNoticias();
+

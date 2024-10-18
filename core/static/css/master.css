@@ -116,6 +116,9 @@
 .dados-icons p {
     line-height: 22px;
 }
+.voltar-ao-topo a{
+    cursor: pointer;
+}
 
 .segundo-rodape {
     background-color: var(--verde);
