@@ -21,7 +21,6 @@ class Perfil(models.Model):
         return self.usuario.username
 
 
-
 #models para informações das instituições
 class Instituicao(models.Model):
     nome = models.CharField(max_length=255)
@@ -62,6 +61,8 @@ class Projeto(models.Model):
     artigos = models.FileField(upload_to='projetos/artigos/', blank=True, null=True)
     pesquisadores = models.ManyToManyField(Pesquisador)
     instituicoes = models.ManyToManyField(Instituicao)
+
+
 
     def __str__(self):
         return self.titulo

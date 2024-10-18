@@ -25,7 +25,13 @@ def editar_tipo_usuario(request, usuario_id):
 
 
 def inicio(request):
-    return render(request, 'index.html')
+    # traz os 6 últimos projetos mais recentes para a primeira seção
+    ultimos_projetos = Projeto.objects.order_by('-id')[:6]
+
+    return render(request, 'index.html', {
+        'ultimos_projetos': ultimos_projetos
+    })
+
 
 def quem_somos(request):
     return render(request, 'Quem Somos/quem_somos.html')
@@ -159,8 +165,8 @@ def listar_projetos(request):
 @login_required
 def detalhes_projeto(request, projeto_id):
     projeto = get_object_or_404(Projeto, id=projeto_id)
-    alunos = projeto.alunos.all()  # Assumindo que há uma relação ManyToMany com Alunos
-    parceiros = projeto.parceiros.all()  # Tem uma relação ManyToMany com Parceiros
+    alunos = projeto.alunos.all()
+    parceiros = projeto.parceiros.all()
     return render(request, 'projetos/detalhes_projeto.html', {'projeto': projeto, 'alunos': alunos, 'parceiros': parceiros})
 
 # Adicionar um novo projeto (Apenas o admin pode acessar)
@@ -173,7 +179,7 @@ def adicionar_projeto(request):
         situacao = request.POST.get('situacao')
         descricao = request.POST.get('descricao')
 
-
+        # Obtendo arquivos, se houver
         fotos = request.FILES.get('fotos', None)
         artigos = request.FILES.get('artigos', None)
 
@@ -188,13 +194,13 @@ def adicionar_projeto(request):
             artigos=artigos
         )
 
-
+        # Adicionando pesquisadores selecionados
         pesquisadores = request.POST.getlist('pesquisadores')
         for pesquisador_id in pesquisadores:
             pesquisador = Pesquisador.objects.get(id=pesquisador_id)
             projeto.pesquisadores.add(pesquisador)
 
-
+        # Adicionando instituições selecionadas
         instituicoes = request.POST.getlist('instituicoes')
         for instituicao_id in instituicoes:
             instituicao = Instituicao.objects.get(id=instituicao_id)
@@ -205,7 +211,7 @@ def adicionar_projeto(request):
         messages.success(request, 'Projeto cadastrado com sucesso.')
         return redirect('listar_projetos')
 
-
+    # Obtendo todos os pesquisadores e instituições para o formulário
     pesquisadores = Pesquisador.objects.all()
     instituicoes = Instituicao.objects.all()
 

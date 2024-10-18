@@ -7,39 +7,19 @@
     <div class="container">
         <div class="primeiro-corpo"> <!--primeiro corpo-->
             <article class="primary">
-                <h1 class="title1">Adicionados recentes</h1>
+                <h1 class="title1">Adicionados recentemente</h1>
                 <div class="cards-container">
-                    <div class="card">
-                        <a href="#">
-                            <p>card 1</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 1</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 1</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 2</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 2</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 2</p>
-                        </a>
-                    </div>
-                </div>
+  <div class="cards-container">
+    {% for projeto in ultimos_projetos %}
+        <div class="card">
+            <a href="{% url 'detalhes_projeto' projeto.id %}">
+                <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                <p>{{ projeto.titulo }}</p>
+            </a>
+        </div>
+    {% endfor %}
+</div>
+
             </article>
             <!--Carrossel princinpal-->
             <div class="carrosel">
