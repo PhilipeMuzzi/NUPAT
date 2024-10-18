@@ -9,7 +9,10 @@
     --navbar-height: 4.75rem;
 
 }
+html{
+    scroll-behavior: smooth;
 
+}
 body {
     font-family: "Red Hat Display",
         sans-serif;

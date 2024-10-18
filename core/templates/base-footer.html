@@ -1,4 +1,6 @@
+   {% load static  %}
    <!--Inicio do rodapé-->
+
     <footer class="primeiro-rodape">
         <div class="voltar-ao-topo">
             <hr>
@@ -72,7 +74,5 @@
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
-    <script src="/Atendimento Virtual/slider.js" defer></script>
-    <script src="js/main.js"></script>
-    <script src="acessiblity_font.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
