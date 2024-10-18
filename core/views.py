@@ -260,7 +260,7 @@ def adicionar_projeto(request):
         projeto.save()
 
         messages.success(request, 'Projeto cadastrado com sucesso.')
-        return redirect('listar_projetos')
+        return redirect('lista_projetos')
 
 
     pesquisadores = Pesquisador.objects.all()
