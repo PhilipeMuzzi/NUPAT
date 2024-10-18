@@ -88,7 +88,7 @@
                     <i class="fi fi-sr-lock"></i>
                     <p>Redefinir Senha</p>
                 </a>
-                <a href="{% url 'listar_projetos' %}">
+                <a href="{% url 'lista_projetos' %}">
                     <i class="fi fi-ss-book"></i>
                     <p>Ver Projetos</p>
                 </a>
@@ -116,7 +116,7 @@
 
 <div class="image">
     {% if perfil.foto_perfil %}
-        <!-- Se o usuário já tiver uma foto de perfil, exibe essa imagem escolhida -->
+        <!-- se o usuário já tiver uma foto de perfil, exibe essa imagem escolhida -->
         <img src="{{ perfil.foto_perfil.url }}" alt="Foto de Perfil" style="width: 100px; height: 100px; border-radius: 50%;">
     {% else %}
         <!-- Se o usuário ainda não tiver uma foto, exibe o ícone padrão -->

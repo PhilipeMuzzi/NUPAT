@@ -4,7 +4,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from . import views
-from .views import CustomLoginView, detalhes_usuario, quem_somos, area_suporte, atendimento_virtual
+from .views import CustomLoginView, detalhes_usuario, quem_somos, area_suporte, atendimento_virtual, listar_projetos, \
+    adicionar_projeto, editar_projeto, deletar_projeto
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
@@ -19,14 +20,21 @@ urlpatterns = [
 
     # gerenciamento de usuários
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
+    path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
+    path('usuarios/<int:usuario_id>/editar/', views.editar_tipo_usuario, name='editar_detalhes'),
+    path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
+    path('usuarios/<int:usuario_id>/editar/', views.editar_usuario, name='editar_usuario'),
+    path('usuarios/<int:usuario_id>/deletar/', views.deletar_usuario, name='deletar_usuario'),
+    path('usuarios/<int:usuario_id>/atualizar_tipo/', views.atualizar_tipo_usuario, name='atualizar_tipo_usuario'),
+
+
 
     # links para gerenciamento dos projetos
-    path('projetos/', views.listar_projetos, name='listar_projetos'),
+    path('projetos/', views.listar_projetos, name='lista_projetos'),  # Corrigido para 'listar_projetos'
     path('projetos/adicionar/', views.adicionar_projeto, name='adicionar_projeto'),
     path('projetos/<int:projeto_id>/', views.detalhes_projeto, name='detalhes_projeto'),
     path('projetos/<int:projeto_id>/editar/', views.editar_projeto, name='editar_projeto'),
     path('projetos/<int:projeto_id>/deletar/', views.deletar_projeto, name='deletar_projeto'),
-
 
 
 

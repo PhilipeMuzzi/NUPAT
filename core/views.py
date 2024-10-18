@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
@@ -5,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.urls import reverse
 
-from .forms import RegistroUsuarioForm, PerfilForm
+from .forms import RegistroUsuarioForm, PerfilForm, ProjetoForm
 from .models import Perfil, Projeto, Pesquisador, Parceiro, Instituicao
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
@@ -173,16 +174,39 @@ def admin_dashboard(request):
 
 # Listagem de projetos
 
+# Listar Projetos
+@staff_member_required
 def listar_projetos(request):
-    pesquisa= request.GET.get('pesquisa')
-    print(pesquisa)
-
-    if pesquisa:
-        projetos = Projeto.objects.filter(titulo__icontains=pesquisa)
-    else:
-        projetos = Projeto.objects.all()
-    
+    projetos = Projeto.objects.all()
     return render(request, 'projetos/lista_projetos.html', {'projetos': projetos})
+
+
+# Editar Projeto
+@staff_member_required
+def editar_projeto(request, projeto_id):
+    projeto = get_object_or_404(Projeto, id=projeto_id)
+
+    if request.method == 'POST':
+        projeto.titulo = request.POST.get('titulo')
+        projeto.resumo = request.POST.get('resumo')
+        projeto.resultados = request.POST.get('resultados')
+        projeto.situacao = request.POST.get('situacao')
+        projeto.descricao = request.POST.get('descricao')
+        projeto.fotos = request.FILES.get('fotos', projeto.fotos)  # Manter a foto padrão se não nova não for enviada
+        projeto.save()
+        messages.success(request, 'Projeto atualizado com sucesso.')
+        return redirect('listar_projetos')
+
+    return render(request, 'projetos/editar_projeto.html', {'projeto': projeto})
+
+# Deletar Projeto
+@staff_member_required
+def deletar_projeto(request, projeto_id):
+    projeto = get_object_or_404(Projeto, id=projeto_id)
+    projeto.delete()
+    messages.success(request, 'Projeto deletado com sucesso.')
+    return redirect('listar_projetos')
+
 
 # view para ver detalhes de um projeto
 
@@ -248,33 +272,43 @@ def adicionar_projeto(request):
     })
 
 # View para admin editar um projeto
+@staff_member_required
 @login_required
 def editar_projeto(request, projeto_id):
     projeto = get_object_or_404(Projeto, id=projeto_id)
+
     if request.method == 'POST':
-        projeto.titulo = request.POST.get('titulo')
-        projeto.resumo = request.POST.get('resumo')
-        projeto.resultados = request.POST.get('resultados')
-        projeto.situacao = request.POST.get('situacao')
-        projeto.descricao = request.POST.get('descricao')
-        if request.FILES.get('fotos'):
-            projeto.fotos = request.FILES.get('fotos')
-        if request.FILES.get('artigos'):
-            projeto.artigos = request.FILES.get('artigos')
-        projeto.pesquisadores.clear()
-        projeto.instituicoes.clear()
-        pesquisadores = request.POST.getlist('pesquisadores')
-        for pesquisador_id in pesquisadores:
-            projeto.pesquisadores.add(Pesquisador.objects.get(id=pesquisador_id))
-        instituicoes = request.POST.getlist('instituicoes')
-        for instituicao_id in instituicoes:
-            projeto.instituicoes.add(Instituicao.objects.get(id=instituicao_id))
-        projeto.save()
-        messages.success(request, 'Projeto atualizado com sucesso.')
-        return redirect('listar_projetos')
+        form = ProjetoForm(request.POST, request.FILES, instance=projeto)
+        if form.is_valid():
+            projeto = form.save(commit=False)  # Salva as alterações mas não persiste ainda
+
+            # Adiciona os pesquisadores e instituições
+            projeto.pesquisadores.clear()
+            projeto.instituicoes.clear()
+
+            pesquisadores = request.POST.getlist('pesquisadores')
+            for pesquisador_id in pesquisadores:
+                projeto.pesquisadores.add(Pesquisador.objects.get(id=pesquisador_id))
+
+            instituicoes = request.POST.getlist('instituicoes')
+            for instituicao_id in instituicoes:
+                projeto.instituicoes.add(Instituicao.objects.get(id=instituicao_id))
+
+            projeto.save()  # Agora persiste as alterações no banco de dados
+            messages.success(request, 'Projeto atualizado com sucesso.')
+            return redirect('listar_projetos')
+    else:
+        form = ProjetoForm(instance=projeto)
+
     pesquisadores = Pesquisador.objects.all()
     instituicoes = Instituicao.objects.all()
-    return render(request, 'projetos/editar_projeto.html', {'projeto': projeto, 'pesquisadores': pesquisadores, 'instituicoes': instituicoes})
+
+    return render(request, 'projetos/editar_projeto.html', {
+        'form': form,
+        'projeto': projeto,
+        'pesquisadores': pesquisadores,
+        'instituicoes': instituicoes
+    })
 
 # view para deletar o projeto
 @login_required
@@ -378,3 +412,42 @@ def detalhes_usuario(request, usuario_id):
 
     return render(request, 'usuarios/detalhes_usuario.html', {'perfil': perfil})
 
+@staff_member_required
+def deletar_usuario(request, usuario_id):
+    usuario = get_object_or_404(Perfil, user_id=usuario_id)
+
+    if request.method == 'POST':
+        usuario.delete()
+        messages.success(request, 'Usuário deletado com sucesso.')
+        return redirect('lista_usuarios')
+
+    return render(request, 'usuarios/deletar_usuario.html', {'usuario': usuario})
+
+
+@staff_member_required
+def editar_usuario(request, usuario_id):
+    usuario = get_object_or_404(Perfil, user_id=usuario_id)
+
+    if request.method == 'POST':
+        form = PerfilForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Usuário atualizado com sucesso.')
+            return redirect('lista_usuarios')
+    else:
+        form = PerfilForm(instance=usuario)
+
+    return render(request, 'usuarios/editar_usuario.html', {'form': form, 'usuario': usuario})
+
+
+def atualizar_tipo_usuario(request, usuario_id):
+    if request.method == 'POST':
+        usuario = get_object_or_404(User, id=usuario_id)
+        tipo_usuario = request.POST.get('tipo_usuario')
+
+        # Atualiza o tipo de usuário
+        perfil = usuario.perfil
+        perfil.tipo_usuario = tipo_usuario
+        perfil.save()
+
+        return redirect('lista_usuarios')  # Redireciona de volta para a lista de usuários

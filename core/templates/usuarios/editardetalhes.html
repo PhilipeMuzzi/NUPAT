@@ -8,44 +8,54 @@
     <h2>Editar Detalhes do Perfil de {{ perfil.usuario.username }}</h2>
 
     <div class="image">
-
-            <i class="fa-solid fa-circle-user" style="color: #304d30; font-size: 100px;"></i>
-
+        <i class="fa-solid fa-circle-user" style="color: #304d30; font-size: 100px;"></i>
         <a href="{% url 'editar_detalhes' usuario_id=perfil.usuario.id %}">Alterar foto do perfil</a>
     </div>
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
 
-    <div>
-        <label for="foto_perfil">Selecionar nova foto de perfil:</label>
-        <input type="file" name="foto_perfil" id="foto_perfil" accept="image/*" onchange="previewImage(event)">
-    </div>
+        <!-- Exibindo o formulário gerado pelo Django -->
+        {{ form.as_p }}
 
-    <button type="submit">Salvar Atualizações</button>
-</form>
+        <div>
+            <label for="foto_perfil">Selecionar nova foto de perfil:</label>
+            <input type="file" name="foto_perfil" id="foto_perfil" accept="image/*" onchange="previewImage(event)">
+        </div>
 
+        <div>
+            <label for="tipo_usuario">Tipo de Usuário:</label>
+            <select name="tipo_usuario" id="tipo_usuario">
+                {% for tipo in perfil.TIPO_USUARIO_CHOICES %}
+                    <option value="{{ tipo.0 }}" {% if perfil.tipo_usuario == tipo.0 %}selected{% endif %}>
+                        {{ tipo.1 }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit">Salvar Atualizações</button>
+    </form>
 
     <a href="{% url 'detalhes_usuario' usuario_id=perfil.usuario.id %}">Cancelar</a>
 
-<script>
-    function previewImage(event) {
-        const file = event.target.files[0];
-        const reader = new FileReader();
-        reader.onload = function(){
-            const img = document.createElement('img');
-            img.src = reader.result;
-            img.style.width = '100px';
-            img.style.height = '100px';
-            img.style.borderRadius = '50%';
-            const imageDiv = document.querySelector('.image');
-            imageDiv.innerHTML = ''; // Limpa a imagem existente
-            imageDiv.appendChild(img); // Adiciona a nova imagem selecionada
+    <script>
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function(){
+                const img = document.createElement('img');
+                img.src = reader.result;
+                img.style.width = '100px';
+                img.style.height = '100px';
+                img.style.borderRadius = '50%';
+                const imageDiv = document.querySelector('.image');
+                imageDiv.innerHTML = ''; // Limpa a imagem existente
+                imageDiv.appendChild(img); // Adiciona a nova imagem selecionada
+            }
+            reader.readAsDataURL(file);
         }
-        reader.readAsDataURL(file);
-    }
-</script>
+    </script>
 
 </body>
 </html>
