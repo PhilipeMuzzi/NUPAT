@@ -91,15 +91,22 @@
 
 
 
-               {% if user.is_authenticated %}
-                    <a href="{% url 'logout' %}">
-                        <p>Sair</p>
-                    </a>
-                {% else %}
-                    <a href="{% url 'login' %}">
-                        <p>Entrar</p>
-                    </a>
-                {% endif %}
+{% if user.is_authenticated %}
+    {% if user.is_staff %}
+        <a href="{% url 'admin_dashboard' %}"> <!-- Substitua 'dashboard_admin' pelo nome da URL do seu dashboard -->
+            <p>ADMIN</p>
+        </a>
+    {% else %}
+        <a href="{% url 'logout' %}">
+            <p>Sair</p>
+        </a>
+    {% endif %}
+{% else %}
+    <a href="{% url 'login' %}">
+        <p>Entrar</p>
+    </a>
+{% endif %}
+
 
                 </li>
             </ul>
