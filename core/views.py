@@ -60,18 +60,36 @@ def registro(request):
 
 
 def atualiza_perfil(request, usuario_id):
-    perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
+    perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
 
     if request.method == 'POST':
+        # Inclua request.FILES para capturar o arquivo da imagem
         form = PerfilForm(request.POST, request.FILES, instance=perfil)
+
+        # Adicionando log para verificar se o arquivo foi enviado
+        if 'foto_perfil' in request.FILES:
+            print("Arquivo de imagem enviado:", request.FILES['foto_perfil'])
+        else:
+            print("Nenhuma imagem enviada")
+
         if form.is_valid():
-            form.save()
-            messages.success(request, 'As informações foram atualizadas com sucesso!')
+            form.save()  # Salva o formulário e a imagem
+            # Adicionando log para confirmar que a imagem foi salva no banco de dados
+            if perfil.foto_perfil:
+                print(f"Imagem salva com sucesso: {perfil.foto_perfil.url}")
+            else:
+                print("Erro ao salvar a imagem")
+
             return redirect('detalhes_usuario', usuario_id=usuario_id)
+        else:
+            print("Formulário inválido. Erros:", form.errors)
     else:
         form = PerfilForm(instance=perfil)
 
     return render(request, 'usuarios/editardetalhes.html', {'form': form, 'perfil': perfil})
+
+
+
 # views.py
 def detalhes_usuario(request, usuario_id):
     print(f"Usuario ID: {usuario_id}")
@@ -89,15 +107,19 @@ def editar_detalhes(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
 
     if request.method == 'POST':
-        form = PerfilForm(request.POST, instance=perfil)
+        form = PerfilForm(request.POST, request.FILES, instance=perfil)  # Aqui o request.FILES é essencial para processar arquivos
+
         if form.is_valid():
-            form.save()
+            form.save()  # Aqui o arquivo da foto_perfil é salvo junto com os outros campos
             messages.success(request, 'As informações foram atualizadas com sucesso!')
             return redirect('detalhes_usuario', usuario_id=usuario_id)
+        else:
+            print(form.errors)  # Isso mostrará erros no formulário se houver algum problema
     else:
         form = PerfilForm(instance=perfil)
 
     return render(request, 'usuarios/editardetalhes.html', {'form': form, 'perfil': perfil})
+
 # Login
 @login_required
 def login_view(request):

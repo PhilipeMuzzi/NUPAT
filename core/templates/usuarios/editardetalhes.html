@@ -14,37 +14,38 @@
         <a href="{% url 'editar_detalhes' usuario_id=perfil.usuario.id %}">Alterar foto do perfil</a>
     </div>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
 
+    <div>
+        <label for="foto_perfil">Selecionar nova foto de perfil:</label>
+        <input type="file" name="foto_perfil" id="foto_perfil" accept="image/*" onchange="previewImage(event)">
+    </div>
 
-        <div>
-            <label for="foto_perfil">Selecionar nova foto de perfil:</label>
-            <input type="file" name="foto_perfil" id="foto_perfil" accept="image/*" onchange="previewImage(event)">
-        </div>
+    <button type="submit">Salvar Atualizações</button>
+</form>
 
-        <button type="submit">Salvar Atualizações</button>
-    </form>
 
     <a href="{% url 'detalhes_usuario' usuario_id=perfil.usuario.id %}">Cancelar</a>
 
-    <script>
-        function previewImage(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onload = function(){
-                const img = document.createElement('img');
-                img.src = reader.result;
-                img.style.width = '100px';
-                img.style.height = '100px';
-                img.style.borderRadius = '50%';
-                const imageDiv = document.querySelector('.image');
-                imageDiv.innerHTML = '';
-                imageDiv.appendChild(img);
-            }
-            reader.readAsDataURL(file);
+<script>
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+        reader.onload = function(){
+            const img = document.createElement('img');
+            img.src = reader.result;
+            img.style.width = '100px';
+            img.style.height = '100px';
+            img.style.borderRadius = '50%';
+            const imageDiv = document.querySelector('.image');
+            imageDiv.innerHTML = ''; // Limpa a imagem existente
+            imageDiv.appendChild(img); // Adiciona a nova imagem selecionada
         }
-    </script>
+        reader.readAsDataURL(file);
+    }
+</script>
+
 </body>
 </html>

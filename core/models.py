@@ -7,7 +7,7 @@ class Perfil(models.Model):
     telefone = models.CharField(max_length=15)
     endereco = models.CharField(max_length=255)
     instituto = models.CharField(max_length=100)
-    foto_perfil = models.ImageField(upload_to='fotos_perfil/', blank=True, null=True)
+    foto_perfil = models.ImageField(upload_to='user/fotos_perfil/', blank=True, null=True)
 
     TIPO_USUARIO_CHOICES = [
         ('Aluno', 'Aluno'),
@@ -65,7 +65,6 @@ class Projeto(models.Model):
     artigos = models.FileField(upload_to='projetos/artigos/', blank=True, null=True)
     pesquisadores = models.ManyToManyField(Pesquisador)
     instituicoes = models.ManyToManyField(Instituicao)
-
     alunos = models.ManyToManyField(Perfil, related_name='projetos', blank=True)
 
 
