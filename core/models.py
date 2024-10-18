@@ -6,9 +6,9 @@ class Perfil(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     telefone = models.CharField(max_length=15)
     endereco = models.CharField(max_length=255)
-    profissao = models.CharField(max_length=100)
+    instituto = models.CharField(max_length=100)
+    foto_perfil = models.ImageField(upload_to='user/fotos_perfil/', blank=True, null=True)
 
-    # Defina o campo tipo_usuario
     TIPO_USUARIO_CHOICES = [
         ('Aluno', 'Aluno'),
         ('Professor', 'Professor'),
@@ -16,9 +16,10 @@ class Perfil(models.Model):
     ]
     tipo_usuario = models.CharField(max_length=20, choices=TIPO_USUARIO_CHOICES, default='Aluno')
 
+
+
     def __str__(self):
         return self.usuario.username
-
 
 
 #models para informações das instituições
@@ -45,6 +46,9 @@ class Pesquisador(models.Model):
 
 #Models para status do projeto e suas informações
 
+
+
+
 class Projeto(models.Model):
     SITUACAO_CHOICES = [
         ('concluido', 'Concluído'),
@@ -61,6 +65,9 @@ class Projeto(models.Model):
     artigos = models.FileField(upload_to='projetos/artigos/', blank=True, null=True)
     pesquisadores = models.ManyToManyField(Pesquisador)
     instituicoes = models.ManyToManyField(Instituicao)
+    alunos = models.ManyToManyField(Perfil, related_name='projetos', blank=True)
+
+
 
     def __str__(self):
         return self.titulo
@@ -74,9 +81,6 @@ class Parceiro(models.Model):
 
     def __str__(self):
         return self.nome
-
-
-
 
 #models de imagens
 class ImagemSite(models.Model):

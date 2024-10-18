@@ -1,8 +1,10 @@
 from django.contrib.auth.views import LoginView
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
-from .views import CustomLoginView, detalhes_usuario
+from .views import CustomLoginView, detalhes_usuario, quem_somos, area_suporte, atendimento_virtual
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
@@ -11,6 +13,9 @@ urlpatterns = [
     path('login/', CustomLoginView.as_view(), name='login'),
     path('usuarios/<int:usuario_id>/editar/', views.editar_detalhes, name='editar_detalhes'),
     path('usuarios/<int:usuario_id>/', detalhes_usuario, name='detalhes_usuario'),
+    path('quem-somos/', quem_somos, name='quem_somos'),
+    path('area-suporte/', area_suporte, name='area_suporte'),
+    path('atendimento-virtual/', atendimento_virtual, name='atendimento_virtual'),
 
     # gerenciamento de usuários
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
@@ -21,7 +26,10 @@ urlpatterns = [
     path('projetos/<int:projeto_id>/', views.detalhes_projeto, name='detalhes_projeto'),
     path('projetos/<int:projeto_id>/editar/', views.editar_projeto, name='editar_projeto'),
     path('projetos/<int:projeto_id>/deletar/', views.deletar_projeto, name='deletar_projeto'),
-    path('projetos/<int:projeto_id>/inscricao/', views.inscricao_projeto, name='inscricao_projeto'),
+
+
+
+
 
     # links para gerenciamento dos pesquisadores
     path('pesquisadores/', views.listar_pesquisadores, name='listar_pesquisadores'),
@@ -50,3 +58,5 @@ urlpatterns = [
 
 
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

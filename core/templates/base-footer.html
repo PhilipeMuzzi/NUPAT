@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/af6c14a78e.js" crossorigin="anonymous"></script>
-    <title>Rodapé</title>
-</head>
-
-<body>
-
+   <!--Inicio do rodapé-->
     <footer class="primeiro-rodape">
         <div class="voltar-ao-topo">
             <hr>
@@ -25,19 +13,19 @@
                         <strong style="cursor: default;">Institucional</strong>
                     </h3>
                     <p>
-                        <a href="">Portal IFRN</a>
+                        <a href="https://portal.ifrn.edu.br">Portal IFRN</a>
                         <a href="">FAQs</a>
-                        <a href="">Portal do Suap</a>
-                        <a href="">Sobre Nós</a>
-                    </p>
+                        <a href="https://suap.ifrn.edu.br/accounts/login/?next=/">Portal do Suap</a>
+                      <a href="{% url 'quem_somos' %}">Sobre Nós</a>
 
+                    </p>
                 </div>
                 <div class="segundo-txt">
                     <h3>
                         <strong style="cursor: default;">Serviços</strong>
                     </h3>
                     <p>
-                        <a href="">Atendimento Virtual</a>
+                        <a href="{% url 'atendimento_virtual' %}">Atendimento Virtual</a>
                         <a href="">Suporte ao Usuário</a>
                         <a href="">Feedback</a>
                     </p>
@@ -45,18 +33,14 @@
             </div>
             <div class="img-dados">
                 <div class="img-logo">
-                    <img src="img/4Iwakb0M_400x400.png"  alt="Logo do IFRN" 
-                    width="180px" height="180px"
-                    id="logo-ifrn"
-                    style="mix-blend-mode: multiply;" >
-                    <img src="img/icon_u.webp" alt="Logo do NUPAT" 
-                    width="300px" height="300px"
-                    id="logo-nupat">
+                    <img src="static/img/4Iwakb0M_400x400.png" alt="Logo do IFRN" width="120px" height="120px" id="logo-ifrn"
+                        style="mix-blend-mode: multiply;">
+                    <img src="static/img/icon_u.webp" alt="Logo do NUPAT" width="200px" height="200px" id="logo-nupat">
                 </div>
                 <div class="dados-icons">
                     <h3>Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT</h3>
                     <p>
-                        Endereço: BR 101, km 106, s/n, Areia branca  <br>
+                        Endereço: BR 101, km 106, s/n, Areia branca <br>
                         E-mail: XXXXXXXXX@gmail.com - Canguaretama-RN | CEP: 59190-000 <br>
                         Telefone: (84) X XXXX-XXXX <br>
                     </p>
@@ -64,7 +48,7 @@
                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
                         <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                         <a href="#"> <i class="fa-brands fa-square-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>    
+                        <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
                     </nav>
                 </div>
             </div>
@@ -77,7 +61,18 @@
             </p>
         </div>
     </footer>
+    <!-- acessibilidade de libras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="/Atendimento Virtual/slider.js" defer></script>
     <script src="js/main.js"></script>
+    <script src="acessiblity_font.js"></script>
 </body>
-
-</html>

@@ -51,14 +51,14 @@ nav ul {
     justify-content: center;
 }
 .font-size-small {
-    font-size: 12px; 
+    font-size: 12px;
 }
 .font-size-normal {
     font-size: 16px; /
 }
 
 .font-size-large {
-    font-size: 20px; 
+    font-size: 20px;
 }
 .sb-structure__accessibility-bar__d-block{
     margin-top: -6%;
@@ -92,18 +92,18 @@ nav ul {
     display: block;
     flex-direction: row;
     background-color: #304D30;
-}  
+}
 .seg-header ul
 {
     padding: 10px;
     display: flex;
     justify-content: center;
-    
+
 }
 .menu
 {
     height: 80px;
-    
+
 }
 .menu ul
 {
@@ -143,12 +143,12 @@ nav ul {
 .menu img
 {
     margin-right: 400px;
-    width: 23.5%; 
+    width: 23.5%;
     height: 52.5px;
     margin-left: -19%;
     margin-top: -2%;
-    
-    
+
+
 }
 .menu .buscar-box
 {
@@ -210,7 +210,7 @@ nav ul {
     background-color: #EEF0E5;
     padding: 5px 5px;
     width: 230%;
-    
+
 }
 .submenu p a
 {
@@ -222,7 +222,7 @@ nav ul {
     transition: background .5s, color .5s;
     padding: 5px;
     margin: -1px;
-    
+
 }
 .submenu p:hover
 {
@@ -230,7 +230,7 @@ nav ul {
     color: #000000;
     border-radius: 5px;
 }
-.submenu details summary i 
+.submenu details summary i
 {
     font-size: 15px;
     position: relative;
@@ -243,7 +243,7 @@ nav ul {
 }
 .submenu details summary:hover .fa-chevron-down  {
     transform: rotate(180deg);
-   
+
 }
 
 main
@@ -265,7 +265,7 @@ main img
     width: 100%;
 }
 main .img-text
-{ 
+{
     position:absolute;
     top: 70%;
     left: 35%;
@@ -377,7 +377,7 @@ main .atendimento ul li, .suporte div
     padding-bottom: 100px;
 }
 .perguntas-frequentes summary
-{ 
+{
     width: 70%;
     text-align: center;
     margin-left: 15%;
@@ -391,7 +391,7 @@ main .atendimento ul li, .suporte div
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     color: #EEF0E5;
 }
-.perguntas-frequentes summary i 
+.perguntas-frequentes summary i
 {
     font-size: 15px;
     position: relative;
@@ -404,7 +404,7 @@ main .atendimento ul li, .suporte div
 }
 .perguntas-frequentes summary:hover .fa-chevron-down  {
     transform: rotate(180deg);
-   
+
 }
 .perguntas-frequentes summary:hover
 {
@@ -432,7 +432,7 @@ main .atendimento ul li, .suporte div
     width: 100%;
     height: 100%;
     background-color: #EEF0E5;
-    
+
 }
 
 .voltar-ao-topo {
@@ -477,7 +477,7 @@ main .atendimento ul li, .suporte div
     display: flex;
     flex-direction: column;
     gap: 15px;
-   
+
 }
 .primeiro-txt p,
 .segundo-txt p {
@@ -491,7 +491,7 @@ main .atendimento ul li, .suporte div
 .segundo-txt p :hover{
     color: #00ff00;
     transition: 0.5s;
-} 
+}
 .img-dados {
     display: flex;
     justify-content: space-around;
@@ -524,7 +524,7 @@ main .atendimento ul li, .suporte div
 .icons a i:hover{
     color: #00ff00;
     transition: 0.5s;
-} 
+}
 
 .dados-icons>.icons {
     background-color: transparent;

@@ -25,7 +25,26 @@ def editar_tipo_usuario(request, usuario_id):
 
 
 def inicio(request):
-    return render(request, 'index.html')
+    # traz os 6 últimos projetos mais recentes para a primeira seção
+    ultimos_projetos = Projeto.objects.order_by('-id')[:6]
+
+    return render(request, 'index.html', {
+        'ultimos_projetos': ultimos_projetos
+    })
+
+
+def quem_somos(request):
+    return render(request, 'Quem Somos/quem_somos.html')
+
+def area_suporte(request):
+    return render(request, 'Área de Suporte/area_suporte.html')
+
+
+def atendimento_virtual(request):
+    return render(request, 'Atendimento virtual/atendimento_virtual.html')
+
+
+
 
 # view para registro de novos usuários
 
@@ -44,14 +63,33 @@ def atualiza_perfil(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
 
     if request.method == 'POST':
-        form = PerfilForm(request.POST, instance=perfil)
+        # Inclua request.FILES para capturar o arquivo da imagem
+        form = PerfilForm(request.POST, request.FILES, instance=perfil)
+
+        # Adicionando log para verificar se o arquivo foi enviado
+        if 'foto_perfil' in request.FILES:
+            print("Arquivo de imagem enviado:", request.FILES['foto_perfil'])
+        else:
+            print("Nenhuma imagem enviada")
+
         if form.is_valid():
-            form.save()
-            return redirect('detalhes_usuario', usuario_id=usuario_id)  # Redireciona após salvar
+            form.save()  # Salva o formulário e a imagem
+            # Adicionando log para confirmar que a imagem foi salva no banco de dados
+            if perfil.foto_perfil:
+                print(f"Imagem salva com sucesso: {perfil.foto_perfil.url}")
+            else:
+                print("Erro ao salvar a imagem")
+
+            return redirect('detalhes_usuario', usuario_id=usuario_id)
+        else:
+            print("Formulário inválido. Erros:", form.errors)
     else:
         form = PerfilForm(instance=perfil)
 
     return render(request, 'usuarios/editardetalhes.html', {'form': form, 'perfil': perfil})
+
+
+
 # views.py
 def detalhes_usuario(request, usuario_id):
     print(f"Usuario ID: {usuario_id}")
@@ -65,20 +103,23 @@ def detalhes_usuario(request, usuario_id):
     return render(request, 'usuarios/detalhes_usuario.html', {'perfil': perfil})
 
 
-
 def editar_detalhes(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
 
     if request.method == 'POST':
-        form = PerfilForm(request.POST, instance=perfil)
+        form = PerfilForm(request.POST, request.FILES, instance=perfil)  # Aqui o request.FILES é essencial para processar arquivos
+
         if form.is_valid():
-            form.save()
+            form.save()  # Aqui o arquivo da foto_perfil é salvo junto com os outros campos
             messages.success(request, 'As informações foram atualizadas com sucesso!')
             return redirect('detalhes_usuario', usuario_id=usuario_id)
+        else:
+            print(form.errors)  # Isso mostrará erros no formulário se houver algum problema
     else:
         form = PerfilForm(instance=perfil)
 
     return render(request, 'usuarios/editardetalhes.html', {'form': form, 'perfil': perfil})
+
 # Login
 @login_required
 def login_view(request):
@@ -144,12 +185,16 @@ def listar_projetos(request):
     return render(request, 'projetos/lista_projetos.html', {'projetos': projetos})
 
 # view para ver detalhes de um projeto
-@login_required
+
 def detalhes_projeto(request, projeto_id):
     projeto = get_object_or_404(Projeto, id=projeto_id)
-    alunos = projeto.alunos.all()  # Assumindo que há uma relação ManyToMany com Alunos
-    parceiros = projeto.parceiros.all()  # Tem uma relação ManyToMany com Parceiros
-    return render(request, 'projetos/detalhes_projeto.html', {'projeto': projeto, 'alunos': alunos, 'parceiros': parceiros})
+    alunos = projeto.alunos.all()
+    parceiros = projeto.pesquisadores.all()
+    return render(request, 'projetos/detalhes_projeto.html', {
+        'projeto': projeto,
+        'alunos': alunos,
+        'parceiros': parceiros
+    })
 
 # Adicionar um novo projeto (Apenas o admin pode acessar)
 @staff_member_required
@@ -161,7 +206,7 @@ def adicionar_projeto(request):
         situacao = request.POST.get('situacao')
         descricao = request.POST.get('descricao')
 
-
+        # Obtendo arquivos, se houver
         fotos = request.FILES.get('fotos', None)
         artigos = request.FILES.get('artigos', None)
 
@@ -202,7 +247,7 @@ def adicionar_projeto(request):
         'instituicoes': instituicoes
     })
 
-# View para editar projeto
+# View para admin editar um projeto
 @login_required
 def editar_projeto(request, projeto_id):
     projeto = get_object_or_404(Projeto, id=projeto_id)
@@ -243,29 +288,15 @@ def deletar_projeto(request, projeto_id):
 
 
 
-# Inscrição de aluno em um projeto
-@login_required
-def inscricao_projeto(request, projeto_id):
-    projeto = get_object_or_404(Projeto, id=projeto_id)
-    if request.method == 'POST':
-        aluno = request.user.perfil  # usuário logado
-        projeto.alunos.add(aluno)
-        projeto.save()
-        messages.success(request, 'Inscrição realizada com sucesso.')
-        return redirect('detalhes_projeto', projeto_id=projeto_id)
-    return render(request, 'projetos/inscricao_projeto.html', {'projeto': projeto})
 
-
-
-# Listagem de pesquisadores
+# listagem de pesquisadores
 @login_required
 def listar_pesquisadores(request):
     pesquisadores = Pesquisador.objects.all()
     return render(request, 'pesquisadores/lista_pesquisadores.html', {'pesquisadores': pesquisadores})
 
 
-
-# Adicionar novo pesquisador
+# adicionar novo pesquisador
 @login_required
 def adicionar_pesquisador(request):
     if request.method == 'POST':
@@ -302,6 +333,7 @@ def save(self, commit=True):
 def listar_parceiros(request):
     parceiros = Parceiro.objects.all()
     return render(request, 'parceiros/lista_parceiros.html', {'parceiros': parceiros})
+
 
 # Adicionar novo parceiro
 @login_required

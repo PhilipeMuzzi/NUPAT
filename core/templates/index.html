@@ -105,92 +105,24 @@
 
 
 
-                {% if user.is_authenticated %}
+{% include 'base-header.html' %}
 
-
-                    {% if user.perfil.tipo_usuario == 'servidor' %}
-                        <li><a href="{% url 'adicionar_projeto' %}">Criar Projeto</a></li>
-                        <li><a href="{% url 'lista_usuarios' %}">Gerenciar Usuários</a></li>
-                        <li><a href="{% url 'adicionar_parceiro' %}">Adicionar Parceiro</a></li>
-
-
-                    {% elif user.perfil.tipo_usuario == 'aluno' %}
-                        <li><a href="{% url 'listar_projetos' %}">Inscrever-se em Projetos</a></li>
-
-
-                    {% else %}
-                       <li><a href="{% url 'detalhes_usuario' usuario_id=user.id %}">Meu Perfil</a></li>
-
-                    {% endif %}
-
-                    <!-- Link para o logout, que só estará disponível para todos os usuários autenticados -->
-                    <li><a href="{% url 'logout' %}">Sair</a></li>
-
-                <!-- Se o usuário não estiver autenticado -->
-                {% else %}
-                    <li><a href="{% url 'login' %}">Login</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-        <nav>
-
-        </nav>
-    </header>
-        <div class="submenu">
-            <ul>
-                <li>
-                    <p>Projetos <i class="fa-solid fa-chevron-down"></i></p>
-                    <ul>
-                        <li><a href="#">Projetos Iniciados</a></li>
-                        <li><a href="#">Projetos em Andamento</a></li>
-                        <li><a href="#">Projetos Concluídos</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <p>Suporte <i class="fa-solid fa-chevron-down"></i></p>
-                    <ul id="btn-suporte">
-                        <li><a href="atendimento_virtual.html">Atendimento Virtual </a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
     <div class="container">
         <div class="primeiro-corpo"> <!--primeiro corpo-->
             <article class="primary">
-                <h1 class="title1">Adicionados recentes</h1>
+                <h1 class="title1">Adicionados recentemente</h1>
                 <div class="cards-container">
-                    <div class="card">
-                        <a href="#">
-                            <p>card 1</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 1</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 1</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 2</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 2</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 2</p>
-                        </a>
-                    </div>
+                  <div class="cards-container">
+                    {% for projeto in ultimos_projetos %}
+                        <div class="card">
+                            <a href="{% url 'detalhes_projeto' projeto.id %}">
+                                <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                                <p>{{ projeto.titulo }}</p>
+                            </a>
+                        </div>
+                    {% endfor %}
                 </div>
+
             </article>
             <!--Carrossel princinpal-->
             <div class="carrosel">
@@ -236,7 +168,7 @@
             </div>
 
             <article class="second">
-                <h1 class="title2"> Revelantes</h1>
+                <h1 class="title2"> Relevantes</h1>
                 <div class="cards-container">
                     <div class="card">
                         <a href="#">
@@ -272,105 +204,21 @@
             </article>
         </div>
         <div class="segundo-corpo"> <!--segundo corpo-->
-            <div class="cadastro">
-                <img src="/Atendimento Virtual/img/Nucleo-de-Pesquisa-ESEG.jpg"
-                    alt="Foto de sobre cadastro de projeto no NUPAT">
-                <a href=".">
-                    <input type="submit" value="CADASTRE SEU PROJETO AQUI">
-                </a>
-            </div>
+
             <div class="notice">
                 <div onload="carregarNoticias()">
-                    <div class="card-noticias">
-                      <h2>Notícias</h2>
-                      <div id="noticias"></div>
-                    </div>
                 </div>
             </div>
             <div class="nupat">
-                <a href="#">
+                <a href="{% url 'quem_somos' %}">
                     <p> Quem somos?</p>
                 </a>
             </div>
         </div>
     </div>
-    <!--Inicio do rodapé-->
-    <footer class="primeiro-rodape">
-        <div class="voltar-ao-topo">
-            <hr>
-            <i class="fa-solid fa-arrow-up-long" style="color: #304d30;"></i>
-            <a href="" onclick="subiraoTopo();">Voltar ao topo</a>
-            <hr>
-        </div>
-        <article>
-            <div class="container-texto">
-                <div class="primeiro-txt">
-                    <h3>
-                        <strong style="cursor: default;">Institucional</strong>
-                    </h3>
-                    <p>
-                        <a href="">Portal IFRN</a>
-                        <a href="">FAQs</a>
-                        <a href="">Portal do Suap</a>
-                        <a href="">Sobre Nós</a>
-                    </p>
-                </div>
-                <div class="segundo-txt">
-                    <h3>
-                        <strong style="cursor: default;">Serviços</strong>
-                    </h3>
-                    <p>
-                        <a href="">Atendimento Virtual</a>
-                        <a href="">Suporte ao Usuário</a>
-                        <a href="">Feedback</a>
-                    </p>
-                </div>
-            </div>
-            <div class="img-dados">
-                <div class="img-logo">
-                    <img src="img/4Iwakb0M_400x400.png" alt="Logo do IFRN" width="180px" height="180px" id="logo-ifrn"
-                        style="mix-blend-mode: multiply;">
-                    <img src="img/icon_u.webp" alt="Logo do NUPAT" width="300px" height="300px" id="logo-nupat">
-                </div>
-                <div class="dados-icons">
-                    <h3>Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT</h3>
-                    <p>
-                        Endereço: BR 101, km 106, s/n, Areia branca <br>
-                        E-mail: XXXXXXXXX@gmail.com - Canguaretama-RN | CEP: 59190-000 <br>
-                        Telefone: (84) X XXXX-XXXX <br>
-                    </p>
-                    <nav class="icons">
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href="#"> <i class="fa-brands fa-square-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-square-x-twitter"></i></a>
-                    </nav>
-                </div>
-            </div>
-        </article>
-    </footer>
-    <footer class="segundo-rodape">
-        <div class="copyright">
-            <p> Política de privacidade | Termo de uso | Cookies </p>
-            <p> Copyright &copy; 2024 | Núcleo de Pesquisa em Acessibilidade e Tecnologia | IFRN - Campus Canguaretama
-            </p>
-        </div>
-    </footer>
-    <!-- acessibilidade de libras -->
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
-    </div>
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
-    </script>
-    <script src="/Atendimento Virtual/slider.js" defer></script>
-    <script src="js/main.js"></script>
-    <script src="acessiblity_font.js"></script>
-</body>
+
+
+
 </html>
 
-
+{% include 'base-footer.html' %}

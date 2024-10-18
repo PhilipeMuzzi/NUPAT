@@ -123,6 +123,12 @@ LOGOUT_REDIRECT_URL = '/'
 
 STATIC_URL = 'static/'
 
+# URL para servir arquivos de mídia
+MEDIA_URL = '/media/'
+
+# Diretório para armazenar arquivos de mídia
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
