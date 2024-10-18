@@ -257,8 +257,7 @@ nav ul {
     border-style: inherit;
     color: var(--verde);
 }
-
-/* TESTANDO IMPLEMENTAÇÃO DO CARROSEL DE VANESSA*/
+/* carrossel de fotos grupais*/
 
 section.slider {
     margin: 0 auto 0 auto;
@@ -301,7 +300,7 @@ section.slider {
     overflow: hidden;
 }
 .nav-manual .manual-btn, .nav-auto div {
-    border: 1px solid #304D30;
+    border: 1px solid #98c798;
     padding: 9px;
     border-radius: 50%;
     cursor: pointer;
@@ -314,7 +313,7 @@ section.slider {
     background-color: #304D30;
 }
 #radio1:checked ~ .nav-auto .auto-btn1, #radio2:checked ~ .nav-auto .auto-btn2, #radio3:checked ~ .nav-auto .auto-btn3 {
-    background-color: #304D30;
+    background-color: #c9e2c9;
 }
 
 #radio1:checked ~ .primeiro {

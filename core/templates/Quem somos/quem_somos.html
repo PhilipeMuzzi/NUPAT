@@ -142,15 +142,15 @@
                         <!--As imagens abaixo vai ser alterada para fotos posteriores dos componentes dos grupos em atividades relacionada ao NUPAT--> 
                         <div class="slider-box primeiro">
                             <div class="img-container">  
-                            <img class="img-desktop" src="/Quem somos/img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg" alt="Imagem ilustrativa">
+                            <img class="img-desktop" src="{%static 'img/trabgroup.png' %}" alt="Imagem ilustrativa">
                         </div></div>
                         <div class="slider-box">
                             <div class="img-container">
-                            <img class="img-desktop" src="/Quem somos/img/afinal-para-que-serve-um-nucleo-de-pesquisa-em-uma-faculdade-1024x683.jpeg" alt="Imagem ilustrativa">
+                            <img class="img-desktop" src="{%static 'img/ilu.png' %}" alt="Imagem ilustrativa">
                         </div></div>
                         <div class="slider-box">
                             <div class="img-container">
-                            <img class="img-desktop" src="/Quem somos/img/foto01.quemsomos.avif" alt="Imagem ilustrativa">
+                            <img class="img-desktop" src="{%static 'img/ilu1.png' %}" alt="Imagem ilustrativa">
                         </div>
                         </div>
                         <div class="nav-auto">
@@ -194,19 +194,19 @@
                 <div class="photos">
                     <div class="profilesec">
                         <div class="circle">
-                            <img src="/Quem somos/img/prof_tati.jpg" alt=" Foto de perfil da Mestra Amaral, coordenadora do NUPAT.">
+                            <img src="{% static 'img/prof_tati.jpg' %}" alt=" Foto de perfil da Mestra Amaral, coordenadora do NUPAT.">
                         </div>
                         <p>Tatiana Sorrentino | Professora e Coordenadora do Nupat. </p>
                     </div>
                     <div class="profilesec">
                         <div class="circle">
-                            <img src="/Quem somos/img/Dev_vitor.jpg" alt="Foto de perfil do aluno Vitor, Desenvolvedor Front-End">
+                            <img src="{% static 'img/Dev_vitor.jpg' %}" alt="Foto de perfil do aluno Vitor, Desenvolvedor Front-End">
                         </div>
                         <p> Vitor Emanuel | Desenvolvedor Front-end</p>
                     </div>
                     <div class="profilesec">
                         <div class="circle">
-                            <img src="/Quem somos/img/Dev_David.jpg" alt="Foto de Perfil do Aluno David, Desenvolvedor Front-End">
+                            <img src="{% static 'img/Dev_David.jpg' %}" alt="Foto de Perfil do Aluno David, Desenvolvedor Front-End">
                         </div>
                         <p>David Lopes | Desenvolvedor Front-End</p>
                     </div>
@@ -236,9 +236,9 @@
                     </div>
                     <div class="profilesec">
                         <div class="circle">
-                            <img src="/Quem somos/img/phototest.jpg" alt="Person 7">
+                            <img src="{% static 'img/peu.designer.jpg'%}" alt="Foto de Perfil do Aluno Pedro, Designer UX/UI">
                         </div>
-                        <p> Phillip Muzzi | Desenvolvedor Back-end</p>
+                        <p> Pedro Cavalcante | Designer UX/UI</p>
                     </div>
                     <div class="profilesec">
                         <div class="circle">
@@ -346,8 +346,8 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
     <script src="/Rodapé-padrão/js/main.js"></script>
-    <script src="/Atendimento Virtual/slider.js" defer></script>
-    <script src="photos.js"></script>
+    <script src="{% static 'js/slider.js' %}" defer></script>
+    <script src="{% static  'js/carrosel.js' %}"></script>
     <script src="acessiblity_font.js"></script>
 </body>
 </html>
