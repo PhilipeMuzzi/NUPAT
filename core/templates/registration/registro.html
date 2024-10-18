@@ -1,19 +1,36 @@
+
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <title>Entrar</title>
 </head>
 <body>
-    <div class="form-container">
-        <h2>Cadastro</h2>
-            <form method="POST">
-                {% csrf_token %}
-                {{ formulario.as_p }}
-                <button type="submit">Registrar</button>
-            </form>
+    <main>
+        <div class="img">
+            <img src="{% static 'img/logo_02.png' %}" class="logo_nupat" alt="logo nupat">
+            <img src="{% static 'img/img-login.png'%}" alt="logo login">
+        </div>
+        
 
-    </div>
+        <div class="container">
+            <h2>Cadastro</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ formulario.as_p }}
+                    <div class="btn">
+                        <button type="submit" >Registrar</button>
+                        <a href="{% url 'inicio' %}">Voltar ao menu</a>
+                    </div>
+                </form>
+    
+        </div>
+    </main>
+    {% include 'base-footer.html' %}
 </body>
 </html>
+

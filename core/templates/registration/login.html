@@ -17,7 +17,7 @@
         
 
         <div class="container">
-            <form method="post" class="card card-body">
+            <form method="post">
                 {% csrf_token %}
                 <h1>Login</h1>
                 
@@ -29,9 +29,14 @@
                 <p>Esqueceu a senha? <a href="">Clique aqui</a></p>
                 <p>Ainda não possui uma conta? <a href="{% url 'register' %}">Registre-se aqui</a></p>
                 
-                <button type="submit" class="btn btn-danger">Entrar</button>
+                <div class="btn">
+                    <button type="submit" class="btn btn-danger">Entrar</button>
+                    <a href="{% url 'inicio' %}">Voltar ao menu</a>
+                </div>
+
             </form>
         </div>
     </main>
+    {% include 'base-footer.html' %}
 </body>
 </html>
