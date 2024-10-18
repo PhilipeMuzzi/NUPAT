@@ -1,8 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Perfil
-
+from .models import Perfil, Projeto
 
 
 class PerfilForm(forms.ModelForm):
@@ -51,6 +50,3 @@ class RegistroUsuarioForm(UserCreationForm):
                 tipo_usuario='comum'
             )
         return user
-
-
-

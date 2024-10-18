@@ -26,6 +26,9 @@ urlpatterns = [
     path('projetos/<int:projeto_id>/deletar/', views.deletar_projeto, name='deletar_projeto'),
     path('projetos/<int:projeto_id>/inscricao/', views.inscricao_projeto, name='inscricao_projeto'),
 
+
+
+
     # links para gerenciamento dos pesquisadores
     path('pesquisadores/', views.listar_pesquisadores, name='listar_pesquisadores'),
     path('pesquisadores/adicionar/', views.adicionar_pesquisador, name='adicionar_pesquisador'),

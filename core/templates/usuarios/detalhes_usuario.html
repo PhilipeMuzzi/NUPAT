@@ -106,7 +106,7 @@
                 <p>Instituição: {{ perfil.instituto }}</p>
                 <p>Email: {{ perfil.usuario.email }}</p>
 
-                <button><a href="{% url 'editar_detalhes' usuario_id=perfil.usuario.id %}">Atualizar</a></button>
+
 
 
 
@@ -121,7 +121,7 @@
                     </div>
                 </main>
                 <div class="btn-salvar">
-                    <a href="">Salvar</a>
+                    <a href="{% url 'editar_detalhes' usuario_id=perfil.usuario.id %}">Atualizar Informações</a>
                 </div>
             </article>
         </div>
