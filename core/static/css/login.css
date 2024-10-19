@@ -101,15 +101,22 @@ button, .btn a {
     align-items: center;
     justify-content: center;
     position: relative;
+    text-decoration: none;
     top: 40px;
 }
 .btn {
     display: flex;
     gap: 20px;
+    
 }
 
 button:hover {
     background-color: #45a049;
+    text-decoration: none;
+}
+.btn a:hover {
+    background-color: #45a049;
+    text-decoration: none;
 }
 
 p {
