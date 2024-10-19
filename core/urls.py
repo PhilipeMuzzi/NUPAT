@@ -30,7 +30,7 @@ urlpatterns = [
 
 
     # links para gerenciamento dos projetos
-    path('projetos/', views.listar_projetos, name='lista_projetos'),  # Corrigido para 'listar_projetos'
+    path('projetos/', views.listar_projetos, name='listar_projetos'),  # Corrigido para 'listar_projetos'
     path('projetos/adicionar/', views.adicionar_projeto, name='adicionar_projeto'),
     path('projetos/<int:projeto_id>/', views.detalhes_projeto, name='detalhes_projeto'),
     path('projetos/<int:projeto_id>/editar/', views.editar_projeto, name='editar_projeto'),

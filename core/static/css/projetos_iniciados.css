@@ -123,6 +123,7 @@ main
 {
     background-color: var(--brancogelo);
     height: 900px;
+    width: 100%;
 }
 main h1
 {
