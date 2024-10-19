@@ -175,7 +175,6 @@ def admin_dashboard(request):
 # Listagem de projetos
 
 # Listar Projetos
-@staff_member_required
 def listar_projetos(request):
     projetos = Projeto.objects.all()
     return render(request, 'projetos/lista_projetos.html', {'projetos': projetos})
