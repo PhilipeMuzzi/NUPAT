@@ -45,7 +45,20 @@ def atendimento_virtual(request):
     return render(request, 'Atendimento virtual/atendimento_virtual.html')
 
 
+# View para Projetos "Em Andamento"
+def projetos_andamento(request):
+    projetos_andamento = Projeto.objects.filter(situacao='andamento')
+    return render(request, 'projetos/projetos_andamento.html', {'projetos': projetos_andamento})
 
+# View para Projetos "Concluídos"
+def projetos_concluidos(request):
+    projetos_concluidos = Projeto.objects.filter(situacao='concluido')
+    return render(request, 'projetos/projetos_concluido.html', {'projetos': projetos_concluidos})
+
+# View para Projetos "Em Planejamento"
+def projetos_planejamento(request):
+    projetos_planejamento = Projeto.objects.filter(situacao='planejamento')
+    return render(request, 'projetos/projetos_planejamento.html', {'projetos': projetos_planejamento})
 
 # view para registro de novos usuários
 
@@ -64,10 +77,10 @@ def atualiza_perfil(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
 
     if request.method == 'POST':
-        # Inclua request.FILES para capturar o arquivo da imagem
+        # FILES para capturar imagem
         form = PerfilForm(request.POST, request.FILES, instance=perfil)
 
-        # Adicionando log para verificar se o arquivo foi enviado
+        #  verificar se o arquivo foi enviado
         if 'foto_perfil' in request.FILES:
             print("Arquivo de imagem enviado:", request.FILES['foto_perfil'])
         else:
@@ -108,7 +121,7 @@ def editar_detalhes(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
 
     if request.method == 'POST':
-        form = PerfilForm(request.POST, request.FILES, instance=perfil)  # Aqui o request.FILES é essencial para processar arquivos
+        form = PerfilForm(request.POST, request.FILES, instance=perfil)  # files para processar arquivos
 
         if form.is_valid():
             form.save()
@@ -177,7 +190,7 @@ def admin_dashboard(request):
 # Listar Projetos
 def listar_projetos(request):
     projetos = Projeto.objects.all()
-    return render(request, 'projetos/lista_projetos.html', {'projetos': projetos})
+    return render(request, 'admin/lista_projetos.html', {'projetos': projetos})
 
 
 # Editar Projeto
@@ -196,7 +209,7 @@ def editar_projeto(request, projeto_id):
         messages.success(request, 'Projeto atualizado com sucesso.')
         return redirect('listar_projetos')
 
-    return render(request, 'projetos/editar_projeto.html', {'projeto': projeto})
+    return render(request, 'admin/editar_projeto.html', {'projeto': projeto})
 
 # Deletar Projeto
 @staff_member_required
@@ -259,7 +272,7 @@ def adicionar_projeto(request):
         projeto.save()
 
         messages.success(request, 'Projeto cadastrado com sucesso.')
-        return redirect('lista_projetos')
+        return redirect('listar_projetos')
 
 
     pesquisadores = Pesquisador.objects.all()
@@ -302,7 +315,7 @@ def editar_projeto(request, projeto_id):
     pesquisadores = Pesquisador.objects.all()
     instituicoes = Instituicao.objects.all()
 
-    return render(request, 'projetos/editar_projeto.html', {
+    return render(request, 'admin/editar_projeto.html', {
         'form': form,
         'projeto': projeto,
         'pesquisadores': pesquisadores,
@@ -317,7 +330,7 @@ def deletar_projeto(request, projeto_id):
         projeto.delete()
         messages.success(request, 'Projeto deletado com sucesso.')
         return redirect('listar_projetos')
-    return render(request, 'projetos/deletar_projeto.html', {'projeto': projeto})
+    return render(request, 'admin/deletar_projeto.html', {'projeto': projeto})
 
 
 

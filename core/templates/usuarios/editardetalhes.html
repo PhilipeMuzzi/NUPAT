@@ -23,16 +23,19 @@
             <input type="file" name="foto_perfil" id="foto_perfil" accept="image/*" onchange="previewImage(event)">
         </div>
 
-        <div>
-            <label for="tipo_usuario">Tipo de Usuário:</label>
-            <select name="tipo_usuario" id="tipo_usuario">
-                {% for tipo in perfil.TIPO_USUARIO_CHOICES %}
-                    <option value="{{ tipo.0 }}" {% if perfil.tipo_usuario == tipo.0 %}selected{% endif %}>
-                        {{ tipo.1 }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
+{% if user.is_staff %}
+<div>
+    <label for="tipo_usuario">Tipo de Usuário:</label>
+    <select name="tipo_usuario" id="tipo_usuario">
+        {% for tipo in perfil.TIPO_USUARIO_CHOICES %}
+            <option value="{{ tipo.0 }}" {% if perfil.tipo_usuario == tipo.0 %}selected{% endif %}>
+                {{ tipo.1 }}
+            </option>
+        {% endfor %}
+    </select>
+</div>
+{% endif %}
+
 
         <button type="submit">Salvar Atualizações</button>
     </form>

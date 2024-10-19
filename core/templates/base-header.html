@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/principal.css' %}">
+    <link rel="stylesheet" href="/Rodapé-padrão/style.css">
     <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="12x12">
     <link rel='stylesheet'
         href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
@@ -104,10 +105,11 @@
             <li>
                 <p>Projetos <i class="fa-solid fa-chevron-down"></i></p>
                 <ul>
-                    <li><a href="{% url 'listar_projetos' %}">Projetos Iniciados</a></li>
-                    <li><a href="#">Projetos em Andamento</a></li>
-                    <li><a href="#">Projetos Concluídos</a></li>
+                    <li><a href="{% url 'projetos_planejamento' %}">Em Planejamento</a></li>
+                    <li><a href="{% url 'projetos_andamento' %}">Em Andamento</a></li>
+                    <li><a href="{% url 'projetos_concluidos' %}">Concluídos</a></li>
                 </ul>
+
             </li>
             <li>
                 <p>Suporte <i class="fa-solid fa-chevron-down"></i></p>
