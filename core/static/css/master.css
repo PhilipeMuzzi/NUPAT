@@ -45,13 +45,13 @@
 
 .primeiro-rodape article {
     display: block;
-    padding: 20px;
+
 }
 
 .container-texto {
     display: flex;
     gap: 50px;
-    height: 2 00px;
+    height: 200px;
     margin-left: 8%;
     margin-top: 5%;
 }
@@ -69,6 +69,7 @@
 .segundo-txt p {
     display: grid;
     gap: 5px;
+    transition: 0.5s;
 
 }
 .primeiro-txt p :hover,
@@ -104,6 +105,7 @@
 }
 .icons a i{
     color: var(--verde);
+    transition: 0.5s;
 }
 .icons a i:hover {
     transition: 0.5s;
@@ -112,9 +114,6 @@
 .dados-icons h3 {
     font-weight: bolder;
     font-size: 22px;
-}
-.dados-icons p {
-    line-height: 22px;
 }
 .voltar-ao-topo a{
     cursor: pointer;

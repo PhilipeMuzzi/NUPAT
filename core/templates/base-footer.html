@@ -1,4 +1,4 @@
-   {% load static  %}
+{% load static  %}
    <!--Inicio do rodapé-->
 <head>
     <link rel="stylesheet" href="{% static 'css/master.css' %}">
@@ -37,9 +37,9 @@
             </div>
             <div class="img-dados">
                 <div class="img-logo">
-                    <img src="static/img/4Iwakb0M_400x400.png" alt="Logo do IFRN" width="120px" height="120px" id="logo-ifrn"
+                    <img src="{% static 'img/4Iwakb0M_400x400.png' %}" alt="Logo do IFRN" width="120px" height="120px" id="logo-ifrn"
                         style="mix-blend-mode: multiply;">
-                    <img src="static/img/icon_u.webp" alt="Logo do NUPAT" width="200px" height="200px" id="logo-nupat">
+                    <img src="{% static 'img/icon_u.webp'%}" alt="Logo do NUPAT" width="200px" height="200px" id="logo-nupat">
                 </div>
                 <div class="dados-icons">
                     <h3>Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT</h3>
