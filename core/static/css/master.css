@@ -4,7 +4,7 @@
     --meiobranco: #ececec;
     --verde: #304D30;
     --branconeve:rgb(255, 255, 255);
-    --verdeclaro: #00ff00;
+    --verdeclaro: #83ab83;
 }
 
 *{
@@ -73,7 +73,7 @@
 }
 .primeiro-txt p :hover,
 .segundo-txt p :hover {
-    color: #00ff00;
+    color: #83ab83;
     transition: 0.5s;
 }
 
