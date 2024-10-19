@@ -502,7 +502,7 @@ main {
 
 section.slider {
     width: 700px;
-    height: 500px;
+    max-height: 700px;
     overflow: hidden;
     border-radius: 10px;
     /*Adicionado só para teste*/
@@ -526,8 +526,11 @@ section.slider {
 
 .slider-box img {
     width: 100%;
+    height: 100%;
+    object-fit: contain;
     display: block;
 }
+
 
 .nav-manual,
 .nav-auto {

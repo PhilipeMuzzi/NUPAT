@@ -20,7 +20,7 @@ main{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    height: 100vh;
+    height: 140vh;
 }
 main .img{
     display: flex;
