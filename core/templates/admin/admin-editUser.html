@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<h2>Editar Perfil de {{ perfil.usuario.username }}</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <h3>Tipo de Usuário</h3>
+    {{ tipo_usuario_form.as_p }}
+
+    <button type="submit">Salvar Alterações</button>
+</form>
+{% endblock %}

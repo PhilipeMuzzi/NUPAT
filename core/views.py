@@ -6,24 +6,58 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.urls import reverse
 
-from .forms import RegistroUsuarioForm, PerfilForm, ProjetoForm
+from .forms import RegistroUsuarioForm, PerfilForm, ProjetoForm, TipoUsuarioForm, PerfilAdminForm
 from .models import Perfil, Projeto, Pesquisador, Parceiro, Instituicao
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
 
 # view para  editar usuários pelo admin (staff)
+
 @staff_member_required
 def editar_tipo_usuario(request, usuario_id):
     perfil = get_object_or_404(Perfil, user_id=usuario_id)
+
     if request.method == 'POST':
         novo_tipo = request.POST.get('tipo_usuario')
         perfil.tipo_usuario = novo_tipo
         perfil.save()
         messages.success(request, 'Tipo de usuário atualizado com sucesso.')
         return redirect('detalhes_usuario', usuario_id=usuario_id)
+
     return render(request, 'admin/editar_tipo_usuario.html', {'perfil': perfil})
 
+def editar_perfil(request, usuario_id):
+    perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
 
+    if request.method == 'POST':
+        form = PerfilForm(request.POST, request.FILES, instance=perfil)
+        tipo_usuario_form = TipoUsuarioForm(request.POST, instance=perfil) if request.user.is_staff else None
+
+        if request.user.is_staff:
+            if form.is_valid() and tipo_usuario_form.is_valid():
+                form.save()
+                tipo_usuario_form.save()  # Salva o tipo de usuário se for admin
+                messages.success(request, 'Perfil e tipo de usuário atualizados com sucesso!')
+                return redirect('detalhes_usuario', usuario_id=usuario_id)
+            else:
+                messages.error(request, 'Erro ao atualizar o perfil ou tipo de usuário.')
+        else:
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Perfil atualizado com sucesso!')
+                return redirect('detalhes_usuario', usuario_id=usuario_id)
+            else:
+                messages.error(request, 'Erro ao atualizar o perfil.')
+
+    else:
+        form = PerfilForm(instance=perfil)
+        tipo_usuario_form = TipoUsuarioForm(instance=perfil) if request.user.is_staff else None
+
+    # Redireciona para o template correto
+    if request.user.is_staff:
+        return render(request, 'admin-editUser.html', {'form': form, 'tipo_usuario_form': tipo_usuario_form, 'perfil': perfil})
+    else:
+        return render(request, 'usuarios/editar_perfil.html', {'form': form, 'perfil': perfil})
 
 def inicio(request):
     # traz os 6 últimos projetos mais recentes para a primeira seção
@@ -32,7 +66,6 @@ def inicio(request):
     return render(request, 'index.html', {
         'ultimos_projetos': ultimos_projetos
     })
-
 
 def quem_somos(request):
     return render(request, 'Quem Somos/quem_somos.html')
@@ -44,18 +77,22 @@ def area_suporte(request):
 def atendimento_virtual(request):
     return render(request, 'Atendimento virtual/atendimento_virtual.html')
 
+# Listagem de TODOS OS projetos PARA TODOS OS USUÁRIOS:
+def listar_projetos_todos(request):
+    projetos = Projeto.objects.all()  # Obtém todos os projetos
+    return render(request, 'projetos/listar_todos_os_projetos.html', {'projetos': projetos})
 
-# View para Projetos "Em Andamento"
+# Projetos marcados pelo admin como "Em Andamento"
 def projetos_andamento(request):
     projetos_andamento = Projeto.objects.filter(situacao='andamento')
     return render(request, 'projetos/projetos_andamento.html', {'projetos': projetos_andamento})
 
-# View para Projetos "Concluídos"
+# Projetos marcados pelo admin como "Concluídos"
 def projetos_concluidos(request):
     projetos_concluidos = Projeto.objects.filter(situacao='concluido')
     return render(request, 'projetos/projetos_concluido.html', {'projetos': projetos_concluidos})
 
-# View para Projetos "Em Planejamento"
+# Projetos marcados pelo admin como "Em Planejamento"
 def projetos_planejamento(request):
     projetos_planejamento = Projeto.objects.filter(situacao='planejamento')
     return render(request, 'projetos/projetos_planejamento.html', {'projetos': projetos_planejamento})
@@ -76,11 +113,15 @@ def registro(request):
 def atualiza_perfil(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
 
-    if request.method == 'POST':
-        # FILES para capturar imagem
-        form = PerfilForm(request.POST, request.FILES, instance=perfil)
 
-        #  verificar se o arquivo foi enviado
+    if request.method == 'POST':
+        if request.user.id == perfil.usuario.id:
+
+            form = PerfilForm(request.POST, request.FILES, instance=perfil)
+        else:
+
+            form = PerfilAdminForm(request.POST, request.FILES, instance=perfil)
+
         if 'foto_perfil' in request.FILES:
             print("Arquivo de imagem enviado:", request.FILES['foto_perfil'])
         else:
@@ -88,7 +129,6 @@ def atualiza_perfil(request, usuario_id):
 
         if form.is_valid():
             form.save()
-
             if perfil.foto_perfil:
                 print(f"Imagem salva com sucesso: {perfil.foto_perfil.url}")
             else:
@@ -98,30 +138,29 @@ def atualiza_perfil(request, usuario_id):
         else:
             print("Formulário inválido. Erros:", form.errors)
     else:
-        form = PerfilForm(instance=perfil)
+        if request.user.id == perfil.usuario.id:
+            form = PerfilForm(instance=perfil)
+        else:
+            form = PerfilAdminForm(instance=perfil)
 
     return render(request, 'usuarios/editardetalhes.html', {'form': form, 'perfil': perfil})
-
-
-
-# views.py
-def detalhes_usuario(request, usuario_id):
-    print(f"Usuario ID: {usuario_id}")
-    try:
-        perfil = Perfil.objects.get(usuario__id=usuario_id)
-        print(f"Perfil encontrado: {perfil}")
-    except Perfil.DoesNotExist:
-        print("Perfil não encontrado")
-        return render(request, '404.html')
-
-    return render(request, 'usuarios/detalhes_usuario.html', {'perfil': perfil})
-
 
 def editar_detalhes(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
 
+    # Verifique se o usuário atual está editando seu próprio perfil
+    if request.user.id == perfil.usuario.id:
+        # Formulário normal para usuários comuns
+        form = PerfilForm(instance=perfil)
+    else:
+        # Formulário para administradores
+        form = PerfilAdminForm(instance=perfil)
+
     if request.method == 'POST':
-        form = PerfilForm(request.POST, request.FILES, instance=perfil)  # files para processar arquivos
+        if request.user.id == perfil.usuario.id:
+            form = PerfilForm(request.POST, request.FILES, instance=perfil)
+        else:
+            form = PerfilAdminForm(request.POST, request.FILES, instance=perfil)
 
         if form.is_valid():
             form.save()
@@ -129,10 +168,9 @@ def editar_detalhes(request, usuario_id):
             return redirect('detalhes_usuario', usuario_id=usuario_id)
         else:
             print(form.errors)
-    else:
-        form = PerfilForm(instance=perfil)
 
     return render(request, 'usuarios/editardetalhes.html', {'form': form, 'perfil': perfil})
+
 
 # Login
 @login_required
@@ -145,15 +183,15 @@ def login_view(request):
         if user is not None:
             login(request, user)
 
-            # Verifica se o usuário é superuser (admin)
+
             if user.is_superuser or user.is_staff:
-                # Redireciona para o dashboard de admin
+
                 return redirect('admin_dashboard')
             else:
-                # Redireciona para a página de usuário comum
+
                 return redirect('index')
         else:
-            # Caso as credenciais estejam incorretas
+
             messages.error(request, 'Credenciais inválidas.')
             return render(request, 'login.html')
 
@@ -164,16 +202,12 @@ def login_view(request):
 def admin_check(user):
     return user.is_staff or user.is_superuser
 
-@staff_member_required
-def admin_dashboard(request):
-    # lógica do dashboard
-    return render(request, 'admin/dashboard.html')
 
 class CustomLoginView(LoginView):
     def get_success_url(self):
         if self.request.user.is_staff:
-            return reverse('admin_dashboard')  # envia administradores para o painel de administração html (dashboard)
-        return reverse('inicio')  # envia usuários comuns para a página inicial do site
+            return reverse('admin_dashboard')
+        return reverse('inicio')
 
 
 # função para verificar se o usuário é admin (is_staff)
@@ -182,15 +216,17 @@ def is_admin(user):
 
 # view que controla a rota apenas admins (é o que é mostrado se entrar como admin do terminal)
 @user_passes_test(is_admin)
+@staff_member_required
 def admin_dashboard(request):
     return render(request, 'admin/dashboardAdmin.html')
 
-# Listagem de projetos
 
-# Listar Projetos
+
+# Listar Projetos  PARA O ADMIN, SOMENTE.
 def listar_projetos(request):
     projetos = Projeto.objects.all()
     return render(request, 'admin/lista_projetos.html', {'projetos': projetos})
+#
 
 
 # Editar Projeto
@@ -204,7 +240,7 @@ def editar_projeto(request, projeto_id):
         projeto.resultados = request.POST.get('resultados')
         projeto.situacao = request.POST.get('situacao')
         projeto.descricao = request.POST.get('descricao')
-        projeto.fotos = request.FILES.get('fotos', projeto.fotos)  # Manter a foto padrão se não nova não for enviada
+        projeto.fotos = request.FILES.get('fotos', projeto.fotos)  # vai manter a foto padrão se não nova não for enviada
         projeto.save()
         messages.success(request, 'Projeto atualizado com sucesso.')
         return redirect('listar_projetos')
@@ -361,7 +397,7 @@ def save(self, commit=True):
         tipo_usuario = self.cleaned_data.get('tipo_usuario')
 
         if tipo_usuario == 'pesquisador':
-            # Criar ou associar o perfil de pesquisador, por exemplo:
+
             Pesquisador.objects.create(user=user, contato=self.cleaned_data.get('telefone'))
         else:
             Perfil.objects.create(
@@ -424,6 +460,8 @@ def detalhes_usuario(request, usuario_id):
 
     return render(request, 'usuarios/detalhes_usuario.html', {'perfil': perfil})
 
+
+
 @staff_member_required
 def deletar_usuario(request, usuario_id):
     usuario = get_object_or_404(Perfil, user_id=usuario_id)
@@ -438,28 +476,16 @@ def deletar_usuario(request, usuario_id):
 
 @staff_member_required
 def editar_usuario(request, usuario_id):
-    usuario = get_object_or_404(Perfil, user_id=usuario_id)
+    perfil = get_object_or_404(Perfil, user_id=usuario_id)
 
     if request.method == 'POST':
-        form = PerfilForm(request.POST, instance=usuario)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Usuário atualizado com sucesso.')
-            return redirect('lista_usuarios')
-    else:
-        form = PerfilForm(instance=usuario)
+        novo_tipo = request.POST.get('tipo_usuario')
+        if novo_tipo in ['comum', 'pesquisador', 'parceiro']:
+            perfil.tipo_usuario = novo_tipo
+            perfil.save()
+            messages.success(request, 'Tipo de usuário atualizado com sucesso.')
+            return redirect('detalhes_usuario', usuario_id=usuario_id)  # Redireciona após salvar
 
-    return render(request, 'usuarios/editar_usuario.html', {'form': form, 'usuario': usuario})
+    return render(request, 'editar_detalhes_usuario.html', {'perfil': perfil})
 
 
-def atualizar_tipo_usuario(request, usuario_id):
-    if request.method == 'POST':
-        usuario = get_object_or_404(User, id=usuario_id)
-        tipo_usuario = request.POST.get('tipo_usuario')
-
-        # Atualiza o tipo de usuário
-        perfil = usuario.perfil
-        perfil.tipo_usuario = tipo_usuario
-        perfil.save()
-
-        return redirect('lista_usuarios')  # Redireciona de volta para a lista de usuários
