@@ -9,13 +9,13 @@
     <h1><strong>Lista de Projetos</strong><hr class="linha-fina"></h1>
     <article>
         <section class="filtro">
-            <div class="buscar-box">
-            <div class="input-buscar">
-                    <input type="text" name="pesquisa" id="" placeholder="Pesquise um artigo"><label for="pesquisa"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                      </svg></label>
+            <form class="buscar-box" action="{% url 'listar_todos_os_projetos' %}" method="GET">
+                <div class="input-buscar">
+                    <input type="text" name="pesquisa" value="{{request.GET.pesquisa}}" placeholder="Pesquise um artigo" class="form-control">
+                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+                    </button>
                 </div>
-            </div>
+            </form>
             <ul class="fi">
                 <li><h2 ><strong>Filtros</strong><hr class="lineex"></h2></li>
                 <ul>
@@ -33,42 +33,19 @@
                         </details>
                     </li>
                     </ul></li>
-                    <li><h3><strong>Ano</strong></h3>
-                    <ul>
-                        <li><input type="checkbox" id="ano" name="ano" value="2024"><label for="2024">2024</label></li>
-                        <li><input type="checkbox" id="ano" name="ano" value="2023"><label for="2023">2023</label></li>
-                        <li><input type="checkbox" id="ano" name="ano" value="2022"><label for="2022">2022</label></li>
-                        <li >
-                            <details>
-                            <summary class="mais">Mais<i class="fa-solid fa-chevron-down"></i>
-                            </summary>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum, impedit? Consectetur totam non odio, id labore dignissimos nam cupiditate ad possimus? Fuga ullam perferendis mollitia. Harum totam corporis nulla culpa.</p>
-                        </details>
-                    </li>
-                    </ul></li>
                     
                     <div class="form-group">
-                        <label for="idioma">Idioma:</label>
-                        <select id="idioma" name="idioma" class="form-control">
-                            <i class="fa-solid fa-chevron-down">
-                                <option value="pt/br">Português</option>
-                                <option value="en">Inglês</option>
-                                <option value="es">Espanhol</option>
-                            </i>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="situacao">Situação:</label>
+                        <label for="situacao"><h3><strong>Situação</strong></label>
                         <select id="situacao" name="situacao" class="form-control">
                             <i class="fa-solid fa-chevron-down">
-                                <option value="planejamento">Em Planejamento</option>
+                                <option value="planejamento">Iniciados</option>
                                 <option value="andamento">Em Andamento</option>
                                 <option value="concluido">Concluído</option>
                             </i>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="instituicoes">Instituições:</label>
+                        <label for="instituicoes"><h3><strong>Instituições</strong></label>
                         <select id="instituicoes" name="instituicoes" class="form-control" multiple required>
                             <i class="fa-solid fa-chevron-down">
                                 {% for instituicao in instituicoes %}
@@ -82,7 +59,7 @@
         </section>
         <section class="proj">
             {% if projeto == 'planejamento' %}
-            <h1><strong>Projetos em Planejamento</strong></h1>
+            <h1><strong>Projetos Iniciados</strong></h1>
             {% elif projeto == 'andamento' %}
             <h1><strong>Projetos em Andamento</strong></h1>
             {% elif projeto == 'concluido' %}
@@ -104,12 +81,12 @@
                             <a href="{% url 'editar_projeto' projeto.id %}" class="btn btn-warning">Editar</a>
                             <a href="{% url 'deletar_projeto' projeto.id %}" class="btn btn-danger">Deletar</a>
                         </div>
-                        {% empty %}
-                        <p class="no-projects">Nenhum projeto encontrado.</p>
                     </nav>
                 </article>
             </div>
-            {% endfor %}
+        {% empty %}
+            <p class="no-projects">Nenhum projeto encontrado.</p>
+        {% endfor %}
             <a href="{% url 'adicionar_projeto' %}" class="btn btn-primary">Adicionar Projeto</a>
         </section>
     </article>
