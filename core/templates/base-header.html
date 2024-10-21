@@ -1,24 +1,21 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/principal.css' %}">
     <link rel="stylesheet" href="/Rodapé-padrão/style.css">
     <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="12x12">
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <script src="https://kit.fontawesome.com/af6c14a78e.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="claro">
     <header>
         <!-- Cabeçalho acessibilidade desktop -->
         <div class="cbc-acessibilidade">
@@ -99,16 +96,18 @@
             </div>
         </nav>
     </header>
-       <div class="submenu">
+
+    <!-- submenu -->
+    <div class="submenu">
         <ul>
             <li>
                 <p>Projetos <i class="fa-solid fa-chevron-down"></i></p>
                 <ul>
+                    <li><a href="{% url 'listar_todos_os_projetos' %}">Todos</a></li>
                     <li><a href="{% url 'projetos_planejamento' %}">Em Planejamento</a></li>
                     <li><a href="{% url 'projetos_andamento' %}">Em Andamento</a></li>
                     <li><a href="{% url 'projetos_concluidos' %}">Concluídos</a></li>
                 </ul>
-
             </li>
             <li>
                 <p>Suporte <i class="fa-solid fa-chevron-down"></i></p>
@@ -118,9 +117,25 @@
             </li>
         </ul>
     </div>
-    </nav>
+
+    <!-- script para fonte da página aumentar e diminuir -->
+    <script>
+
+
+        document.querySelectorAll('.btn-a').forEach(function (btn) {
+            btn.addEventListener('click', function (event) {
+                if (btn.classList.contains('sb-ab-ft-menor')) {
+                    document.body.style.fontSize = 'small';
+                } else if (btn.classList.contains('sb-ab-ft-normal')) {
+                    document.body.style.fontSize = 'medium';
+                } else if (btn.classList.contains('sb-ab-ft-maior')) {
+                    document.body.style.fontSize = 'large';
+                }
+            });
+        });
+    </script>
+
     <script src="{% static 'js/main.js' %}"></script>
 
 </body>
-
 </html>
