@@ -15,18 +15,18 @@ ul
 .linha-fina
 {
     height: 2px;
-    width: 90%;
+    width: 85%;
     background-color: #5ba55b;
-    margin-left: 13%;
+    margin-left: 40%;
     margin-top: -19px;
 }
-section .buscar-box
+.filtro .buscar-box
 {
     margin-left: 11%;
     padding-right: 10%;
     margin-top: 60px;
 }
-section .buscar-box .input-buscar input
+.filtro .buscar-box .input-buscar input
 {
     background-color: #ffffff;
     width: 100%;
@@ -34,7 +34,7 @@ section .buscar-box .input-buscar input
     outline: 0;
     border: 0;
 }
-section .buscar-box .input-buscar
+.filtro .buscar-box .input-buscar
 {
     background-color: #ffffff;
     color: #000000;
@@ -44,16 +44,16 @@ section .buscar-box .input-buscar
     display: flex;
 }
 
-section .fi
+.filtro .fi
 {
     margin-top: 11%;
     margin-left: 5%;
 }
-section .fi ul, h3{
+.filtro .fi ul, h3{
     padding-bottom: 8px;
     font-size: 18px;
 }
-section .fi h2{
+.filtro .fi h2{
     font-size: 22px;
     padding-bottom: 45px;
     color: #083a08;
@@ -66,10 +66,10 @@ section .fi h2{
     height: 1px;
 }
 ul li h3{
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
-section .fi input[type="checkbox"] {
+.filtro .fi input[type="checkbox"] {
     appearance: none; 
     -webkit-appearance: none; /*pode retirar se quiser*/
     width: 15px; /*pode retirar se quiser*/
@@ -82,7 +82,7 @@ section .fi input[type="checkbox"] {
     vertical-align: middle;
 }
 
-section .fi input[type="checkbox"]:checked {
+.filtro .fi input[type="checkbox"]:checked {
     background-color: var(--verde); /* Cor de fundo quando o checkbox estiver marcado */
 }
 
@@ -141,7 +141,7 @@ main article
     position: relative;
     top: -20px
 }
-section
+.proj
 {
     width: 70%;
     height: 90%;
