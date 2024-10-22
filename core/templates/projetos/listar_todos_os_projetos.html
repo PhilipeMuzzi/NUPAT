@@ -6,7 +6,9 @@
     <title>Projetos</title>
 </head>
 <main>
-    <h1><strong>Lista de Projetos</strong><hr class="linha-fina"></h1>
+    <h1>
+        <strong>Lista de Projetos</strong><hr class="linha-fina">
+    </h1>
     <article>
         <section class="filtro">
             <form class="buscar-box" action="{% url 'listar_todos_os_projetos' %}" method="GET">
@@ -17,35 +19,57 @@
                 </div>
             </form>
             <ul class="fi">
-                <li><h2 ><strong>Filtros</strong><hr class="lineex"></h2></li>
+                <li>
+                    <h2>
+                        <strong>Filtros</strong><hr class="lineex">
+                    </h2>
+                </li>
                 <ul>
-                    <li><h3><strong>Categorias</strong></h3>
-                    <ul>
-                        <li><input type="checkbox" id="categorias" name="categorias" value="acessibilidade-web"><label for="acessibilidade-web"> Acessibilidade Web</label></li>
-                        <li><input type="checkbox" id="categorias" name="categorias" value="tecnologia"><label for="tecnologia">Tecnologia</label> </li>
-                        <li><input type="checkbox" id="categorias" name="categorias" value="educacao-e-pedagogia"><label for="educacao-e-pedagogia">Educação e Pedagogia</label></li>
-                        <li><input type="checkbox" id="categorias" name="categorias" value="ciencias-humanas"><label for="ciencias-humanas">Ciências Humanas</label></li>
-                        <li >
-                            <details>
-                            <summary class="mais">Mais<i class="fa-solid fa-chevron-down"></i>
-                            </summary>
-                            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum, impedit? Consectetur totam non odio, id labore dignissimos nam cupiditate ad possimus? Fuga ullam perferendis mollitia. Harum totam corporis nulla culpa.</p>
-                        </details>
+                    <li>
+                        <h3>
+                            <strong>Categorias</strong>
+                        </h3>
+                        <ul>
+                            <li>
+                                <input type="checkbox" id="categorias" name="categorias" value="acessibilidade-web"><label for="acessibilidade-web"> Acessibilidade Web</label></li>
+                            
+                                <li><input type="checkbox" id="categorias" name="categorias" value="tecnologia"><label for="tecnologia">Tecnologia</label> </li>
+                            
+                                <li><input type="checkbox" id="categorias" name="categorias" value="educacao-e-pedagogia"><label for="educacao-e-pedagogia">Educação e Pedagogia</label></li>
+                            
+                                <li><input type="checkbox" id="categorias" name="categorias" value="ciencias-humanas"><label for="ciencias-humanas">Ciências Humanas</label></li>
+                            
+                                <li>
+                                <details>
+                                    <summary class="mais">Mais<i class="fa-solid fa-chevron-down"></i>
+                                    </summary>
+                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum, impedit? Consectetur totam non odio, id labore dignissimos nam cupiditate ad possimus? Fuga ullam perferendis mollitia. Harum totam corporis nulla culpa.</p>
+                                </details>
+                            </li>
+                        </ul>
                     </li>
-                    </ul></li>
-                    
-                    <div class="form-group">
-                        <label for="situacao"><h3><strong>Situação</strong></label>
-                        <select id="situacao" name="situacao" class="form-control">
-                            <i class="fa-solid fa-chevron-down">
-                                <option value="planejamento">Iniciados</option>
-                                <option value="andamento">Em Andamento</option>
-                                <option value="concluido">Concluído</option>
-                            </i>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="instituicoes"><h3><strong>Instituições</strong></label>
+                    <li>
+                        <h3>
+                            <strong>Situação</strong>
+                        </h3>
+                        <ul>
+                            <li>
+                                <input type="checkbox" name="situacao" id="situacao" class="form-control" value="planejamento"><label for="situacao">Em Planejamento</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="situacao" id="situacao" class="form-control" value="andamento"><label for="situacao"></label>
+                            </li>
+                            <li>
+                                <input type="checkbox" name="situacao" id="situacao" class="form-control" value="concluido"><label for="situacao">Concluído</label>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3>
+                            <strong>Instituições</strong>
+                        </h3>
+                        <ul><li><input type="checkbox" name="instituicoes" id="instituicoes" class="form-control" value="{{ instituicao.id}}"><label for="instituicoes"></label></li></ul>
+                        <label for="instituicoes"></label>
                         <select id="instituicoes" name="instituicoes" class="form-control" multiple required>
                             <i class="fa-solid fa-chevron-down">
                                 {% for instituicao in instituicoes %}
