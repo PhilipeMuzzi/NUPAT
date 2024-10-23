@@ -1,0 +1,28 @@
+
+<br><br><br><br>
+
+<h1> ESSA PAGINA É PARA O ADMIN VER OS PROJETOS TOTAIS FEITOS POR ELE MESMO, E TER O CRUD PARA CADA UM </h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Resumo</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for projeto in projetos %}
+        <tr>
+            <td>{{ projeto.titulo }}</td>
+            <td>{{ projeto.resumo }}</td>
+            <td>
+                <a href="{% url 'editar_projeto' projeto.id %}" class="btn btn-warning">Editar</a>
+                <a href="{% url 'deletar_projeto' projeto.id %}" class="btn btn-danger">Deletar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'adicionar_projeto' %}" class="btn btn-primary">Adicionar Projeto</a>

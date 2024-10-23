@@ -7,13 +7,23 @@ from .models import Perfil, Projeto
 class PerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
-        fields = ['telefone', 'endereco', 'instituto', 'foto_perfil']
+        fields = ['telefone', 'endereco', 'instituto', 'foto_perfil']  # Sem tipo_usuario para usuários normais
+
+class PerfilAdminForm(forms.ModelForm):  # Form para admin editar tipo de usuário
+    class Meta:
+        model = Perfil
+        fields = ['telefone', 'endereco', 'instituto', 'foto_perfil', 'tipo_usuario']  # Inclui o tipo de usuário
+
+class TipoUsuarioForm(forms.ModelForm):
+    class Meta:
+        model = Perfil
+        fields = ['tipo_usuario']
 
 
 class ProjetoForm(forms.ModelForm):
     class Meta:
         model = Projeto
-        fields = ['titulo', 'resumo', 'resultados', 'fotos', 'situacao', 'descricao', 'artigos', 'pesquisadores', 'instituicoes', 'alunos']  # Adicione todos os campos que você deseja editar
+        fields = ['titulo', 'resumo', 'resultados', 'fotos', 'situacao', 'descricao', 'artigos', 'pesquisadores', 'instituicoes', 'alunos']
 
 class RegistroUsuarioForm(UserCreationForm):
     telefone = forms.CharField(max_length=15, required=True)
@@ -24,21 +34,6 @@ class RegistroUsuarioForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        if commit:
-            user.set_password(self.cleaned_data['password1'])
-            user.save()
-
-            # Criando o perfil com valores do formulário
-            Perfil.objects.create(
-                usuario=user,
-                telefone=self.cleaned_data['telefone'],
-                endereco=self.cleaned_data['endereco'],
-                instituto=self.cleaned_data['instituto'],
-                perfil='Aluno'
-            )
-        return user
 
 
     def save(self, commit=True):
