@@ -28,16 +28,19 @@
     <div class="container">
 
         <div class="primeiro-corpo">
+
             {% if ultimos_projetos %}
             <article class="second">
                 <h1 class="title2">Relevantes</h1>
                 <div class="cards-container">
                     {% for projeto in ultimos_projetos|slice:":6" %}
                     <div class="card">
-                        <a href="{% url 'detalhes_projeto' projeto.id %}">
-                            <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                        <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                        <nav>
                             <p>{{ projeto.titulo }}</p>
-                        </a>
+                            <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>
+                        </nav>
+
                     </div>
                     {% endfor %}
                 </div>
@@ -87,7 +90,7 @@
                 </section>
             </div>
 
-
+            <!-- 
             {% if projeto %}
             <article class="second">
                 <h1 class="title2"> Relevantes</h1>
@@ -124,7 +127,7 @@
                     </div>
                 </div>
             </article>
-            {% endif %}
+            {% endif %} -->
         </div>
 
         <div class="segundo-corpo"> <!--segundo corpo-->
