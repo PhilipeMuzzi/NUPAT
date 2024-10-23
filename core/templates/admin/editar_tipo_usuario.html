@@ -1,20 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/principal.css' %}">
+    <title>Definir Tipo de Usuário</title>
 </head>
 <body>
-<form method="POST">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <label for="tipo_usuario">Tipo de Usuário:</label>
-    <select id="tipo_usuario" name="tipo_usuario">
-        <option value="comum" {% if perfil.tipo_usuario == "comum" %}selected{% endif %}>Comum</option>
-        <option value="pesquisador" {% if perfil.tipo_usuario == "pesquisador" %}selected{% endif %}>Pesquisador</option>
-        <option value="parceiro" {% if perfil.tipo_usuario == "parceiro" %}selected{% endif %}>Parceiro</option>
-        <!-- Adicione outros tipos conforme necessário -->
-    </select>
-    <button type="submit">Atualizar Tipo</button>
+    {{ form.as_p }}
+    {% if user.is_staff %}
+    <div>
+        <label for="tipo_usuario">Tipo de Usuário:</label>
+        <select name="tipo_usuario" id="tipo_usuario">
+            {% for tipo in perfil.TIPO_USUARIO_CHOICES %}
+                <option value="{{ tipo.0 }}" {% if perfil.tipo_usuario == tipo.0 %}selected{% endif %}>
+                    {{ tipo.1 }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+
+    <button type="submit">Salvar Atualizações</button>
 </form>
 
 </body>

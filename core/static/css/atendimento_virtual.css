@@ -1,74 +1,61 @@
 
-ul
-{
-    list-style: none;
-}
-
-main
-{
+main{
     background-color: #E7E4D7;
     padding-bottom: 70px;
 }
-main a
-{
+main a{
     text-decoration: none;
     color: #304D30;
 }
-main .img-container
-{
+main .img-container{
     width: 100%;
+    height: 100%;
 }
-main img
-{
+main img{
     width: 100%;
+    height: 450px;
+    display: flex;
 }
-main .img-text
-{
+main .img-text{
     position:absolute;
-    top: 70%;
+    top: 50%;
     left: 35%;
     text-align: start;
     transform: translate(-50%, -50%);
-    border-radius: 30px;
+    border-radius: 15px;
     color: #304D30;
     background-color: #eef0e5cc;
     padding: 10px;
-    z-index: 0;
+    z-index: 1;
 }
-main .atendimento h1, .suporte h1, .perguntas h1
-{
-    padding-top: 20px;
+main .atendimento h1, .suporte h1, .perguntas h1{
+    padding-top: 5%;
     padding-left: 30px;
     padding-bottom: 20px;
     padding-right: 10px;
 }
-.linha-fina, .linha-finap
-{
+.linha-fina, .linha-finap{
     height: 2px;
-    width: 69%;
+    width: 73%;
     background-color: #00ff00;
     color: #00ff00;
-    margin-left: 30%;
+    margin-left: 25%;
     margin-top: -20px;
 }
-.linha-finap
-{
-    margin-left: 33%;
-    width: 66%;
+.linha-finap{
+    margin-left: 26%;
+    width: 72%;
 }
-main .atendimento h2
-{
+main .atendimento h2{
     padding-left: 50px;
-    padding-top: 15px;
-    padding-bottom: 25px;
+    padding-top: 2%;
+    padding-bottom: 30px;
 }
-main .atendimento ul
-{
+main .atendimento ul{
     display: flex;
     justify-content:space-around;
 }
-main .atendimento ul li
-{
+main .atendimento ul li{
     height: 100%;
     padding: 15px 20px;
     transition: background .5s;
@@ -76,17 +63,14 @@ main .atendimento ul li
     width: 25%;
     cursor: pointer;
 }
-main .atendimento ul li:hover
-{
+main .atendimento ul li:hover{
     background-color: #afc9afa8;
     border-radius: 25px;
 }
-main .atendimento ul li a
-{
+main .atendimento ul li a{
     transition: color .3s;
 }
-main .atendimento ul li a:hover
-{
+main .atendimento ul li a:hover{
     color: #000000;
 }
 main .atendimento ul li a h3
@@ -132,7 +116,7 @@ main .atendimento ul li, .suporte div
 }
 .perguntas h1
 {
-    padding-bottom: 100px;
+    padding-bottom: 90px;
 }
 .perguntas-frequentes summary
 {

@@ -109,7 +109,6 @@ button, .btn a {
     gap: 20px;
     
 }
-
 button:hover {
     background-color: #45a049;
     text-decoration: none;

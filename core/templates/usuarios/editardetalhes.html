@@ -2,37 +2,34 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Detalhes do Perfil</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <h2>Editar Detalhes do Perfil de {{ perfil.usuario.username }}</h2>
 
     <div class="image">
-        <i class="fa-solid fa-circle-user" style="color: #304d30; font-size: 100px;"></i>
-        <a href="{% url 'editar_detalhes' usuario_id=perfil.usuario.id %}">Alterar foto do perfil</a>
+        {% if perfil.foto_perfil %}
+            <img src="{{ perfil.foto_perfil.url }}" alt="Foto de Perfil" style="width: 100px; height: 100px; border-radius: 50%;">
+        {% else %}
+            <i class="fa-solid fa-circle-user" style="color: #304d30; font-size: 100px;"></i>
+        {% endif %}
+        <a href="#">Alterar foto do perfil</a>
     </div>
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-
-        <!-- Exibindo o formulário gerado pelo Django -->
         {{ form.as_p }}
-
         <div>
             <label for="foto_perfil">Selecionar nova foto de perfil:</label>
             <input type="file" name="foto_perfil" id="foto_perfil" accept="image/*" onchange="previewImage(event)">
         </div>
-
+        {% if user.is_staff %}
         <div>
-            <label for="tipo_usuario">Tipo de Usuário:</label>
-            <select name="tipo_usuario" id="tipo_usuario">
-                {% for tipo in perfil.TIPO_USUARIO_CHOICES %}
-                    <option value="{{ tipo.0 }}" {% if perfil.tipo_usuario == tipo.0 %}selected{% endif %}>
-                        {{ tipo.1 }}
-                    </option>
-                {% endfor %}
-            </select>
         </div>
+        {% endif %}
+
 
         <button type="submit">Salvar Atualizações</button>
     </form>
@@ -56,6 +53,5 @@
             reader.readAsDataURL(file);
         }
     </script>
-
 </body>
 </html>

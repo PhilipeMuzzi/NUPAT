@@ -17,20 +17,21 @@ urlpatterns = [
     path('quem-somos/', quem_somos, name='quem_somos'),
     path('area-suporte/', area_suporte, name='area_suporte'),
     path('atendimento-virtual/', atendimento_virtual, name='atendimento_virtual'),
+    path('projetos/andamento/', views.projetos_andamento, name='projetos_andamento'),
+    path('projetos/concluidos/', views.projetos_concluidos, name='projetos_concluidos'),
+    path('projetos/planejamento/', views.projetos_planejamento, name='projetos_planejamento'),
+    path('projetos/todos', views.listar_projetos_todos, name='listar_todos_os_projetos'),
 
     # gerenciamento de usuários
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
-    path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
     path('usuarios/<int:usuario_id>/editar/', views.editar_tipo_usuario, name='editar_detalhes'),
-    path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
+    path('admin/editar_tipo_usuario/<int:usuario_id>/', views.editar_tipo_usuario, name='editar_tipo_usuario'),
     path('usuarios/<int:usuario_id>/editar/', views.editar_usuario, name='editar_usuario'),
     path('usuarios/<int:usuario_id>/deletar/', views.deletar_usuario, name='deletar_usuario'),
-    path('usuarios/<int:usuario_id>/atualizar_tipo/', views.atualizar_tipo_usuario, name='atualizar_tipo_usuario'),
-
 
 
     # links para gerenciamento dos projetos
-    path('projetos/', views.listar_projetos, name='listar_projetos'),  # Corrigido para 'listar_projetos'
+    path('projetos/', views.listar_projetos, name='listar_projetos'),
     path('projetos/adicionar/', views.adicionar_projeto, name='adicionar_projeto'),
     path('projetos/<int:projeto_id>/', views.detalhes_projeto, name='detalhes_projeto'),
     path('projetos/<int:projeto_id>/editar/', views.editar_projeto, name='editar_projeto'),
