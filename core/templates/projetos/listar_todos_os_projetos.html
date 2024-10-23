@@ -27,29 +27,6 @@
                 <ul>
                     <li>
                         <h3>
-                            <strong>Categorias</strong>
-                        </h3>
-                        <ul>
-                            <li>
-                                <input type="checkbox" id="categorias" name="categorias" value="acessibilidade-web"><label for="acessibilidade-web"> Acessibilidade Web</label></li>
-                            
-                                <li><input type="checkbox" id="categorias" name="categorias" value="tecnologia"><label for="tecnologia">Tecnologia</label> </li>
-                            
-                                <li><input type="checkbox" id="categorias" name="categorias" value="educacao-e-pedagogia"><label for="educacao-e-pedagogia">Educação e Pedagogia</label></li>
-                            
-                                <li><input type="checkbox" id="categorias" name="categorias" value="ciencias-humanas"><label for="ciencias-humanas">Ciências Humanas</label></li>
-                            
-                                <li>
-                                <details>
-                                    <summary class="mais">Mais<i class="fa-solid fa-chevron-down"></i>
-                                    </summary>
-                                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolorum, impedit? Consectetur totam non odio, id labore dignissimos nam cupiditate ad possimus? Fuga ullam perferendis mollitia. Harum totam corporis nulla culpa.</p>
-                                </details>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h3>
                             <strong>Situação</strong>
                         </h3>
                         <ul>
@@ -57,7 +34,7 @@
                                 <input type="checkbox" name="situacao" id="situacao" class="form-control" value="planejamento"><label for="situacao">Em Planejamento</label>
                             </li>
                             <li>
-                                <input type="checkbox" name="situacao" id="situacao" class="form-control" value="andamento"><label for="situacao"></label>
+                                <input type="checkbox" name="situacao" id="situacao" class="form-control" value="andamento"><label for="situacao">Em Andamento</label>
                             </li>
                             <li>
                                 <input type="checkbox" name="situacao" id="situacao" class="form-control" value="concluido"><label for="situacao">Concluído</label>
@@ -68,16 +45,14 @@
                         <h3>
                             <strong>Instituições</strong>
                         </h3>
-                        <ul><li><input type="checkbox" name="instituicoes" id="instituicoes" class="form-control" value="{{ instituicao.id}}"><label for="instituicoes"></label></li></ul>
-                        <label for="instituicoes"></label>
-                        <select id="instituicoes" name="instituicoes" class="form-control" multiple required>
-                            <i class="fa-solid fa-chevron-down">
-                                {% for instituicao in instituicoes %}
-                                <option value="{{ instituicao.id }}">{{ instituicao.nome }}</option>
-                                {% endfor %}
-                            </i>
-                        </select>
-                    </div>
+                        <ul><li>
+                            {% for instituicao in instituicoes %}
+                            <input type="checkbox" name="instituicoes" id="instituicoes" class="form-control" value="{{ instituicao.id}}"><label for="instituicoes">{{ instituicao.nome }}</label></li></ul>
+                            <i class="fa-solid fa-chevron-down"></i>
+                            {% endfor %}
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
             </ul>
         </section>
@@ -102,8 +77,6 @@
                             <a href="{% url 'detalhes_projeto' projeto.id %}">{{ projeto.titulo }}</a>
                             <p>Estado: {{ projeto.estado }}</p>
                             <p>{{ projeto.descricao }}</p>
-                            <a href="{% url 'editar_projeto' projeto.id %}" class="btn btn-warning">Editar</a>
-                            <a href="{% url 'deletar_projeto' projeto.id %}" class="btn btn-danger">Deletar</a>
                         </div>
                     </nav>
                 </article>
@@ -111,7 +84,6 @@
         {% empty %}
             <p class="no-projects">Nenhum projeto encontrado.</p>
         {% endfor %}
-            <a href="{% url 'adicionar_projeto' %}" class="btn btn-primary">Adicionar Projeto</a>
         </section>
     </article>
 </main>
