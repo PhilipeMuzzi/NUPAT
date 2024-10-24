@@ -27,12 +27,12 @@
 
     <div class="container">
 
-        <div class="primeiro-corpo"> 
-            {% if projeto %}<!--primeiro corpo-->
+        <div class="primeiro-corpo">
+            {% if ultimos_projetos %}
             <article class="second">
                 <h1 class="title2">Relevantes</h1>
                 <div class="cards-container">
-                    {% for projeto in ultimos_projetos|slice:":6" %} <!--os 6 projetos mais recentes -->
+                    {% for projeto in ultimos_projetos|slice:":6" %}
                     <div class="card">
                         <a href="{% url 'detalhes_projeto' projeto.id %}">
                             <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
@@ -42,15 +42,21 @@
                     {% endfor %}
                 </div>
             </article>
+            {% else %}
+            <p>Nenhum projeto cadastrado no momento.</p>
             {% endif %}
 
-            <!--Carrossel princinpal-->
+
+
+
+            <!--Carrossel principal-->
             <div class="carrosel">
                 <section class="slider">
                     <div class="slider-content">
                         <input type="radio" name="btn-radio" id="radio1" checked>
                         <input type="radio" name="btn-radio" id="radio2">
                         <input type="radio" name="btn-radio" id="radio3">
+
                         <!--As imagens abaixo vai ser alterada para fotos posteriores dos componentes dos grupos em atividades relacionada ao NUPAT-->
                         <div class="slider-box primeiro">
                             <div class="img-container">
@@ -80,6 +86,7 @@
                     </div>
                 </section>
             </div>
+
 
             {% if projeto %}
             <article class="second">
@@ -120,6 +127,7 @@
             {% endif %}
             
         </div>
+
         <div class="segundo-corpo"> <!--segundo corpo-->
             <div class="notice">
                 <div onload="carregarNoticias()">
@@ -141,9 +149,7 @@
     <script src="{% static 'js/main-pagprincipal.js' %}"></script>
     <script src="{% static 'js/slider.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
-
+    {% include 'base-footer.html' %}
 </body>
 
 </html>
-
-{% include 'base-footer.html' %}

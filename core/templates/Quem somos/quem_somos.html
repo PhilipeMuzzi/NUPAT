@@ -101,7 +101,7 @@
                 <li>
                     <p>Suporte <i class="fa-solid fa-chevron-down"></i></p>
                     <ul id="btn-suporte">
-                        <li><a href="atendimento_virtual.html">Atendimento Virtual </a></li>
+                        <li><a href="{% url 'atendimento_virtual' %}">Atendimento Virtual </a></li>
                     </ul>
                 </li>
             </ul>
@@ -144,7 +144,7 @@
                         <!--As imagens abaixo vai ser alterada para fotos posteriores dos componentes dos grupos em atividades relacionada ao NUPAT--> 
                         <div class="slider-box primeiro">
                             <div class="img-container">  
-                            <img class="img-desktop" src="{%static 'img/trabgroup.png' %}" alt="Imagem ilustrativa">
+                            <img class="img-desktop" src="{%static 'img/ilu.png' %}" alt="Imagem ilustrativa">
                         </div></div>
                         <div class="slider-box">
                             <div class="img-container">
@@ -180,10 +180,7 @@
                         O Nupat não é apenas um núcleo de pesquisa; é uma comunidade em crescimento, dedicada a criar um futuro onde a tecnologia seja um direito de todos, e não um privilégio de poucos. Convidamos você a conhecer nosso trabalho, 
                         participar de nossas iniciativas e juntar-se a nós na construção de um mundo digital mais inclusivo e acessível para todos.
                     </p>
-                    
-                 
-                    
-                
+            
                     <div class="lyne"></div>
                    
                 </div>
@@ -191,7 +188,7 @@
                     <h2> Membros do Nupat</h2>
                 </div>
             </div>
-            <!--TESTANDO CIRCULOS-->
+            <!--componentes do projeto -->
             <div class="carousel-container">
                 <div class="photos">
                     <div class="profilesec">
@@ -210,13 +207,13 @@
                         <div class="circle">
                             <img src="{% static 'img/Dev_David.jpg' %}" alt="Foto de Perfil do Aluno David, Desenvolvedor Front-End">
                         </div>
-                        <p>David Lopes | Desenvolvedor Front-End</p>
+                        <p> David Lopes | Desenvolvedor Front-End</p>
                     </div>
                     <div class="profilesec">
                         <div class="circle">
-                            <img src="/Quem somos/img/phototest.jpg" alt="Person 4">
+                            <img src="{% static 'img/dev.vanessa.jpg' %}" alt="Foto de perfil da aluna Vanessa, Desenvolvedora Front-End">
                         </div>
-                        <p>Vanessa Goncalves | Desenvolvedora Front-End</p>
+                        <p>Vanessa Gonçalves | Desenvolvedora Front-End</p>
                     </div>
                     <div class="profilesec">
                         <div class="circle">
@@ -226,13 +223,13 @@
                     </div>
                     <div class="profilesec">
                         <div class="circle">
-                            <img src="/Quem somos/img/phototest.jpg" alt="Person 6">
+                            <img src="{%static 'img/devback.marcelo.jpg'%}" alt=" Foto de perfil do aluno Marcelo, Desenvolvedor Back-End">
                         </div>
                         <p>Marcelo Ryan | Desenvolvedor Back-end</p>
                     </div>
                     <div class="profilesec">
                         <div class="circle">
-                            <img src="/Quem somos/img/phototest.jpg" alt="Person 7">
+                            <img src="{% static 'img/dev.Philip.jpg' %}" alt="Person 7">
                         </div>
                         <p> Phillip Muzzi | Desenvolvedor Back-end</p>
                     </div>
@@ -246,13 +243,7 @@
                         <div class="circle">
                             <img src="/Quem somos/img/phototest.jpg" alt="Person 7">
                         </div>
-                        <p> Phillip Muzzi | Desenvolvedor Back-end</p>
-                    </div>
-                    <div class="profilesec">
-                        <div class="circle">
-                            <img src="/Quem somos/img/phototest.jpg" alt="Person 7">
-                        </div>
-                        <p> Phillip Muzzi | Desenvolvedor Back-end</p>
+                        <p> Leonardo | Designer UX/UI</p>
                     </div>
                 </div>
                 <button class="prev" onclick="moveCarousel(-1)">&#10094;</button>
@@ -260,82 +251,7 @@
             </div>
             <!-- em faze de teste-->
     </main>
-    <!-- INÍCIO DO RODAPÉ COMPLETO-->
-    <footer class="primeiro-rodape">
-        <div class="voltar-ao-topo">
-            <hr>
-            <i class="fa-solid fa-arrow-up-long" style="color: #304d30;"></i>
-            <a href="" onclick="subiraoTopo();">Voltar ao topo</a>
-            <hr>
-        </div>
-        <article>
-            <div class="container-texto">
-                <div class="primeiro-txt">
-                    <h3>
-                        <strong style="cursor: default;">Institucional</strong>
-                    </h3>
-                    <p>
-                        <a href="https://portal.ifrn.edu.br">Portal IFRN</a>
-                        <a href="">FAQs</a>
-                        <a href="https://suap.ifrn.edu.br/accounts/login/?next=/">Portal do Suap</a>
-                        <a href="/repositorio_nupat/Quem somos/index.html">Sobre Nós</a>
-                    </p>
-
-                </div>
-                <div class="segundo-txt">
-                    <h3>
-                        <strong style="cursor: default;">Serviços</strong>
-                    </h3>
-                    <p>
-                        <a href="">Atendimento Virtual</a>
-                        <a href="">Suporte ao Usuário</a>
-                        <a href="">Feedback</a>
-                    </p>
-                </div>
-            </div>
-            <div class="img-dados">
-                <div class="img-logo">
-                    <img src="{% static 'img/4Iwakb0M_400x400.png' %}"  alt="Logo do IFRN"
-                    width="200px" height="200px"
-                    id="logo-ifrn"
-                    style="mix-blend-mode: multiply;" >
-                    <img src="{% static 'img/icon_u.webp'%}" alt="Logo do NUPAT"
-                    width="300px" height="300px"
-                    id="logo-nupat">
-                </div>
-                <div class="dados-icons">
-                    <h3>Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT</h3>
-                    <p>
-                        Endereço: BR 101, km 160, s/n, Areia Branca <br>
-                        E-mail: XXXXXXXXX@gmail.com - Canguaretama-RN | CEP: 59190-000 <br>
-                        Telefone: (84) X XXXX-XXXX
-                    </p>
-                    <nav class="icons">
-                        <a href="#">
-                            <i class="fa-brands fa-facebook" ></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa-brands fa-linkedin"></i>
-                        </a>
-                        <a href="#">
-                            <i class="fa-brands fa-square-instagram"></i>
-                        </a>
-                        <a href="">
-                            <i class="fa-brands fa-square-x-twitter"></i>
-                        </a>
-
-                    </nav>
-                </div>
-            </div>
-        </article>
-    </footer>
-    <footer class="segundo-rodape">
-        <div class="copyright">
-            <p> Política de privacidade | Termo de uso | Cookies </p>
-            <p> Copyright &copy; 2024 | Núcleo de Pesquisa em Acessibilidade e Tecnologia | IFRN - Campus Canguaretama
-            </p>
-        </div>
-    </footer>
+    {% include 'base-footer.html' %}
     <!-- acessibilidade de libras -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>

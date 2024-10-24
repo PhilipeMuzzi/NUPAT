@@ -1,0 +1,18 @@
+<h2>Resultados da Pesquisa de Opinião</h2>
+<p>Média de Notas: {{ media_notas|floatformat:1 }}</p>
+<table>
+    <thead>
+        <tr>
+            <th>Nota</th>
+            <th>Total de Votos</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for nota in todas_notas %}
+        <tr>
+            <td>{{ nota.nota }}</td>
+            <td>{{ nota.total }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

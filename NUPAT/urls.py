@@ -7,7 +7,7 @@ from core.views import admin_dashboard
 urlpatterns = [
     path('admin/dashboard/', admin_dashboard, name='admin_dashboard'),
     # outras URLs
-    path('', include('core.urls')),  # Inclui as URLs do aplicativo core
+    path('', include('core.urls')),
 
 
 ]

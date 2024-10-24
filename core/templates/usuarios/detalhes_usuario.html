@@ -88,7 +88,7 @@
                     <i class="fi fi-sr-lock"></i>
                     <p>Redefinir Senha</p>
                 </a>
-                <a href="{% url 'lista_projetos' %}">
+                <a href="{% url 'listar_todos_os_projetos' %}">
                     <i class="fi fi-ss-book"></i>
                     <p>Ver Projetos</p>
                 </a>
@@ -100,8 +100,19 @@
             </section>
             <div class="linha-vertical"></div>
             <article>
-                <p>Usuário: {{ perfil.usuario.first_name|default:perfil.usuario.username }}</p>
-                <p>Perfil de: {{ perfil.get_tipo_usuario_display }}</p>
+                    <p>Usuário: {{ perfil.usuario.first_name|default:perfil.usuario.username }}</p>
+
+
+                {% if perfil.tipo_usuario %}
+                    {% if perfil.tipo_usuario == 'Aluno' %}
+                        <p><strong>Tipo de Usuário:</strong> Aluno</p>
+                    {% else %}
+                        <p><strong>Tipo de Usuário:</strong> {{ perfil.tipo_usuario }}</p>
+                    {% endif %}
+                {% endif %}
+
+
+
                 <p>Telefone: {{ perfil.telefone }}</p>
                 <p>Endereço: {{ perfil.endereco }}</p>
                 <p>Instituição: {{ perfil.instituto }}</p>
@@ -123,9 +134,6 @@
         <i class="fa-solid fa-circle-user" style="color: #304d30; font-size: 100px;"></i>
     {% endif %}
 </div>
-
-
-
                 </main>
                 <div class="btn-salvar">
                     <a href="{% url 'editar_detalhes' usuario_id=perfil.usuario.id %}">Atualizar Informações</a>
@@ -171,5 +179,6 @@
             </div>
         </article>
     </footer>
+
 </body>
 </html>
