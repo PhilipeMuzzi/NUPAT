@@ -1,0 +1,11 @@
+{% if mensagem %}
+    <div class="alert alert-success">
+        {{ mensagem }}
+    </div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Enviar Opinião</button>
+</form>

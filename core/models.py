@@ -32,6 +32,23 @@ class Instituicao(models.Model):
         return self.nome
 
 
+class DuvidaUsuario(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    mensagem = models.TextField()
+    data_envio = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Dúvida de {self.usuario.username} - {self.data_envio.strftime("%d/%m/%Y")}'
+
+
+
+class PesquisaOpiniao(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    nota = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
+    data_envio = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Nota {self.nota} de {self.usuario.username}'
 
 #models para pesquisador e se
 class Pesquisador(models.Model):
