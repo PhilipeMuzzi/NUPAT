@@ -13,6 +13,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: var(--verde);
     margin: 0;
+    padding: 0;
 }
 
 main{
@@ -118,7 +119,7 @@ button:hover {
     text-decoration: none;
 }
 
-p {
+.container p {
     text-align: center;
     color: #555;
 }
