@@ -19,8 +19,7 @@ urlpatterns = [
     path('atendimento-virtual/', atendimento_virtual, name='atendimento_virtual'),
     path('projetos/andamento/', views.projetos_andamento, name='projetos_andamento'),
     path('projetos/concluidos/', views.projetos_concluidos, name='projetos_concluidos'),
-    path('projetos/planejamento/', views.projetos_planejamento, name='projetos_planejamento'),
-    path('projetos/todos', views.listar_projetos_todos, name='listar_todos_os_projetos'),
+    path('projetos/iniciados/', views.projetos_iniciados, name='projetos_iniciados'),
 
     # gerenciamento de usuários
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),

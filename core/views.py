@@ -79,33 +79,36 @@ def area_suporte(request):
 def atendimento_virtual(request):
     return render(request, 'Atendimento virtual/atendimento_virtual.html')
 
-# Listagem de TODOS OS projetos PARA TODOS OS USUÁRIOS:
-def listar_projetos_todos(request): 
-    pesquisa= request.GET.get('pesquisa')
-    projetos_andamento = Projeto.objects.filter(situacao='andamento')
-    projetos_concluidos = Projeto.objects.filter(situacao='concluido')
-    projetos_iniciados = Projeto.objects.filter(situacao='planejamento')
-    print(pesquisa)
-    if pesquisa:
-        projetos = Projeto.objects.filter(titulo__icontains=pesquisa)
-    else:
-        projetos = Projeto.objects.all()
-    return render(request, 'projetos/listar_todos_os_projetos.html', {'projetos': projetos})
 
 # Projetos marcados pelo admin como "Em Andamento"
 def projetos_andamento(request):
-    projetos_andamento = Projeto.objects.filter(situacao='andamento')
-    return render(request, 'projetos/projetos_andamento.html', {'projetos': projetos_andamento})
+    pesquisa= request.GET.get('pesquisa')
+    print(pesquisa)
+    if pesquisa:
+        projetos_andamento = Projeto.objects.filter(situacao='andamento', titulo__icontains=pesquisa)
+    else:
+        projetos_andamento = Projeto.objects.filter(situacao='andamento')
+    return render(request, 'projetos/projetos_andamento.html', {'projetos_andamento': projetos_andamento})
 
 # Projetos marcados pelo admin como "Concluídos"
 def projetos_concluidos(request):
-    projetos_concluidos = Projeto.objects.filter(situacao='concluido')
-    return render(request, 'projetos/projetos_concluido.html', {'projetos': projetos_concluidos})
+    pesquisa=request.GET.get('pesquisa')
+    print(pesquisa)
+    if pesquisa:
+        projetos_concluidos = Projeto.objects.filter(situacao='concluidos', titulo__icontains=pesquisa)
+    else:
+        projetos_concluidos = Projeto.objects.filter(situacao='concluidos')
+    return render(request, 'projetos/projetos_concluido.html', {'projetos_concluidos': projetos_concluidos})
 
 # Projetos marcados pelo admin como "Em Planejamento"
-def projetos_planejamento(request):
-    projetos_planejamento = Projeto.objects.filter(situacao='planejamento')
-    return render(request, 'projetos/projetos_planejamento.html', {'projetos': projetos_planejamento})
+def projetos_iniciados(request):
+    pesquisa=request.GET.get('pesquisa')
+    print(pesquisa)
+    if pesquisa:
+        projetos_iniciados = Projeto.objects.filter(situacao='planejamento', titulo__icontains=pesquisa)
+    else:
+        projetos_iniciados = Projeto.objects.filter(situacao='planejamento')
+    return render(request, 'projetos/projetos_iniciados.html', {'projetos_iniciados': projetos_iniciados})
 
 # view para registro de novos usuários
 
