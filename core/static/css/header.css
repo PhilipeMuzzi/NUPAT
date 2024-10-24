@@ -80,7 +80,6 @@ a {
     font-weight: bold;
 }
 
-
 .btn-a {
     cursor: pointer;
     padding: 3px;
@@ -187,6 +186,7 @@ nav ul {
 .menu .profile {
     display: flex;
     align-items: center;
+    margin-left: 40rem;
 }
 
 .menu .profile {
@@ -196,15 +196,14 @@ nav ul {
 
 .menu img {
     width: 120px;
-    height: 120px;
+    height: 100px;
+    margin-left: -8rem;
     object-fit: contain;
 }
 
 .menu input[type="text"] {
     margin: 0 10px;
 }
-
-
 .menu .buscar-box .input-buscar input {
     background-color: #EEF0E5;
     width: 420px;
