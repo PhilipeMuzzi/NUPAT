@@ -304,7 +304,7 @@ nav ul {
 .container {
     display: grid;
     place-items: center;
-    height: 150vh;
+    max-height: 150vh;
     grid-template-columns: 60% 40%;
     grid-template-areas:
         "primeiro-corpo segundo-corpo";
@@ -498,6 +498,7 @@ main {
     display: flex;
     width: 100%;
     justify-content: center;
+    margin-top: 30px;
 }
 
 section.slider {
