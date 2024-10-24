@@ -11,7 +11,9 @@
 <body>
     <main>
         <div class="img">
-            <img src="{% static 'img/logo_02.png' %}" class="logo_nupat" alt="logo nupat">
+            <a href="{% url 'inicio' %}">
+                <img src="{% static 'img/logo_02.png' %}" class="logo_nupat" alt="logo nupat">
+            </a>
             <img src="{% static 'img/img-login.png'%}" alt="logo login">
         </div>
         
@@ -31,7 +33,7 @@
                 
                 <div class="btn">
                     <button type="submit" class="btn btn-danger">Entrar</button>
-                    <a href="{% url 'inicio' %}">Voltar ao menu</a>
+                    <a href="{% url 'inicio' %}">Voltar</a>
                 </div>
 
             </form>
