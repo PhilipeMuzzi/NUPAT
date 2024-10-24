@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Perfil, Projeto
+from .models import Perfil, Projeto, DuvidaUsuario, PesquisaOpiniao
 
 
 class PerfilForm(forms.ModelForm):
@@ -34,7 +34,17 @@ class RegistroUsuarioForm(UserCreationForm):
         model = User
         fields = ['username', 'email', 'password1', 'password2']
 
+class DuvidaForm(forms.ModelForm):
+    class Meta:
+        model = DuvidaUsuario
+        fields = ['mensagem']
 
+
+
+class PesquisaOpiniaoForm(forms.ModelForm):
+    class Meta:
+        model = PesquisaOpiniao
+        fields = ['nota']
 
     def save(self, commit=True):
         user = super().save(commit=False)

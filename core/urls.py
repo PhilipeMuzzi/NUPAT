@@ -30,6 +30,12 @@ urlpatterns = [
     path('usuarios/<int:usuario_id>/deletar/', views.deletar_usuario, name='deletar_usuario'),
 
 
+    path('enviar_duvida/', views.enviar_duvida, name='enviar_duvida'),
+    path('admin/duvidas_usuarios/', views.listar_duvidas, name='listar_duvidas'),
+    path('pesquisa_opiniao/', views.pesquisa_opiniao, name='pesquisa_opiniao'),
+    path('admin/pesquisa_opiniao_usuario/', views.resultados_pesquisa, name='resultados_pesquisa'),
+
+
     # links para gerenciamento dos projetos
     path('projetos/', views.listar_projetos, name='listar_projetos'),
     path('projetos/adicionar/', views.adicionar_projeto, name='adicionar_projeto'),
