@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/principal.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
     <link rel="stylesheet" href="/Rodapé-padrão/style.css">
     <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="12x12">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
@@ -66,6 +66,7 @@
                                 alt="Logo do Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT"></a>
                     </li>
                     <li class="profile">
+
                         <p>
                             {% if user.is_authenticated and not user.is_staff %}
                                 <a href="{% url 'detalhes_usuario' usuario_id=user.id %}">
@@ -103,10 +104,9 @@
             <li>
                 <p>Projetos <i class="fa-solid fa-chevron-down"></i></p>
                 <ul>
-                    <li><a href="{% url 'listar_todos_os_projetos' %}">Todos</a></li>
-                    <li><a href="{% url 'projetos_planejamento' %}">Em Planejamento</a></li>
-                    <li><a href="{% url 'projetos_andamento' %}">Em Andamento</a></li>
-                    <li><a href="{% url 'projetos_concluidos' %}">Concluídos</a></li>
+                    <li><a href="{% url 'projetos_iniciados' %}">Projetos Iniciados</a></li>
+                    <li><a href="{% url 'projetos_andamento' %}">Projetos em Andamento</a></li>
+                    <li><a href="{% url 'projetos_concluidos' %}">Projetos Concluídos</a></li>
                 </ul>
             </li>
             <li>

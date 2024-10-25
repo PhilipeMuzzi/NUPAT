@@ -12,6 +12,8 @@
 body {
     font-family: Arial, sans-serif;
     background-color: var(--verde);
+    padding: 0;
+    margin: 0;
 
 }
 
@@ -112,7 +114,7 @@ button:hover {
     background-color: #45a049;
 }
 
-p {
+.container p {
     text-align: center;
     color: #555;
 }

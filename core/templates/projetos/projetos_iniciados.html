@@ -3,15 +3,15 @@
 {% block content %}
 <head>
     <link rel="stylesheet" href="{% static 'css/projetos_iniciados.css' %}">
-    <title>Projetos em Andamento</title>
+    <title>Projetos Iniciados</title>
 </head>
 <main>
     <h1>
-        <strong>Projetos em Andamento</strong><hr class="linha-fina">
+        <strong>Projetos Iniciados</strong><hr class="linha-fina">
     </h1>
     <article>
         <section class="filtro">
-            <form class="buscar-box" action="{% url 'projetos_andamento' %}" method="GET">
+            <form class="buscar-box" action="{% url 'projetos_iniciados' %}" method="GET">
                 <div class="input-buscar">
                     <input type="text" name="pesquisa" value="{{request.GET.pesquisa}}" placeholder="Pesquise um artigo" class="form-control">
                     <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
@@ -81,9 +81,9 @@
         </section>
         <section class="proj">
             <h1>
-                <strong>Projetos em Andamento</strong>
+                <strong>Projetos Iniciados</strong>
             </h1>
-            {% for projeto in projetos_concluidos %}
+            {% for projeto in projetos_iniciados %}
             <div class="pro">
                 <article class="projetos">
                     <nav class="card1">
