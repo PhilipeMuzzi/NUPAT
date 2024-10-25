@@ -14,7 +14,7 @@
 .container {
     display: grid;
     place-items: center;
-    max-height: 150vh;
+    max-height: auto;
     grid-template-columns: 60% 40%;
     grid-template-areas:
         "primeiro-corpo segundo-corpo";
@@ -30,14 +30,14 @@
     align-items: center;
 }
 
-.primary,
 .second {
     width: 90%;
-    height: 400px;
+    height: auto;
     display: flex;
     justify-content: start;
     flex-direction: column;
     margin-top: 50px;
+    gap: 20px;
 }
 
 
@@ -50,17 +50,38 @@
 }
 
 .card {
-    flex: 1 1 calc(33.333% - 20px); /* 3 cards por linha */
+    width: 45% ;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 0px;
     background-color: #fff;
     border-radius: 8px;
     text-align: center;
+    display: flex;
+    align-items: center;
+}
+.card nav {
+    width: 70%;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.card nav a {
+    background-color: var(--verdeclaro);
+    width: 70px;
+    height: 30px;
+    color: #fff;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-size: 0.9rem;
 }
 
 .card img {
-    max-width: 100%;
-    height: auto;
+    max-width: 40%;
     border-radius: 4px;
 }
 
@@ -179,6 +200,9 @@
     height: 200px;
     background-color: var(--verdefraco);
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nupat p {
