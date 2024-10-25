@@ -19,6 +19,7 @@
     grid-template-areas:
         "primeiro-corpo segundo-corpo";
 
+
 }
 
 .primeiro-corpo {
@@ -39,6 +40,7 @@
     flex-direction: column;
     margin-top: 50px;
     padding: 12px;
+    gap: 10px;
 }
 
 
@@ -48,16 +50,16 @@
     flex-wrap: wrap;
     width: 100%;
     gap: 20px;
-    flex: 1 1 calc(33.333% - 20px);  /* 3 cards por linha */
-    padding: 5px;
 }
 
 .card {
+ /* 3 cards por linha */
+    width: 45%;
     display: flex;
     align-items: center;
     justify-content: start;
     gap: 3px;
-    width: 340px;
+
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 3px;
     background-color: #fff;
@@ -74,6 +76,22 @@
     margin-top: 10px;
     font-size: 16px;
     font-weight: 600;
+}
+
+.card a {
+    background-color: var(--verdeclaro);
+    width: 80px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.9rem;
+}
+.card nav{
+    
 }
 
 /* Responsividade para telas menores */

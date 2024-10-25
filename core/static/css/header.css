@@ -12,7 +12,6 @@
 
 html {
     scroll-behavior: smooth;
-
 }
 
 body {
@@ -145,7 +144,6 @@ a {
 .principal {
     background-color: #304D30;
     width: 100%;
-
 }
 
 .menu ul {
@@ -197,7 +195,6 @@ nav ul {
 .menu img {
     width: 120px;
     height: 100px;
-    margin-left: -8rem;
     object-fit: contain;
 }
 

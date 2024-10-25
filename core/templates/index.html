@@ -22,7 +22,6 @@
 </head>
 
 <body>
-
     {% include 'base-header.html' %}
 
     <div class="container">
@@ -31,7 +30,7 @@
 
             {% if ultimos_projetos %}
             <article class="second">
-                <h1 class="title2">Relevantes</h1>
+                <h1 class="title2">Adicionados Recentemente</h1>
                 <div class="cards-container">
                     {% for projeto in ultimos_projetos|slice:":6" %}
                     <div class="card">
@@ -48,8 +47,6 @@
             {% else %}
             <p>Nenhum projeto cadastrado no momento.</p>
             {% endif %}
-
-
 
 
             <!--Carrossel principal-->
