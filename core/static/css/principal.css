@@ -9,12 +9,16 @@
     --navbar-height: 4.75rem;
 
 }
-
+*{
+    margin:0;
+    padding:0;
+}
 /* INICIO DO CORPO DO SITE*/
 .container {
     display: grid;
     place-items: center;
     max-height: auto;
+    padding: 10px;
     grid-template-columns: 60% 40%;
     grid-template-areas:
         "primeiro-corpo segundo-corpo";
@@ -52,7 +56,7 @@
 .card {
     width: 45% ;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 0px;
+    padding: 10px;
     background-color: #fff;
     border-radius: 8px;
     text-align: center;
