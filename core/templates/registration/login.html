@@ -14,21 +14,21 @@
             <img src="{% static 'img/logo_02.png' %}" class="logo_nupat" alt="logo nupat">
             <img src="{% static 'img/img-login.png'%}" alt="logo login">
         </div>
-        
+
 
         <div class="container">
             <form method="post">
                 {% csrf_token %}
                 <h1>Login</h1>
-                
-                <label for="id_username" class="form-label">E-mail:</label>
+
+                <label for="id_username" class="form-label">Nome de Usuário:</label>
                 <input type="text" class="form-control" name="username" id="id_username" required style="margin-bottom: 10px;">
-                
+
                 <label for="id_password" class="form-label">Senha:</label>
                 <input type="password" class="form-control" name="password" id="id_password" required style="margin-bottom: 10px;">
                 <p>Esqueceu a senha? <a href="">Clique aqui</a></p>
                 <p>Ainda não possui uma conta? <a href="{% url 'register' %}">Registre-se aqui</a></p>
-                
+
                 <div class="btn">
                     <button type="submit" class="btn btn-danger">Entrar</button>
                     <a href="{% url 'inicio' %}">Voltar ao menu</a>
@@ -39,6 +39,6 @@
     </main>
 
     {% include 'base-footer.html' %}
-    
+
 </body>
 </html>

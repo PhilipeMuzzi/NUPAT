@@ -1,14 +1,15 @@
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.db.models import Count
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.shortcuts import get_object_or_404, redirect, render
-
 from .models import PesquisaOpiniao, Projeto, Pesquisador, Instituicao
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login, authenticate
 from django.db.models import Avg
 from django.urls import reverse
 from django.utils import timezone
-
 from . import models
 from .forms import RegistroUsuarioForm, PerfilForm, TipoUsuarioForm, PerfilAdminForm, DuvidaForm, \
     PesquisaOpiniaoForm, ProjetoForm
@@ -164,9 +165,9 @@ def atualiza_perfil(request, usuario_id):
 def editar_detalhes(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
 
-    # Verifique se o usuário atual está editando seu próprio perfil
+
     if request.user.id == perfil.usuario.id:
-        # Formulário normal para usuários comuns
+
         form = PerfilForm(instance=perfil)
     else:
         # Formulário para administradores
@@ -295,9 +296,9 @@ def adicionar_projeto(request):
         situacao = request.POST.get('situacao')
         descricao = request.POST.get('descricao')
 
-        # Obtendo arquivos de fotos e artigos, se houver
-        fotos = request.FILES.getlist('fotos')  # Mudança para lidar com múltiplos arquivos
-        artigos = request.FILES.getlist('artigos')  # Mudança para lidar com múltiplos arquivos
+
+        fotos = request.FILES.getlist('fotos')
+        artigos = request.FILES.getlist('artigos')
 
         # Criando o objeto Projeto
         projeto = Projeto.objects.create(
@@ -310,11 +311,11 @@ def adicionar_projeto(request):
 
         # Adicionando múltiplas fotos e artigos ao projeto
         for foto in fotos:
-            projeto.fotos = foto  # Ajustar se necessário para salvar múltiplas imagens de maneira personalizada
+            projeto.fotos = foto
             projeto.save()
 
         for artigo in artigos:
-            projeto.artigos = artigo  # Ajustar se necessário para salvar múltiplos artigos de maneira personalizada
+            projeto.artigos = artigo
             projeto.save()
 
         # Adicionando Pesquisadores
@@ -345,7 +346,7 @@ def adicionar_projeto(request):
     # Carregando os dados para o formulário
     pesquisadores = Pesquisador.objects.all()
     instituicoes = Instituicao.objects.all()
-    alunos = Perfil.objects.filter(tipo_usuario='aluno')  # Filtrando perfis de alunos
+    alunos = Perfil.objects.filter(tipo_usuario='aluno')
 
     # Renderizando o template de adicionar projeto
     return render(request, 'projetos/adicionar_projeto.html', {
@@ -364,7 +365,7 @@ def editar_projeto(request, projeto_id):
     if request.method == 'POST':
         form = ProjetoForm(request.POST, request.FILES, instance=projeto)
         if form.is_valid():
-            projeto = form.save(commit=False)  # Salva sem persistir ainda
+            projeto = form.save(commit=False)
 
             # Limpa as relações existentes
             projeto.pesquisadores.clear()
@@ -502,11 +503,15 @@ def lista_usuarios(request):
 
 @login_required
 def detalhes_usuario(request, usuario_id):
-    perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
+    perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
+    print(perfil.telefone, perfil.endereco, perfil.instituto)
 
     return render(request, 'usuarios/detalhes_usuario.html', {'perfil': perfil})
 
-
+@receiver(post_save, sender=User)
+def criar_perfil(sender, instance, created, **kwargs):
+    if created:
+        Perfil.objects.create(usuario=instance)
 
 @staff_member_required
 def deletar_usuario(request, usuario_id):
