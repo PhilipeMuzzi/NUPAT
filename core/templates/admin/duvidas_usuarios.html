@@ -1,0 +1,19 @@
+<h2>Dúvidas dos Usuários</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Usuário</th>
+            <th>Data</th>
+            <th>Mensagem</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for duvida in duvidas %}
+        <tr>
+            <td>{{ duvida.usuario.username }}</td>
+            <td>{{ duvida.data_envio }}</td>
+            <td>{{ duvida.mensagem }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

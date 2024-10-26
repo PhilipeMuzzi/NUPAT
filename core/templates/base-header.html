@@ -66,6 +66,7 @@
                         <img src="{% static 'img/logo_02.png' %}" alt="Logo do Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT"></a>
                     </li>
                     <li class="profile">
+
                         <p>
                             {% if user.is_authenticated and not user.is_staff %}
                                 <a href="{% url 'detalhes_usuario' usuario_id=user.id %}">
@@ -103,7 +104,11 @@
             <li>
                 <p>Projetos <i class="fa-solid fa-chevron-down"></i></p>
                 <ul>
+<<<<<<< HEAD
                     <li><a href="{% url 'projetos_planejamento' %}">Projetos Iniciados</a></li>
+=======
+                    <li><a href="{% url 'projetos_iniciados' %}">Projetos Iniciados</a></li>
+>>>>>>> 5f7328bb119e64973c7017567a1600687bf07aca
                     <li><a href="{% url 'projetos_andamento' %}">Projetos em Andamento</a></li>
                     <li><a href="{% url 'projetos_concluidos' %}">Projetos Concluídos</a></li>
                     <li><a href="{% url 'listar_todos_os_projetos' %}">Todos</a></li>

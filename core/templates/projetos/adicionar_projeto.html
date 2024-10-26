@@ -34,19 +34,37 @@
 
     <div>
         <label for="fotos">Fotos:</label>
-        <input type="file" id="fotos" name="fotos">
+        <input type="file" id="fotos" name="fotos" multiple>
     </div>
 
     <div>
         <label for="artigos">Artigos:</label>
-        <input type="file" id="artigos" name="artigos">
+        <input type="file" id="artigos" name="artigos" multiple>
     </div>
 
     <div>
-        <label for="pesquisadores">Pesquisadores:</label>
+        <h3>Pesquisadores:</h3>
         <select id="pesquisadores" name="pesquisadores" multiple>
             {% for pesquisador in pesquisadores %}
                 <option value="{{ pesquisador.id }}">{{ pesquisador.nome }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div>
+        <h3>Professores:</h3>
+        <select id="professores" name="professores" multiple>
+            {% for professor in professores %}
+                <option value="{{ professor.id }}">{{ professor.nome }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div>
+        <h3>Alunos:</h3>
+        <select id="alunos" name="alunos" multiple>
+            {% for aluno in alunos %}
+                <option value="{{ aluno.id }}">{{ aluno.nome }}</option>
             {% endfor %}
         </select>
     </div>

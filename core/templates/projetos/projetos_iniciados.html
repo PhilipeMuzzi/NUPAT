@@ -1,0 +1,108 @@
+{% include 'base-header.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/projetos_iniciados.css' %}">
+    <title>Projetos Iniciados</title>
+</head>
+<main>
+    <h1>
+        <strong>Projetos Iniciados</strong><hr class="linha-fina">
+    </h1>
+    <article>
+        <section class="filtro">
+            <form class="buscar-box" action="{% url 'projetos_iniciados' %}" method="GET">
+                <div class="input-buscar">
+                    <input type="text" name="pesquisa" value="{{request.GET.pesquisa}}" placeholder="Pesquise um artigo" class="form-control">
+                    <button type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/></svg>
+                    </button>
+                </div>
+            </form>
+            <ul class="fi">
+                <li>
+                    <h2>
+                        <strong>Filtros</strong><hr class="lineex">
+                    </h2>
+                </li>
+                <ul>
+                    <li>
+                        <li>
+                            <h3>
+                                <strong>Categorias</strong>
+                            </h3>
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="categorias" name="categorias" value="acessibilidade-web"><label for="acessibilidade-web"> Acessibilidade Web</label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3>
+                                <strong>Ano</strong>
+                            </h3>
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="ano" name="ano" value="2024"><label for="2024">2024</label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3>
+                                <strong>Idioma</strong>
+                            </h3>
+                            <ul>
+                                <li>
+                                    <input type="checkbox" id="idioma" name="idioma" value="pt/br"><label for="pt/br">Português</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="idioma" name="idioma" value="en"><label for="en">Inglês</label>
+                                </li>
+                                <li>
+                                    <input type="checkbox" id="idioma" name="idioma" value="es"><label for="es">Espanhol</label>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3>
+                                <strong>Instituições</strong>
+                            </h3>
+                            <ul>
+                                <li>
+                                    {% for instituicao in instituicoes %}
+                                    <input type="checkbox" name="instituicoes" id="instituicoes" class="form-control" value="{{ instituicao.id}}"><label for="instituicoes">{{ instituicao.nome }}</label></li></ul>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                    {% endfor %}
+                                </li>
+                            </ul>
+                        </li>
+                    </li>
+                </ul>
+            </ul>
+        </section>
+        <section class="proj">
+            <h1>
+                <strong>Projetos Iniciados</strong>
+            </h1>
+            {% for projeto in projetos_iniciados %}
+            <div class="pro">
+                <article class="projetos">
+                    <nav class="card1">
+                        <div class="image">
+                            <a href="{% url 'detalhes_projeto' projeto.id %}"><img src="{{ projeto.fotos.url }}" alt="{{ projeto.nome }}"></a>
+                        </div>
+                        <div class="conteudo">
+                            <a href="{% url 'detalhes_projeto' projeto.id %}">{{ projeto.titulo }}</a>
+                            <p>Estado: {{ projeto.estado }}</p>
+                            <p>{{ projeto.descricao }}</p>
+                        </div>
+                    </nav>
+                </article>
+            </div>
+        {% empty %}
+            <p class="no-projects">Nenhum projeto encontrado.</p>
+        {% endfor %}
+        </section>
+    </article>
+</main>
+{% endblock %}
+{% include 'base-footer.html' %}

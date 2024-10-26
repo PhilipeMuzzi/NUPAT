@@ -82,12 +82,15 @@ a {
 
 .btn-a {
     cursor: pointer;
-    padding: 3px;
-    margin: 0 5px;
+    padding: 5px;
     height: 18px;
     background-color: var(--verdefraco);
     border-radius: 4px;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
 }
 
 .cbc-acessibilidade nav ul li:hover {

@@ -23,7 +23,7 @@ ul
 .filtro .buscar-box
 {
     padding-left: 5%;
-    margin-top: 45px;
+    margin-top: 55px;
 }
 .filtro .buscar-box .input-buscar input
 {
@@ -51,7 +51,7 @@ ul
 }
 .filtro .fi
 {
-    margin-top: 11%;
+    margin-top: 15%;
     margin-left: 5%;
 }
 .filtro .fi ul, h3{

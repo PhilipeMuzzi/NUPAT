@@ -1,13 +1,19 @@
-from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
+from django.contrib.auth.models import User
+from django.db.models import Count
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.shortcuts import get_object_or_404, redirect, render
+from .models import PesquisaOpiniao, Projeto, Pesquisador, Instituicao
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import login, authenticate
+from django.db.models import Avg
 from django.urls import reverse
-
-from .forms import RegistroUsuarioForm, PerfilForm, ProjetoForm, TipoUsuarioForm, PerfilAdminForm
-from .models import Perfil, Projeto, Pesquisador, Parceiro, Instituicao
+from django.utils import timezone
+from . import models
+from .forms import RegistroUsuarioForm, PerfilForm, TipoUsuarioForm, PerfilAdminForm, DuvidaForm, \
+    PesquisaOpiniaoForm, ProjetoForm
+from .models import Perfil, Parceiro, DuvidaUsuario
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -77,33 +83,36 @@ def area_suporte(request):
 def atendimento_virtual(request):
     return render(request, 'Atendimento virtual/atendimento_virtual.html')
 
-# Listagem de TODOS OS projetos PARA TODOS OS USUÁRIOS:
-def listar_projetos_todos(request): 
-    pesquisa= request.GET.get('pesquisa')
-    projetos_andamento = Projeto.objects.filter(situacao='andamento')
-    projetos_concluidos = Projeto.objects.filter(situacao='concluido')
-    projetos_iniciados = Projeto.objects.filter(situacao='planejamento')
-    print(pesquisa)
-    if pesquisa:
-        projetos = Projeto.objects.filter(titulo__icontains=pesquisa)
-    else:
-        projetos = Projeto.objects.all()
-    return render(request, 'projetos/listar_todos_os_projetos.html', {'projetos': projetos})
 
 # Projetos marcados pelo admin como "Em Andamento"
 def projetos_andamento(request):
-    projetos_andamento = Projeto.objects.filter(situacao='andamento')
-    return render(request, 'projetos/projetos_andamento.html', {'projetos': projetos_andamento})
+    pesquisa= request.GET.get('pesquisa')
+    print(pesquisa)
+    if pesquisa:
+        projetos_andamento = Projeto.objects.filter(situacao='andamento', titulo__icontains=pesquisa)
+    else:
+        projetos_andamento = Projeto.objects.filter(situacao='andamento')
+    return render(request, 'projetos/projetos_andamento.html', {'projetos_andamento': projetos_andamento})
 
 # Projetos marcados pelo admin como "Concluídos"
 def projetos_concluidos(request):
-    projetos_concluidos = Projeto.objects.filter(situacao='concluido')
-    return render(request, 'projetos/projetos_concluido.html', {'projetos': projetos_concluidos})
+    pesquisa=request.GET.get('pesquisa')
+    print(pesquisa)
+    if pesquisa:
+        projetos_concluidos = Projeto.objects.filter(situacao='concluidos', titulo__icontains=pesquisa)
+    else:
+        projetos_concluidos = Projeto.objects.filter(situacao='concluidos')
+    return render(request, 'projetos/projetos_concluido.html', {'projetos_concluidos': projetos_concluidos})
 
 # Projetos marcados pelo admin como "Em Planejamento"
-def projetos_planejamento(request):
-    projetos_planejamento = Projeto.objects.filter(situacao='planejamento')
-    return render(request, 'projetos/projetos_planejamento.html', {'projetos': projetos_planejamento})
+def projetos_iniciados(request):
+    pesquisa=request.GET.get('pesquisa')
+    print(pesquisa)
+    if pesquisa:
+        projetos_iniciados = Projeto.objects.filter(situacao='planejamento', titulo__icontains=pesquisa)
+    else:
+        projetos_iniciados = Projeto.objects.filter(situacao='planejamento')
+    return render(request, 'projetos/projetos_iniciados.html', {'projetos_iniciados': projetos_iniciados})
 
 # view para registro de novos usuários
 
@@ -156,9 +165,9 @@ def atualiza_perfil(request, usuario_id):
 def editar_detalhes(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
 
-    # Verifique se o usuário atual está editando seu próprio perfil
+
     if request.user.id == perfil.usuario.id:
-        # Formulário normal para usuários comuns
+
         form = PerfilForm(instance=perfil)
     else:
         # Formulário para administradores
@@ -280,54 +289,74 @@ def detalhes_projeto(request, projeto_id):
 @staff_member_required
 def adicionar_projeto(request):
     if request.method == 'POST':
+        # Coletando os dados do formulário
         titulo = request.POST.get('titulo')
         resumo = request.POST.get('resumo')
         resultados = request.POST.get('resultados')
         situacao = request.POST.get('situacao')
         descricao = request.POST.get('descricao')
 
-        # Obtendo arquivos, se houver
-        fotos = request.FILES.get('fotos', None)
-        artigos = request.FILES.get('artigos', None)
 
-        # Criação do objeto projeto
+        fotos = request.FILES.getlist('fotos')
+        artigos = request.FILES.getlist('artigos')
+
+        # Criando o objeto Projeto
         projeto = Projeto.objects.create(
             titulo=titulo,
             resumo=resumo,
             resultados=resultados,
             situacao=situacao,
             descricao=descricao,
-            fotos=fotos,
-            artigos=artigos
         )
 
+        # Adicionando múltiplas fotos e artigos ao projeto
+        for foto in fotos:
+            projeto.fotos = foto
+            projeto.save()
 
+        for artigo in artigos:
+            projeto.artigos = artigo
+            projeto.save()
+
+        # Adicionando Pesquisadores
         pesquisadores = request.POST.getlist('pesquisadores')
         for pesquisador_id in pesquisadores:
             pesquisador = Pesquisador.objects.get(id=pesquisador_id)
             projeto.pesquisadores.add(pesquisador)
 
-
+        # Adicionando Instituições
         instituicoes = request.POST.getlist('instituicoes')
         for instituicao_id in instituicoes:
             instituicao = Instituicao.objects.get(id=instituicao_id)
             projeto.instituicoes.add(instituicao)
 
+        # Adicionando Alunos
+        alunos = request.POST.getlist('alunos')
+        for aluno_id in alunos:
+            aluno = Perfil.objects.get(id=aluno_id)
+            projeto.alunos.add(aluno)
+
+        # Salvando o projeto com todas as associações
         projeto.save()
 
+        # Mensagem de sucesso e redirecionamento
         messages.success(request, 'Projeto cadastrado com sucesso.')
         return redirect('listar_projetos')
 
-
+    # Carregando os dados para o formulário
     pesquisadores = Pesquisador.objects.all()
     instituicoes = Instituicao.objects.all()
+    alunos = Perfil.objects.filter(tipo_usuario='aluno')
 
+    # Renderizando o template de adicionar projeto
     return render(request, 'projetos/adicionar_projeto.html', {
         'pesquisadores': pesquisadores,
-        'instituicoes': instituicoes
+        'instituicoes': instituicoes,
+        'alunos': alunos
     })
+#  admin  editar um projeto
 
-# View para admin editar um projeto
+
 @staff_member_required
 @login_required
 def editar_projeto(request, projeto_id):
@@ -336,26 +365,35 @@ def editar_projeto(request, projeto_id):
     if request.method == 'POST':
         form = ProjetoForm(request.POST, request.FILES, instance=projeto)
         if form.is_valid():
-            projeto = form.save(commit=False)  # Salva as alterações mas não persiste ainda
+            projeto = form.save(commit=False)
 
-            # Adiciona os pesquisadores e instituições
+            # Limpa as relações existentes
             projeto.pesquisadores.clear()
             projeto.instituicoes.clear()
 
+            # Atualiza os pesquisadores
             pesquisadores = request.POST.getlist('pesquisadores')
             for pesquisador_id in pesquisadores:
                 projeto.pesquisadores.add(Pesquisador.objects.get(id=pesquisador_id))
 
+            # Atualiza os professores (corrigindo a variável)
+            professores = request.POST.getlist('professores')
+            for professor_id in professores:
+                projeto.pesquisadores.add(Pesquisador.objects.get(id=professor_id))
+
+            # Atualiza as instituições
             instituicoes = request.POST.getlist('instituicoes')
             for instituicao_id in instituicoes:
                 projeto.instituicoes.add(Instituicao.objects.get(id=instituicao_id))
 
-            projeto.save()  # Agora persiste as alterações no banco de dados
+            # Salva as mudanças no banco de dados
+            projeto.save()
             messages.success(request, 'Projeto atualizado com sucesso.')
             return redirect('listar_projetos')
     else:
         form = ProjetoForm(instance=projeto)
 
+    # Carrega os dados necessários para o template
     pesquisadores = Pesquisador.objects.all()
     instituicoes = Instituicao.objects.all()
 
@@ -363,8 +401,9 @@ def editar_projeto(request, projeto_id):
         'form': form,
         'projeto': projeto,
         'pesquisadores': pesquisadores,
-        'instituicoes': instituicoes
+        'instituicoes': instituicoes,
     })
+
 
 # view para deletar o projeto
 @login_required
@@ -464,11 +503,15 @@ def lista_usuarios(request):
 
 @login_required
 def detalhes_usuario(request, usuario_id):
-    perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
+    perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
+    print(perfil.telefone, perfil.endereco, perfil.instituto)
 
     return render(request, 'usuarios/detalhes_usuario.html', {'perfil': perfil})
 
-
+@receiver(post_save, sender=User)
+def criar_perfil(sender, instance, created, **kwargs):
+    if created:
+        Perfil.objects.create(usuario=instance)
 
 @staff_member_required
 def deletar_usuario(request, usuario_id):
@@ -492,8 +535,61 @@ def editar_usuario(request, usuario_id):
             perfil.tipo_usuario = novo_tipo
             perfil.save()
             messages.success(request, 'Tipo de usuário atualizado com sucesso.')
-            return redirect('detalhes_usuario', usuario_id=usuario_id)  # Redireciona após salvar
+            return redirect('detalhes_usuario', usuario_id=usuario_id)  #salva
 
     return render(request, 'editar_detalhes_usuario.html', {'perfil': perfil})
 
 
+
+@login_required
+def enviar_duvida(request):
+    mensagem = ""
+    if request.method == 'POST':
+
+        usuario = request.user
+        mensagem_duvida = request.POST.get('mensagem')
+
+        DuvidaUsuario.objects.create(usuario=usuario, mensagem=mensagem_duvida)
+
+        mensagem = "Enviado. Agradecemos por enviar sua dúvida!"
+
+    return render(request, 'usuarios/enviar_duvida.html', {'mensagem': mensagem})
+
+
+@login_required
+def listar_duvidas(request):
+    duvidas = DuvidaUsuario.objects.all().order_by('-data_envio')
+    return render(request, 'admin/duvidas_usuarios.html', {'duvidas': duvidas})
+
+
+@login_required
+def pesquisa_opiniao(request):
+    if request.method == 'POST':
+        form = PesquisaOpiniaoForm(request.POST)
+        if form.is_valid():
+            pesquisa = form.save(commit=False)
+            pesquisa.usuario = request.user
+            pesquisa.data_envio = timezone.now()
+            pesquisa.save()
+
+            mensagem = "Obrigado pela sua opinião! Agradecemos pelo feedback."
+            return render(request, 'usuarios/pesquisa_opiniao.html', {'form': form, 'mensagem': mensagem})
+    else:
+        if PesquisaOpiniao.objects.filter(usuario=request.user).exists():
+
+            return redirect('pesquisa_opiniao')
+        form = PesquisaOpiniaoForm()
+
+    return render(request, 'usuarios/pesquisa_opiniao.html', {'form': form})
+
+
+def resultados_pesquisa(request):
+    todas_notas = PesquisaOpiniao.objects.values('nota').annotate(total=Count('nota')).order_by('nota')
+    media_notas = PesquisaOpiniao.objects.all().aggregate(media=Avg('nota'))['media']
+
+    contexto = {
+        'todas_notas': todas_notas,
+        'media_notas': media_notas,
+    }
+
+    return render(request, 'admin/pesquisa_opiniao_usuario.html', contexto)

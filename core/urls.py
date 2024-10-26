@@ -19,8 +19,7 @@ urlpatterns = [
     path('atendimento-virtual/', atendimento_virtual, name='atendimento_virtual'),
     path('projetos/andamento/', views.projetos_andamento, name='projetos_andamento'),
     path('projetos/concluidos/', views.projetos_concluidos, name='projetos_concluidos'),
-    path('projetos/planejamento/', views.projetos_planejamento, name='projetos_planejamento'),
-    path('projetos/todos', views.listar_projetos_todos, name='listar_todos_os_projetos'),
+    path('projetos/iniciados/', views.projetos_iniciados, name='projetos_iniciados'),
 
     # gerenciamento de usuários
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
@@ -30,14 +29,18 @@ urlpatterns = [
     path('usuarios/<int:usuario_id>/deletar/', views.deletar_usuario, name='deletar_usuario'),
 
 
+    path('enviar_duvida/', views.enviar_duvida, name='enviar_duvida'),
+    path('admin/duvidas_usuarios/', views.listar_duvidas, name='listar_duvidas'),
+    path('pesquisa_opiniao/', views.pesquisa_opiniao, name='pesquisa_opiniao'),
+    path('admin/pesquisa_opiniao_usuario/', views.resultados_pesquisa, name='resultados_pesquisa'),
+
+
     # links para gerenciamento dos projetos
     path('projetos/', views.listar_projetos, name='listar_projetos'),
     path('projetos/adicionar/', views.adicionar_projeto, name='adicionar_projeto'),
     path('projetos/<int:projeto_id>/', views.detalhes_projeto, name='detalhes_projeto'),
     path('projetos/<int:projeto_id>/editar/', views.editar_projeto, name='editar_projeto'),
     path('projetos/<int:projeto_id>/deletar/', views.deletar_projeto, name='deletar_projeto'),
-
-
 
 
     # links para gerenciamento dos pesquisadores
@@ -65,7 +68,7 @@ urlpatterns = [
     path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
 
 
-
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
