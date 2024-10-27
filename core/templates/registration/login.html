@@ -15,7 +15,7 @@
             <a href="{% url 'inicio' %}">
                 <img src="{% static 'img/logo_02.png' %}" class="logo_nupat" alt="logo nupat">
             </a>
-            <img src="{% static 'img/img-login.png'%}" alt="logo login">
+            <img src="{% static 'img/img-login.png'%}" alt="login">
         </div>
 
 
@@ -30,11 +30,11 @@
                 <label for="id_password" class="form-label">Senha:</label>
                 <input type="password" class="form-control" name="password" id="id_password" required style="margin-bottom: 10px;">
                 <p>Esqueceu a senha? <a href="">Clique aqui</a></p>
-                <p>Ainda não possui uma conta? <a href="{% url 'register' %}">Registre-se aqui</a></p>
+                
 
                 <div class="btn">
                     <button type="submit" class="btn btn-danger">Entrar</button>
-                    <a href="{% url 'inicio' %}">Voltar</a>
+                    <a href="{% url 'register' %}">Cadastre-se</a>
                 </div>
 
             </form>
