@@ -17,7 +17,8 @@
 .container {
     display: grid;
     place-items: center;
-    height: auto;
+    max-height: auto;
+    padding: 10px;
     grid-template-columns: 60% 40%;
     grid-template-areas:
         "primeiro-corpo segundo-corpo";
@@ -41,7 +42,7 @@
     justify-content: start;
     flex-direction: column;
     margin-top: 50px;
-    padding: 12px;
+    gap: 20px;
 }
 
 
