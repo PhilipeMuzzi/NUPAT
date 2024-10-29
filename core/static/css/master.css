@@ -33,6 +33,9 @@
 .voltar-ao-topo hr {
     flex: 1;
     margin: 10px auto;
+    height: 1px;
+    border: none;
+    background-color:#83ab83;
 }
 
 
