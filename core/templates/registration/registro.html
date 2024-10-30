@@ -6,14 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
-    <title>Entrar</title>
+    <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="16x16">
+    <title>Registro</title>
 </head>
 <body>
     <main>
-        <div class="img">
+        <a class="img" href="{% url 'inicio' %}">
             <img src="{% static 'img/logo_02.png' %}" class="logo_nupat" alt="logo nupat">
-            <img src="{% static 'img/img-login.png'%}" alt="logo login">
-        </div>
+        </a>
         
 
         <div class="container">

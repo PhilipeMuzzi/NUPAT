@@ -80,15 +80,17 @@ a {
     font-weight: bold;
 }
 
-
 .btn-a {
     cursor: pointer;
-    padding: 3px;
-    margin: 0 5px;
+    padding: 5px;
     height: 18px;
     background-color: var(--verdefraco);
     border-radius: 4px;
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    
 }
 
 .cbc-acessibilidade nav ul li:hover {
@@ -97,7 +99,7 @@ a {
 }
 
 /* fim do cabeçalho de acessibilidade */
-/*Estilizando tamanho das letras (recomendo olhar o restante as alterações no github)-------------- */
+/*Estilizando tamanho das letras -------------- */
 
 .font-size-small {
     font-size: 12px;
@@ -146,9 +148,7 @@ a {
 .principal {
     background-color: #304D30;
     width: 100%;
-
 }
-
 .menu ul {
     width: 100%;
     height: 100px;
@@ -156,11 +156,9 @@ a {
     justify-content: space-around;
     align-items: center;
 }
-
 .menu li {
     color: #EEF0E5;
 }
-
 .menu .profile a {
     width: 80px;
     height: 30px;
@@ -187,6 +185,7 @@ nav ul {
 .menu .profile {
     display: flex;
     align-items: center;
+    margin-left: 40rem;
 }
 
 .menu .profile {
@@ -196,15 +195,14 @@ nav ul {
 
 .menu img {
     width: 120px;
-    height: 120px;
+    height: 100px;
+    margin-left: -6rem;
     object-fit: contain;
 }
 
 .menu input[type="text"] {
     margin: 0 10px;
 }
-
-
 .menu .buscar-box .input-buscar input {
     background-color: #EEF0E5;
     width: 420px;

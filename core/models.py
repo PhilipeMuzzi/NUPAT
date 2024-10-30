@@ -14,9 +14,7 @@ class Perfil(models.Model):
         ('Professor', 'Professor'),
         ('Pesquisador', 'Pesquisador'),
     ]
-    tipo_usuario = models.CharField(max_length=20, choices=TIPO_USUARIO_CHOICES, default='Aluno')
-
-
+    tipo_usuario = models.CharField(max_length=20, choices=TIPO_USUARIO_CHOICES, blank=True, null=True) # o tipo de usuario é opcional, para evitar conflito
 
     def __str__(self):
         return self.usuario.username
@@ -41,7 +39,6 @@ class DuvidaUsuario(models.Model):
         return f'Dúvida de {self.usuario.username} - {self.data_envio.strftime("%d/%m/%Y")}'
 
 
-
 class PesquisaOpiniao(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     nota = models.IntegerField(choices=[(i, i) for i in range(1, 6)])
@@ -63,9 +60,6 @@ class Pesquisador(models.Model):
 
 #Models para status do projeto e suas informações
 
-
-
-
 class Projeto(models.Model):
     SITUACAO_CHOICES = [
         ('concluido', 'Concluído'),
@@ -80,14 +74,16 @@ class Projeto(models.Model):
     situacao = models.CharField(max_length=20, choices=SITUACAO_CHOICES, default='planejamento')
     descricao = models.TextField(blank=True)
     artigos = models.FileField(upload_to='projetos/artigos/', blank=True, null=True)
-    pesquisadores = models.ManyToManyField(Pesquisador)
-    instituicoes = models.ManyToManyField(Instituicao)
-    alunos = models.ManyToManyField(Perfil, related_name='projetos', blank=True)
 
 
+    pesquisadores = models.ManyToManyField('Pesquisador')
+    instituicoes = models.ManyToManyField('Instituicao')
+
+    alunos = models.ManyToManyField('Perfil', related_name='projetos', blank=True)
 
     def __str__(self):
         return self.titulo
+
 
 
 #models parceiros

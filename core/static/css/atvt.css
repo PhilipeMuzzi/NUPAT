@@ -1,0 +1,238 @@
+
+main{
+    background-color: #E7E4D7;
+    padding-bottom: 70px;
+}
+main a{
+    text-decoration: none;
+    color: #304D30;
+}
+main .img-container{
+    width: 100%;
+    height: 100%;
+}
+main img{
+    width: 100%;
+    height: 550px;
+    display: flex;
+}
+main .img-text{
+    position:absolute;
+    top: 80%;
+    left: 2%;
+    width: 60%;
+    text-align: start;
+    transform: translate(-50%, -50%);
+    border-radius: 15px;
+    color: #272c27;
+    background-color: #eef0e5cc;
+    padding: 20px;
+    z-index: 1;
+}
+main .atendimento h1, .suporte h1, .perguntas h1{
+    padding-top: 5%;
+    padding-left: 30px;
+    padding-bottom: 20px;
+    padding-right: 10px;
+}
+.linha-fina, .linha-finap{
+    height: 2px;
+    width: 73%;
+    background-color: #00ff00;
+    color: #00ff00;
+    margin-left: 25%;
+    margin-top: -20px;
+    border: none;
+}
+.linha-finap{
+    margin-left: 26%;
+    width: 72%;
+}
+main .atendimento h5{
+    background-color: #5ba55b69;
+    width: 16%;
+    height: 20px;
+    padding: 10px;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+    margin-left: 5%;
+    font-size: 14px;
+    font-weight: lighter;
+    padding-bottom: 30px;
+    margin-bottom: 60px;
+}
+main .atendimento ul li:hover{
+    background-color: #afc9afa8;
+    border-radius: 25px;
+}
+main .atendimento ul li a{
+    transition: color .3s;
+}
+main .atendimento ul li a h3{
+    padding-top: 30px;
+}
+.suporte, .atendimento ul{
+    width: 100%;
+    height: auto;
+    display: flex;               
+    justify-content: space-around; 
+    flex-wrap: wrap;            
+}
+.suporte h1 {
+    width: 100%;
+    margin-bottom: 20px; 
+}
+.card01, .card02, .card03, .atendimento ul li {
+    flex: 0 1 20%;             
+    margin: 15px;               
+    padding: 20px;             
+    height: auto;             
+    background-color: #E7E4D7; 
+    border-radius: 15px;        
+    text-align: center;         
+    transition: background 0.5s;
+}
+.card01:hover, .card02:hover, .card03:hover {
+    background-color: #afc9afa8; 
+}
+.suporte .card01 svg{
+    padding: 5px;
+    margin: 10% auto;         
+    display: block;            
+    width: 50%;               
+    height: auto;   
+    margin-bottom: 60px;
+
+}
+.suporte  .card02 img, .card03 img { 
+    padding: 5px;
+    margin: 10% auto;          
+    display: block;            
+    width: 60%;               
+    height: auto;             
+}
+main .atendimento ul li{
+    text-align: center;
+}
+.perguntas{
+    padding-bottom: 90px;
+}
+.perguntas h1{
+    padding-bottom: 90px;
+}
+.perguntas-frequentes summary{
+    width: 70%;
+    text-align: center;
+    margin-left: 15%;
+    background-color: #5ba55b;
+    padding: 1%;
+    transition: .5s;
+    list-style: none;
+    font-size: 150%;
+    border-bottom: 1px solid #afc9afa8 ;
+    font-weight: 400;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    color: #EEF0E5;
+}
+.perguntas-frequentes summary i{
+    font-size: 15px;
+    position: relative;
+    top: -1%; /*movimenta o icone de expansão*/
+    margin-left: 5px;
+}
+.fa-chevron-down{
+    transition: transform .4s;
+}
+.perguntas-frequentes summary:hover .fa-chevron-down  {
+    transform: rotate(180deg);
+}
+.perguntas-frequentes summary:hover{
+    color:#080808;
+    background-color: #afc9af79;
+}
+.perguntas-frequentes summary .fi-rr-angle-small-down{
+    position: relative;
+    top: 6px;
+    left: 5px;
+}
+.perguntas-frequentes p{
+    background-color: #afc9af79;
+    color: #304D30;
+    width: 70%;
+    margin-left: 15%;
+    padding: 2%;
+    margin-bottom: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+/*animação*/
+.img-text,
+.atendimento ul li,
+.suporte > div {
+    transform: translateY(20px); 
+    opacity: 0; 
+    animation: slide-in 0.5s forwards; 
+}
+@keyframes slide-in {
+    to {
+        transform: translateY(0); 
+        opacity: 1; 
+    }
+}
+.img-text {
+    animation-delay: 0s;
+}
+
+.atendimento ul li {
+    animation-delay: 1s; 
+}
+
+.suporte > div {
+    animation-delay: 2s; 
+}
+
+
+@media screen and (max-width:490px) {
+    .primeiro-rodape {
+        height: 100%;
+        color: white;
+    }
+
+    .img-dados {
+        display: block;
+    }
+
+    .img-logo {
+        justify-content: end;
+    }
+
+    #logo-nupat {
+        width: 200px;
+        height: 200px;
+    }
+
+    #logo-ifrn {
+        width: 150px;
+        height: 150px;
+    }
+    .primeiro-txt strong,
+    .segundo-txt strong {
+        color: black;
+    }
+    .dados-icons {
+        width: 90%;
+    }
+    .dados-icons strong,
+    .dados-icons p {
+        font-size: 17px;
+    }
+    .copyright p{
+        font-size: 10px;
+    }
+
+}
+@media (max-width: 768px) {
+    .card01, .card02, .card03 {
+        flex: 0 1 90%;        
+    }
+}

@@ -64,7 +64,8 @@
         <div class="menu">
             <ul>
                 <li>
-                    <a href="#"><img src="{%static 'img/logo_02.webp' %} " alt="Logo do Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT"></a>
+                    <a href="{% url 'inicio' %}">
+                    <img src="{%static 'img/logo_02.webp' %} " alt="Logo do Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT"></a>
                 </li>
                 <!--
                 <li class="buscar-box">
@@ -93,9 +94,10 @@
                 <li>
                     <p>Projetos <i class="fa-solid fa-chevron-down"></i></p>
                     <ul>
-                        <li><a href="#">Projetos Iniciados</a></li>
-                        <li><a href="#">Projetos em Andamento</a></li>
-                        <li><a href="#">Projetos Concluídos</a></li>
+                        <li><a href="{% url 'projetos_iniciados' %}">Projetos Iniciados</a></li>
+                        <li><a href="{% url 'projetos_andamento' %}">Projetos em Andamento</a></li>py 
+                        <li><a href="{% url 'projetos_concluidos' %}">Projetos Concluídos</a></li>
+                        <li><a href="{% url 'listar_todos_os_projetos' %}">Todos</a></li>
                     </ul>
                 </li>
                 <li>

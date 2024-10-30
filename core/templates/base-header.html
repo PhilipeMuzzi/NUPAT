@@ -55,15 +55,15 @@
                         d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5" />
                 </svg>
             </a>
-            <a href="">Português | BR</a>
+            <a href="#">Português | BR</a>
         </div>
 
         <nav class="principal">
             <div class="menu">
                 <ul>
                     <li>
-                        <a href="{% url 'inicio' %}"><img src="{% static 'img/logo_02.png' %}"
-                                alt="Logo do Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT"></a>
+                        <a href="{% url 'inicio' %}">
+                        <img src="{% static 'img/logo_02.png' %}" alt="Logo do Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT"></a>
                     </li>
                     <li class="profile">
 
@@ -107,6 +107,7 @@
                     <li><a href="{% url 'projetos_iniciados' %}">Projetos Iniciados</a></li>
                     <li><a href="{% url 'projetos_andamento' %}">Projetos em Andamento</a></li>
                     <li><a href="{% url 'projetos_concluidos' %}">Projetos Concluídos</a></li>
+                    <li><a href="#">Todos</a></li>
                 </ul>
             </li>
             <li>

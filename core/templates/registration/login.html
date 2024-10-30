@@ -6,32 +6,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="16x16">
     <title>Entrar</title>
 </head>
 <body>
     <main>
-        <div class="img">
-            <img src="{% static 'img/logo_02.png' %}" class="logo_nupat" alt="logo nupat">
-            <img src="{% static 'img/img-login.png'%}" alt="logo login">
+        <div class="img"> 
+            <a href="{% url 'inicio' %}">
+                <img src="{% static 'img/logo_02.png' %}" class="logo_nupat" alt="logo nupat">
+            </a>
+            <img src="{% static 'img/img-login.png'%}" alt="login">
         </div>
-        
+
 
         <div class="container">
             <form method="post">
                 {% csrf_token %}
                 <h1>Login</h1>
-                
-                <label for="id_username" class="form-label">E-mail:</label>
+
+                <label for="id_username" class="form-label">Nome de Usuário:</label>
                 <input type="text" class="form-control" name="username" id="id_username" required style="margin-bottom: 10px;">
-                
+
                 <label for="id_password" class="form-label">Senha:</label>
                 <input type="password" class="form-control" name="password" id="id_password" required style="margin-bottom: 10px;">
                 <p>Esqueceu a senha? <a href="">Clique aqui</a></p>
-                <p>Ainda não possui uma conta? <a href="{% url 'register' %}">Registre-se aqui</a></p>
                 
+
                 <div class="btn">
                     <button type="submit" class="btn btn-danger">Entrar</button>
-                    <a href="{% url 'inicio' %}">Voltar ao menu</a>
+                    <a href="{% url 'register' %}">Cadastre-se</a>
                 </div>
 
             </form>
@@ -39,6 +42,6 @@
     </main>
 
     {% include 'base-footer.html' %}
-    
+
 </body>
 </html>
