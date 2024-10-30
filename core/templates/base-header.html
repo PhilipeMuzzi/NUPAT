@@ -62,40 +62,12 @@
             <div class="menu">
                 <ul>
                     <li>
-<<<<<<< HEAD
-                        <a href="#"><img src="static/img/logo_02.png"
-=======
                         <a href="{% url 'inicio' %}"><img src="{% static 'img/logo_02.png' %}"
->>>>>>> cd309ad0a0875277e5b9b0fe39bc6e0c9dccfdc6
                                 alt="Logo do Núcleo de Pesquisa em Acessibilidade e Tecnologia - NUPAT"></a>
                     </li>
                     <li class="profile">
 
                         <p>
-<<<<<<< HEAD
-                            {% if user.is_authenticated %}
-                            {% if not user.is_staff %}
-                            <a href="{% url 'detalhes_usuario' usuario_id=user.id %}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="currentColor"
-                                    class="bibi-person-fill" viewBox="0 0 16 16">
-                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                                </svg>
-                            </a>
-                            {% endif %}
-                            {% endif %}
-
-                        </p>
-
-                        {% if user.is_authenticated %}
-                        <a href="{% url 'logout' %}">
-                            <p>Sair</p>
-                        </a>
-                        {% if user.is_staff %}
-                        <a href="{% url 'admin_dashboard' %}">
-                            <p>ADMIN</p>
-                        </a>
-                        {% endif %}
-=======
                             {% if user.is_authenticated and not user.is_staff %}
                                 <a href="{% url 'detalhes_usuario' usuario_id=user.id %}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="currentColor"
@@ -115,7 +87,6 @@
                                     <p>ADMIN</p>
                                 </a>
                             {% endif %}
->>>>>>> cd309ad0a0875277e5b9b0fe39bc6e0c9dccfdc6
                         {% else %}
                             <a href="{% url 'login' %}">
                                 <p>Entrar</p>
@@ -124,42 +95,7 @@
                     </li>
                 </ul>
             </div>
-<<<<<<< HEAD
-            <!--back end-->
-            <nav>
-                <ul>
-
-
-
-                    {% if user.is_authenticated %}
-
-
-                    {% if user.perfil.tipo_usuario == 'servidor' %}
-                    <li><a href="{% url 'adicionar_projeto' %}">Criar Projeto</a></li>
-                    <li><a href="{% url 'lista_usuarios' %}">Gerenciar Usuários</a></li>
-                    <li><a href="{% url 'adicionar_parceiro' %}">Adicionar Parceiro</a></li>
-
-
-                    {% elif user.perfil.tipo_usuario == 'aluno' %}
-                    <li><a href="{% url 'listar_projetos' %}">Inscrever-se em Projetos</a></li>
-
-
-                    {% else %}
-
-
-                    {% endif %}
-
-                    <!-- Link para o logout, que só estará disponível para todos os usuários autenticados -->
-
-                    {% endif %}
-                </ul>
-            </nav>
-            <nav>
-
-            </nav>
-=======
         </nav>
->>>>>>> cd309ad0a0875277e5b9b0fe39bc6e0c9dccfdc6
     </header>
 
     <!-- submenu -->
