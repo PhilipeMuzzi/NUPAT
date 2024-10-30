@@ -75,6 +75,19 @@
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <h3>
+                                <strong>Pesquisadores</strong>
+                            </h3>
+                            <ul>
+                                <li>
+                                    {% for pesquisador in pesquisadores %}
+                                    <input type="checkbox" name="pesquisadores" id="pesquisadores" class="form-control" value="{{ pesquisadores.id}}"><label for="pesquisadores">{{ pesquisadores.nome }}</label></li></ul>
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                    {% endfor %}
+                                </li>
+                            </ul>
+                        </li>
                     </li>
                 </ul>
             </ul>

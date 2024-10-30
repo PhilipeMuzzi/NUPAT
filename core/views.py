@@ -99,10 +99,10 @@ def projetos_concluidos(request):
     pesquisa=request.GET.get('pesquisa')
     print(pesquisa)
     if pesquisa:
-        projetos_concluidos = Projeto.objects.filter(situacao='concluidos', titulo__icontains=pesquisa)
+        projetos_concluidos = Projeto.objects.filter(situacao='concluido', titulo__icontains=pesquisa)
     else:
-        projetos_concluidos = Projeto.objects.filter(situacao='concluidos')
-    return render(request, 'projetos/projetos_concluido.html', {'projetos_concluidos': projetos_concluidos})
+        projetos_concluidos = Projeto.objects.filter(situacao='concluido')
+    return render(request, 'projetos/projetos_concluidos.html', {'projetos_concluidos': projetos_concluidos})
 
 # Projetos marcados pelo admin como "Em Planejamento"
 def projetos_iniciados(request):
