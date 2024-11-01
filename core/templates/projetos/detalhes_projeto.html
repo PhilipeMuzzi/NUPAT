@@ -10,6 +10,7 @@
     <title>Detalhes Projetos</title>
     <link rel="stylesheet" href="{% static 'css/detalhes.css' %}">
     <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="16x16">
+    <script src="https://kit.fontawesome.com/af6c14a78e.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -17,19 +18,45 @@
 
     <div class="container">
         <main>
-            <h1>{{projeto.titulo}}</h1>
+            <h1 class="titulo">{{projeto.titulo}}</h1>
             <hr>
             <div class="info-download">
                 <nav class="dados">
-                    <h3>Nome: </h3>
+                    <h3>Por: </h3>
                     <h3>Status: {{projeto.get_situacao_display}}</h3>
                 </nav>
                 <nav class="download">
-                    <a href="">Pdf</a>
+                    <a href="">PDF <i class="fa-solid fa-file-lines"></i></a>
                 </nav>
             </div>
             <div class="img">
-                <img src="{{projeto.fotos}}" alt="">
+                {% if projeto.fotos %}
+                <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                {% else %}
+                <p>Nenhuma imagem disponível.</p>
+                {% endif %}
+            </div>
+            <p>
+            <h1>Resumo</h1>
+            {{projeto.resumo}}
+            </p>
+            <div class="cards">
+                <div class="card">
+                    <h3>Pesquisadores</h3>
+                    {% for pesquisador in projeto.pesquisadores.all %}
+                        <li>{{ pesquisador.nome }} ({{ pesquisador.instituicao.nome }})</li>
+                    {% empty %}
+                        <li>Nenhum pesquisador associado.</li>
+                    {% endfor %}
+                </div>
+                <div class="card">
+                    <h3>Intituições</h3>
+                    {% for instituicao in projeto.instituicoes.all %}
+                        <li>{{ instituicao.nome }}</li>
+                    {% empty %}
+                        <li>Nenhuma instituição associada.</li>
+                    {% endfor %}
+                </div>
             </div>
         </main>
     </div>

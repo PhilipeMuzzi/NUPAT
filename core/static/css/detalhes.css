@@ -28,8 +28,51 @@ html{
 }
 
 .container main{
-    width: 80%;
+    width: 70%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
+}
+main .titulo {
+    color: var(--verde);
+}
+.info-download {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+main .download a {
+    background-color: var(--verde);
+    width: 90px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border-radius: 10px;
+    transition: 0.6s;
+}
+main .download a:hover {
+    background-color: white;
+    color: var(--verde);
+    transition: 0.6s all;
+}
+main .img {
+    display: flex;
+    justify-content: center;
+}
+main .img img {
+    border-radius: 10px;
+    max-width: 50%;
+    height: auto;
+    object-fit: contain;
+}
+.cards{
+    display: flex;
+    gap: 30px;
+}
+.cards .card {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
 }
