@@ -168,7 +168,7 @@ main article
 .pro::-webkit-scrollbar {
     display: none;
 }
-.projetos>nav {
+.projetos nav {
     width: 350px;
     height: 280px;
     background-color: var(--branconeve);
