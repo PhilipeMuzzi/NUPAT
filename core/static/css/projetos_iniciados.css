@@ -176,7 +176,6 @@ main article
     gap: 4px;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
     border-radius: 10px;
     transition: .3s;
 }

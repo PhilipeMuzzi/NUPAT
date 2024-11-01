@@ -74,6 +74,12 @@
     flex-direction: column;
     gap: 10px;
 }
+.card nav p {
+    width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+}
 .card nav a {
     background-color: var(--verdeclaro);
     width: 70px;
