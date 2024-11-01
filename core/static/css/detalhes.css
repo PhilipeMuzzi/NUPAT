@@ -67,6 +67,9 @@ main .img img {
     height: auto;
     object-fit: contain;
 }
+hr {
+    flex: 1;
+}
 .cards{
     display: flex;
     gap: 30px;
