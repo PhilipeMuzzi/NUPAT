@@ -56,7 +56,8 @@
 }
 
 .card {
-    width: 45% ;
+    width: 35%;
+    height:auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
     background-color: #fff;
@@ -87,7 +88,9 @@
 }
 
 .card img {
-    max-width: 40%;
+    width: 150px;
+    height: 100px;
+    object-fit: contain;
     border-radius: 4px;
 }
 

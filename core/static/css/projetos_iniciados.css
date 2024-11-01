@@ -148,14 +148,13 @@ main article
 .proj
 {
     width: 60%;
+    height: auto;
 }
 
 .pro
 {
     display: flex;
-    width: 100%;    
     overflow: auto;
-    flex-wrap: wrap;
 }
 .projetos {
     height: auto;
