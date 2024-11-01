@@ -18,7 +18,7 @@
     display: grid;
     place-items: center;
     max-height: auto;
-    padding: 10px;
+    padding: 20px;
     grid-template-columns: 60% 40%;
     grid-template-areas:
         "primeiro-corpo segundo-corpo";
@@ -41,7 +41,6 @@
     display: flex;
     justify-content: start;
     flex-direction: column;
-    margin-top: 50px;
     gap: 20px;
 }
 
@@ -116,7 +115,6 @@
 
 .segundo-corpo {
     grid-area: segundo-corpo;
-    padding-top: 60px;
     display: flex;
     gap: 100px;
     flex-direction: column;
@@ -167,7 +165,6 @@
     text-align: center;
     width: 300px;
     max-height: 900px;
-    padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

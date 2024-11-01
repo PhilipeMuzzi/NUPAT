@@ -1,0 +1,35 @@
+:root {
+    --brancogelo: #d9d9d9;
+    --branconeve: rgb(255, 255, 255);
+    --verde: #304D30;
+    --bege: #E7E4D7;
+    --verdefraco: #afc9afa8;
+    --brancosolar: #EEF0E5;
+    --verde: #304D30;
+    --navbar-height: 4.75rem;
+
+}
+html{
+    scroll-behavior: smooth;
+}
+*{
+    margin:0;
+    padding:0;
+}
+.container {
+    background-color: var(--brancogelo);
+    width: 100%;
+    height: auto;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.container main{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}

@@ -1,5 +1,45 @@
-{% block content %}
-<h2>{{ projeto.titulo }}</h2>
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes Projetos</title>
+    <link rel="stylesheet" href="{% static 'css/detalhes.css' %}">
+    <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="16x16">
+</head>
+
+<body>
+    {% include 'base-header.html' %}
+
+    <div class="container">
+        <main>
+            <h1>{{projeto.titulo}}</h1>
+            <hr>
+            <div class="info-download">
+                <nav class="dados">
+                    <h3>Nome: </h3>
+                    <h3>Status: {{projeto.get_situacao_display}}</h3>
+                </nav>
+                <nav class="download">
+                    <a href="">Pdf</a>
+                </nav>
+            </div>
+            <div class="img">
+                <img src="{{projeto.fotos}}" alt="">
+            </div>
+        </main>
+    </div>
+    {% include 'base-footer.html' %}
+</body>
+
+</html>
+
+
+<!-- <h2>{{ projeto.titulo }}</h2>
 <p><strong>Resumo:</strong> {{ projeto.resumo }}</p>
 
 <p><strong>Resultados:</strong>
@@ -53,6 +93,4 @@
     <a href="{% url 'deletar_projeto' projeto.id %}">Deletar Projeto</a>
 {% elif user.is_authenticated and user.perfil.tipo_usuario == 'aluno' %}
     <a href="{% url 'inscricao' projeto.id %}">Inscrever-se no Projeto</a>
-{% endif %}
-
-{% endblock %}
+{% endif %} -->
