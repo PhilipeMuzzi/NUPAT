@@ -111,6 +111,15 @@ button {
     text-decoration: none;
     top: 20px;
 }
+.alert {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+}
+
 .btn {
     display: flex;
     gap: 20px;

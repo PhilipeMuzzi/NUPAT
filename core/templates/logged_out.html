@@ -1,10 +1,19 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <title>Desconectado</title>
+    <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="12x12">
+    <link rel="stylesheet" href="{% static 'css/logged.css' %}">
 </head>
 <body>
-    <h2>Você saiu</h2>
-    <a href="{% url 'login' %}">Entrar novamente</a>
+    <nav class="container">
+        <h2>Você saiu!</h2>
+        <div class="btn">
+            <a href="{% url 'login' %}">Entrar novamente</a>    
+            <a href="{% url 'inicio' %}">Página Principal</a>
+        </div>
+    </nav>
 </body>
 </html>

@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Count
+from django.contrib.auth import logout
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import get_object_or_404, redirect, render
@@ -69,7 +70,7 @@ def inicio(request):
     # traz os 6 últimos projetos mais recentes para a primeira seção
     ultimos_projetos = Projeto.objects.order_by('-id')[:6]
 
-    return render(request, 'index.html', {
+    return render(request,'index.html', {
         'ultimos_projetos': ultimos_projetos
     })
 
@@ -593,3 +594,9 @@ def resultados_pesquisa(request):
     }
 
     return render(request, 'admin/pesquisa_opiniao_usuario.html', contexto)
+
+#logout
+@login_required
+def logout_view(request):
+    logout(request)
+    return render(request,'logged_out.html')

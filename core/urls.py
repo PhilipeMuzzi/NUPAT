@@ -5,7 +5,7 @@ from django.conf.urls.static import static
 
 from . import views
 from .views import CustomLoginView, detalhes_usuario, quem_somos, area_suporte, atendimento_virtual, listar_projetos, \
-    adicionar_projeto, editar_projeto, deletar_projeto
+    adicionar_projeto, editar_projeto, deletar_projeto, logout_view
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
@@ -67,6 +67,8 @@ urlpatterns = [
     path('usuarios/editar/<int:usuario_id>/', views.editar_tipo_usuario, name='editar_tipo_usuario'),
     path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
 
+    #logout
+    path('logout/', logout_view, name='logout'),
 
 ]
 
