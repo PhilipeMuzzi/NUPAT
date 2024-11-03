@@ -73,9 +73,10 @@
             <h1>
                 <strong>Projetos Concluídos</strong>
             </h1>
-            {% for projeto in projetos_concluidos %}
+            {% if projetos_concluidos %}
             <div class="pro">
                 <article class="projetos">
+                    {% for projeto in projetos_concluidos %}
                     <nav class="card1">
                         <div class="image">
                             <a href="{% url 'detalhes_projeto' projeto.id %}"><img src="{{ projeto.fotos.url }}" alt="{{ projeto.nome }}"></a>
@@ -86,11 +87,12 @@
                             <p>{{ projeto.descricao }}</p>
                         </div>
                     </nav>
+                    {% endfor %}
                 </article>
             </div>
-        {% empty %}
+        {% else %}
             <p class="no-projects">Nenhum projeto encontrado.</p>
-        {% endfor %}
+        {% endif %}
         </section>
     </article>
 </main>
