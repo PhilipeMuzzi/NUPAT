@@ -147,7 +147,7 @@ main article
 }
 .proj
 {
-    width: 60%;
+    width: 100%;
     height: auto;
 }
 
@@ -159,21 +159,25 @@ main article
 .projetos {
     height: auto;
     display: flex;
-    justify-content: center;
+    justify-content: start;
     gap: 15px;
     flex-wrap: wrap;
     overflow: hidden;
 }
-
+.conteudo p{
+    width: 60%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;   
+}
 .pro::-webkit-scrollbar {
     display: none;
 }
-.projetos nav {
-    width: 350px;
-    height: 280px;
+.projetos .card {
+    width: 24%;
+    height: auto;
     background-color: var(--branconeve);
     display: flex;
-    gap: 4px;
     align-items: center;
     justify-content: center;
     border-radius: 10px;
@@ -181,14 +185,11 @@ main article
 }
 .projetos>nav:hover
 {
-    padding: 2px;
-    background-color: #b5d6b55e;
-    
+    scale: 1.02;
 }
 
-.projetos>nav>.image {
+.projetos .card .image {
     width: 100%;
-    height: 160px;
     padding: 10px;
     transition: background .5s, color .5s;
 }
@@ -198,42 +199,18 @@ main article
     border-radius: 4px;
 }
 
-.projetos>nav>.conteudo {
+.projetos .card .conteudo {
     width: 90%;
     height: 40%;
+    gap: 10px;
+    display: flex; 
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: left;
-    
-    
 }
-.projetos>nav>.conteudo a, .projetos nav .conteudo p:hover, .projetos nav .conteudo h1:hover
-{
-    color: #00ff00;
-    
-}
-.projetos nav .conteudo h1:hover
-{
-    font-size: 16px;
-}
-.projetos nav .conteudo h1
-{
-    transition: .5s;
-    margin-top: -25px;
-    font-size: 14px;
-    text-align: center;
-    font-weight: bolder;
-}
-.projetos nav .conteudo p:hover
-{
-    font-size: 10px;
-}
-.projetos nav .conteudo p
-{
-    transition: .5s;
-    margin-top: -28px;
-    font-size: 10px
-}
+
+
+
 .projetos>nav>.conteudo a 
 {
     color: #000000;

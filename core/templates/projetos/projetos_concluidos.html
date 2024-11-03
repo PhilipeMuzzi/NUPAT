@@ -77,15 +77,14 @@
             <div class="pro">
                 <article class="projetos">
                     {% for projeto in projetos_concluidos %}
-                    <nav class="card1">
+                    <nav class="card">
                         <div class="image">
                             <a href="{% url 'detalhes_projeto' projeto.id %}"><img src="{{ projeto.fotos.url }}" alt="{{ projeto.nome }}"></a>
                         </div>
                         <div class="conteudo">
-                            <a href="{% url 'detalhes_projeto' projeto.id %}">{{ projeto.titulo }}</a>
-                            <p>Estado: {{ projeto.estado }}</p>
-                            <p>{{ projeto.descricao }}</p>
-                        </div>
+                            <p>{{ projeto.titulo }}</p>
+                            <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>                            
+                        </div>  
                     </nav>
                     {% endfor %}
                 </article>
