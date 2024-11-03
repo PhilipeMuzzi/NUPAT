@@ -1,14 +1,18 @@
+from django.contrib import messages
+from django.contrib.auth.models import User
 from django.db.models import Count
-from .models import PesquisaOpiniao
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.shortcuts import get_object_or_404, redirect, render
+from .models import PesquisaOpiniao, Projeto, Pesquisador, Instituicao
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login, authenticate
 from django.db.models import Avg
 from django.urls import reverse
 from django.utils import timezone
-
 from . import models
 from .forms import RegistroUsuarioForm, PerfilForm, TipoUsuarioForm, PerfilAdminForm, DuvidaForm, \
-    PesquisaOpiniaoForm
+    PesquisaOpiniaoForm, ProjetoForm
 from .models import Perfil, Parceiro, DuvidaUsuario
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
@@ -95,10 +99,10 @@ def projetos_concluidos(request):
     pesquisa=request.GET.get('pesquisa')
     print(pesquisa)
     if pesquisa:
-        projetos_concluidos = Projeto.objects.filter(situacao='concluidos', titulo__icontains=pesquisa)
+        projetos_concluidos = Projeto.objects.filter(situacao='concluido', titulo__icontains=pesquisa)
     else:
-        projetos_concluidos = Projeto.objects.filter(situacao='concluidos')
-    return render(request, 'projetos/projetos_concluido.html', {'projetos_concluidos': projetos_concluidos})
+        projetos_concluidos = Projeto.objects.filter(situacao='concluido')
+    return render(request, 'projetos/projetos_concluidos.html', {'projetos_concluidos': projetos_concluidos})
 
 # Projetos marcados pelo admin como "Em Planejamento"
 def projetos_iniciados(request):
@@ -161,9 +165,9 @@ def atualiza_perfil(request, usuario_id):
 def editar_detalhes(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
 
-    # Verifique se o usuário atual está editando seu próprio perfil
+
     if request.user.id == perfil.usuario.id:
-        # Formulário normal para usuários comuns
+
         form = PerfilForm(instance=perfil)
     else:
         # Formulário para administradores
@@ -285,60 +289,73 @@ def detalhes_projeto(request, projeto_id):
 @staff_member_required
 def adicionar_projeto(request):
     if request.method == 'POST':
+        # Coletando os dados do formulário
         titulo = request.POST.get('titulo')
         resumo = request.POST.get('resumo')
         resultados = request.POST.get('resultados')
         situacao = request.POST.get('situacao')
         descricao = request.POST.get('descricao')
 
-        # Obtendo arquivos, se houver
-        fotos = request.FILES.get('fotos', None)
-        artigos = request.FILES.get('artigos', None)
 
-        # Criação do objeto projeto
+        fotos = request.FILES.getlist('fotos')
+        artigos = request.FILES.getlist('artigos')
+
+        # Criando o objeto Projeto
         projeto = Projeto.objects.create(
             titulo=titulo,
             resumo=resumo,
             resultados=resultados,
             situacao=situacao,
             descricao=descricao,
-            fotos=fotos,
-            artigos=artigos
         )
 
+        # Adicionando múltiplas fotos e artigos ao projeto
+        for foto in fotos:
+            projeto.fotos = foto
+            projeto.save()
 
+        for artigo in artigos:
+            projeto.artigos = artigo
+            projeto.save()
+
+        # Adicionando Pesquisadores
         pesquisadores = request.POST.getlist('pesquisadores')
         for pesquisador_id in pesquisadores:
             pesquisador = Pesquisador.objects.get(id=pesquisador_id)
             projeto.pesquisadores.add(pesquisador)
 
-
+        # Adicionando Instituições
         instituicoes = request.POST.getlist('instituicoes')
         for instituicao_id in instituicoes:
             instituicao = Instituicao.objects.get(id=instituicao_id)
             projeto.instituicoes.add(instituicao)
 
+        # Adicionando Alunos
+        alunos = request.POST.getlist('alunos')
+        for aluno_id in alunos:
+            aluno = Perfil.objects.get(id=aluno_id)
+            projeto.alunos.add(aluno)
+
+        # Salvando o projeto com todas as associações
         projeto.save()
 
+        # Mensagem de sucesso e redirecionamento
         messages.success(request, 'Projeto cadastrado com sucesso.')
         return redirect('listar_projetos')
 
-
+    # Carregando os dados para o formulário
     pesquisadores = Pesquisador.objects.all()
     instituicoes = Instituicao.objects.all()
+    alunos = Perfil.objects.filter(tipo_usuario='aluno')
 
+    # Renderizando o template de adicionar projeto
     return render(request, 'projetos/adicionar_projeto.html', {
         'pesquisadores': pesquisadores,
-        'instituicoes': instituicoes
+        'instituicoes': instituicoes,
+        'alunos': alunos
     })
+#  admin  editar um projeto
 
-# View para admin editar um projeto
-from django.contrib.admin.views.decorators import staff_member_required
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib import messages
-from .models import Projeto, Pesquisador, Instituicao
-from .forms import ProjetoForm
 
 @staff_member_required
 @login_required
@@ -348,7 +365,7 @@ def editar_projeto(request, projeto_id):
     if request.method == 'POST':
         form = ProjetoForm(request.POST, request.FILES, instance=projeto)
         if form.is_valid():
-            projeto = form.save(commit=False)  # Salva sem persistir ainda
+            projeto = form.save(commit=False)
 
             # Limpa as relações existentes
             projeto.pesquisadores.clear()
@@ -486,11 +503,15 @@ def lista_usuarios(request):
 
 @login_required
 def detalhes_usuario(request, usuario_id):
-    perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
+    perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
+    print(perfil.telefone, perfil.endereco, perfil.instituto)
 
     return render(request, 'usuarios/detalhes_usuario.html', {'perfil': perfil})
 
-
+@receiver(post_save, sender=User)
+def criar_perfil(sender, instance, created, **kwargs):
+    if created:
+        Perfil.objects.create(usuario=instance)
 
 @staff_member_required
 def deletar_usuario(request, usuario_id):

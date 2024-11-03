@@ -43,8 +43,6 @@ urlpatterns = [
     path('projetos/<int:projeto_id>/deletar/', views.deletar_projeto, name='deletar_projeto'),
 
 
-
-
     # links para gerenciamento dos pesquisadores
     path('pesquisadores/', views.listar_pesquisadores, name='listar_pesquisadores'),
     path('pesquisadores/adicionar/', views.adicionar_pesquisador, name='adicionar_pesquisador'),
@@ -70,7 +68,7 @@ urlpatterns = [
     path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
 
 
-
 ]
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -12,6 +12,8 @@
 body {
     font-family: Arial, sans-serif;
     background-color: var(--verde);
+    padding: 0;
+    margin: 0;
 
 }
 

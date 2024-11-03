@@ -1,5 +1,72 @@
-{% block content %}
-<h2>{{ projeto.titulo }}</h2>
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes Projetos</title>
+    <link rel="stylesheet" href="{% static 'css/detalhes.css' %}">
+    <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="16x16">
+    <script src="https://kit.fontawesome.com/af6c14a78e.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    {% include 'base-header.html' %}
+
+    <div class="container">
+        <main>
+            <h1 class="titulo">{{projeto.titulo}}</h1>
+            <hr>
+            <div class="info-download">
+                <nav class="dados">
+                    <h3>Por: </h3>
+                    <h3>Status: {{projeto.get_situacao_display}}</h3>
+                </nav>
+                <nav class="download">
+                    <a href="">PDF <i class="fa-solid fa-file-lines"></i></a>
+                </nav>
+            </div>
+            <div class="img">
+                {% if projeto.fotos %}
+                <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                {% else %}
+                <p>Nenhuma imagem disponível.</p>
+                {% endif %}
+            </div>
+            <p>
+            <h1>Resumo</h1>
+            {{projeto.resumo}}
+            </p>
+            <div class="cards">
+                <div class="card">
+                    <h3>Pesquisadores</h3>
+                    {% for pesquisador in projeto.pesquisadores.all %}
+                        <li>{{ pesquisador.nome }} ({{ pesquisador.instituicao.nome }})</li>
+                    {% empty %}
+                        <li>Nenhum pesquisador associado.</li>
+                    {% endfor %}
+                </div>
+                <div class="card">
+                    <h3>Intituições</h3>
+                    {% for instituicao in projeto.instituicoes.all %}
+                        <li>{{ instituicao.nome }}</li>
+                    {% empty %}
+                        <li>Nenhuma instituição associada.</li>
+                    {% endfor %}
+                </div>
+            </div>
+        </main>
+    </div>
+    {% include 'base-footer.html' %}
+</body>
+
+</html>
+
+
+<!-- <h2>{{ projeto.titulo }}</h2>
 <p><strong>Resumo:</strong> {{ projeto.resumo }}</p>
 
 <p><strong>Resultados:</strong>
@@ -53,6 +120,4 @@
     <a href="{% url 'deletar_projeto' projeto.id %}">Deletar Projeto</a>
 {% elif user.is_authenticated and user.perfil.tipo_usuario == 'aluno' %}
     <a href="{% url 'inscricao' projeto.id %}">Inscrever-se no Projeto</a>
-{% endif %}
-
-{% endblock %}
+{% endif %} -->

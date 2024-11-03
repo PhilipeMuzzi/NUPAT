@@ -18,66 +18,57 @@
                     </button>
                 </div>
             </form>
-            <ul class="fi">
-                <li>
-                    <h2>
-                        <strong>Filtros</strong><hr class="lineex">
-                    </h2>
-                </li>
-                <ul>
+            <form id="filterForm" action="{% url 'projetos_andamento' %}" method="GET">
+                <ul class="fi">
                     <li>
-                        <li>
-                            <h3>
-                                <strong>Categorias</strong>
-                            </h3>
-                            <ul>
-                                <li>
-                                    <input type="checkbox" id="categorias" name="categorias" value="acessibilidade-web"><label for="acessibilidade-web"> Acessibilidade Web</label>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>
-                                <strong>Ano</strong>
-                            </h3>
-                            <ul>
-                                <li>
-                                    <input type="checkbox" id="ano" name="ano" value="2024"><label for="2024">2024</label>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>
-                                <strong>Idioma</strong>
-                            </h3>
-                            <ul>
-                                <li>
-                                    <input type="checkbox" id="idioma" name="idioma" value="pt/br"><label for="pt/br">Português</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="idioma" name="idioma" value="en"><label for="en">Inglês</label>
-                                </li>
-                                <li>
-                                    <input type="checkbox" id="idioma" name="idioma" value="es"><label for="es">Espanhol</label>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <h3>
-                                <strong>Instituições</strong>
-                            </h3>
-                            <ul>
-                                <li>
-                                    {% for instituicao in instituicoes %}
-                                    <input type="checkbox" name="instituicoes" id="instituicoes" class="form-control" value="{{ instituicao.id}}"><label for="instituicoes">{{ instituicao.nome }}</label></li></ul>
-                                    <i class="fa-solid fa-chevron-down"></i>
-                                    {% endfor %}
-                                </li>
-                            </ul>
-                        </li>
+                        <h2><strong>Filtros</strong><hr class="lineex"></h2>
+                    </li>
+                    <li>
+                        <h3><strong>Anos</strong></h3>
+                        <ul>
+                            {% for ano in anos %}
+                            <li>
+                                <input type="checkbox" id="anos-{{ ano.id }}" name="ano" value="{{ ano.id }}">
+                                <label for="anos-{{ ano.id }}">{{ ano.date }}</label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li>
+                        <h3><strong>Idiomas</strong></h3>
+                        <ul>
+                            {% for idioma in idiomas %}
+                            <li>
+                                <input type="checkbox" id="idiomas-{{ idioma.id }}" name="idioma" value="{{ idioma.id }}">
+                                <label for="idiomas-{{ idioma.id }}">{{ idioma.nome }}</label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li>
+                        <h3><strong>Instituições</strong></h3>
+                        <ul>
+                            {% for instituicao in instituicoes %}
+                            <li>
+                                <input type="checkbox" id="instituicao-{{ instituicao.id }}" name="instituicoes" value="{{ instituicao.id }}">
+                                <label for="instituicao-{{ instituicao.id }}">{{ instituicao.nome }}</label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li>
+                        <h3><strong>Pesquisadores</strong></h3>
+                        <ul>
+                            {% for pesquisador in pesquisadores %}
+                            <li>
+                                <input type="checkbox" id="pesquisadores-{{ pesquisador.id }}" name="pesquisadores" value="{{ pesquisador.id }}">
+                                <label for="pesquisadores-{{ pesquisador.id }}">{{ pesquisador.nome }}</label>
+                            </li>
+                            {% endfor %}
+                        </ul>
                     </li>
                 </ul>
-            </ul>
+            </form>
         </section>
         <section class="proj">
             <h1>

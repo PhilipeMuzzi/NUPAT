@@ -22,7 +22,7 @@
     <header>
         <!-- Cabeçalho acessibilidade desktop -->
         <div class="cbc-acessibilidade">
-            <a href="" id="title-acessibilidade">Acessibilidade</a>
+            <a id="title-acessibilidade">Acessibilidade</a>
             <div class="contraste">
                 Contraste |
                 <div class="icons-contraste">
@@ -82,14 +82,14 @@
                         </p>
 
                         {% if user.is_authenticated %}
-                        <a href="{% url 'logout' %}">
-                            <p>Sair</p>
-                        </a>
-                        {% if user.is_staff %}
-                        <a href="{% url 'admin_dashboard' %}">
-                            <p>ADMIN</p>
-                        </a>
-                        {% endif %}
+                            <a href="{% url 'logout' %}">
+                                <p>Sair</p>
+                            </a>
+                            {% if user.is_staff %}
+                                <a href="{% url 'admin_dashboard' %}">
+                                    <p>ADMIN</p>
+                                </a>
+                            {% endif %}
                         {% else %}
                         <a href="{% url 'login' %}">
                             <p>Entrar</p>
@@ -110,6 +110,7 @@
                     <li><a href="{% url 'projetos_iniciados' %}">Projetos Iniciados</a></li>
                     <li><a href="{% url 'projetos_andamento' %}">Projetos em Andamento</a></li>
                     <li><a href="{% url 'projetos_concluidos' %}">Projetos Concluídos</a></li>
+                    <li><a href="#">Todos</a></li>
                 </ul>
             </li>
             <li>

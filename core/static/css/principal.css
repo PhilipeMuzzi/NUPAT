@@ -9,12 +9,19 @@
     --navbar-height: 4.75rem;
 
 }
-
+*{
+    margin:0;
+    padding:0;
+}
 /* INICIO DO CORPO DO SITE*/
 .container {
     display: grid;
     place-items: center;
+<<<<<<<<< Temporary merge branch 1
     height: auto;
+=========
+    max-height: 150vh;
+>>>>>>>>> Temporary merge branch 2
     grid-template-columns: 60% 40%;
     grid-template-areas:
         "primeiro-corpo segundo-corpo";
@@ -40,7 +47,6 @@
     flex-direction: column;
     margin-top: 50px;
     padding: 12px;
-    gap: 10px;
 }
 
 
@@ -53,22 +59,50 @@
 }
 
 .card {
- /* 3 cards por linha */
-    width: 45%;
     display: flex;
     align-items: center;
     justify-content: start;
     gap: 3px;
-
+    width: 340px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 3px;
+    padding: 10px;
     background-color: #fff;
     border-radius: 8px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+.card nav {
+    width: 70%;
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.card nav p {
+    width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden; 
+}
+.card nav a {
+    background-color: var(--verdeclaro);
+    width: 70px;
+    height: 30px;
+    color: #fff;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-size: 0.9rem;
 }
 
 .card img {
-    max-width: 40%;
-    height: auto;
+    width: 150px;
+    height: 100px;
+    object-fit: contain;
     border-radius: 4px;
 }
 
@@ -112,7 +146,6 @@
 
 .segundo-corpo {
     grid-area: segundo-corpo;
-    padding-top: 60px;
     display: flex;
     gap: 100px;
     flex-direction: column;
@@ -163,7 +196,6 @@
     text-align: center;
     width: 300px;
     max-height: 900px;
-    padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -203,6 +235,9 @@
     height: 200px;
     background-color: var(--verdefraco);
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nupat p {
@@ -232,7 +267,7 @@ main {
     display: flex;
     width: 100%;
     justify-content: center;
-    margin-top: 30px;
+
 }
 
 section.slider {
