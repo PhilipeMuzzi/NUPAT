@@ -1,4 +1,7 @@
 {% block content %}
+
+<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
 <h2>Adicionar Novo Projeto</h2>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
@@ -46,7 +49,9 @@
         <h3>Pesquisadores:</h3>
         <select id="pesquisadores" name="pesquisadores" multiple>
             {% for pesquisador in pesquisadores %}
-                <option value="{{ pesquisador.id }}">{{ pesquisador.nome }}</option>
+                <option value="{{ pesquisador.id }}">{{ pesquisador.usuario.username }}</option>
+            {% empty %}
+                <option disabled>Nenhum pesquisador encontrado</option>
             {% endfor %}
         </select>
     </div>
@@ -55,7 +60,9 @@
         <h3>Professores:</h3>
         <select id="professores" name="professores" multiple>
             {% for professor in professores %}
-                <option value="{{ professor.id }}">{{ professor.nome }}</option>
+                <option value="{{ professor.id }}">{{ professor.usuario.username }}</option>
+            {% empty %}
+                <option disabled>Nenhum professor encontrado</option>
             {% endfor %}
         </select>
     </div>
@@ -64,7 +71,9 @@
         <h3>Alunos:</h3>
         <select id="alunos" name="alunos" multiple>
             {% for aluno in alunos %}
-                <option value="{{ aluno.id }}">{{ aluno.nome }}</option>
+                <option value="{{ aluno.id }}">{{ aluno.usuario.username }}</option>
+            {% empty %}
+                <option disabled>Nenhum aluno encontrado</option>
             {% endfor %}
         </select>
     </div>
@@ -77,6 +86,12 @@
             {% endfor %}
         </select>
     </div>
+
+    <!-- Botão/ícone para criar nova instituição -->
+    <a href="{% url 'criar_instituicao' %}" style="text-decoration: none; color: #007bff;">
+        <i class="fa fa-plus" aria-hidden="true"></i> Criar Nova Instituição
+    </a>
+
 
     <button type="submit">Salvar Projeto</button>
 </form>

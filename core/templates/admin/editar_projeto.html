@@ -5,38 +5,7 @@
     {% csrf_token %}
     {{ form.as_p }}
 
-    <div>
-        <h3>Pesquisadores</h3>
-        <select name="pesquisadores" multiple>
-            {% for pesquisador in pesquisadores %}
-                <option value="{{ pesquisador.id }}" {% if pesquisador in projeto.pesquisadores.all %}selected{% endif %}>
-                    {{ pesquisador.nome }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
 
-    <div>
-        <h3>Professores</h3>
-        <select name="professores" multiple>
-            {% for professor in professores %}
-                <option value="{{ professor.id }}" {% if professor in projeto.professores.all %}selected{% endif %}>
-                    {{ professor.nome }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
-
-    <div>
-        <h3>Instituições</h3>
-        <select name="instituicoes" multiple>
-            {% for instituicao in instituicoes %}
-                <option value="{{ instituicao.id }}" {% if instituicao in projeto.instituicoes.all %}selected{% endif %}>
-                    {{ instituicao.nome }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
 
     <button type="submit" class="btn btn-success">Salvar Alterações</button>
 </form>

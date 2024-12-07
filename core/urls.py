@@ -8,6 +8,7 @@ from .views import CustomLoginView, detalhes_usuario, quem_somos, area_suporte, 
     adicionar_projeto, editar_projeto, deletar_projeto, logout_view
 
 urlpatterns = [
+    path('contas/', include('django.contrib.auth.urls')),
     path('', views.inicio, name='inicio'),
     path('contas/', include('django.contrib.auth.urls')),
     path('register', views.registro, name='register'),
@@ -31,11 +32,13 @@ urlpatterns = [
 
     path('enviar_duvida/', views.enviar_duvida, name='enviar_duvida'),
     path('admin/duvidas_usuarios/', views.listar_duvidas, name='listar_duvidas'),
+    path('admin/listar_projetos/', views.listar_projetos, name= "listar_projetos"),
     path('pesquisa_opiniao/', views.pesquisa_opiniao, name='pesquisa_opiniao'),
     path('admin/pesquisa_opiniao_usuario/', views.resultados_pesquisa, name='resultados_pesquisa'),
 
 
     # links para gerenciamento dos projetos
+    path('instituicao/criar/', views.criar_instituicao, name='criar_instituicao'),
     path('projetos/', views.listar_projetos, name='listar_projetos'),
     path('projetos/adicionar/', views.adicionar_projeto, name='adicionar_projeto'),
     path('projetos/<int:projeto_id>/', views.detalhes_projeto, name='detalhes_projeto'),
@@ -60,7 +63,7 @@ urlpatterns = [
 
     # URLs para gerenciamento de instituições
     path('instituicoes/', views.listar_instituicoes, name='listar_instituicoes'),
-    path('instituicoes/adicionar/', views.adicionar_instituicao, name='adicionar_instituicao'),
+    path('instituicoes/adicionar/', views.criar_instituicao, name='adicionar_instituicao'),
 
 
     # ADMIN

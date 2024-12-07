@@ -239,12 +239,10 @@ def admin_dashboard(request):
     return render(request, 'admin/dashboardAdmin.html')
 
 
-
 # Listar Projetos  PARA O ADMIN, SOMENTE.
 def listar_projetos(request):
     projetos = Projeto.objects.all()
     return render(request, 'admin/lista_projetos.html', {'projetos': projetos})
-#
 
 
 # Editar Projeto
@@ -286,77 +284,117 @@ def detalhes_projeto(request, projeto_id):
         'parceiros': parceiros
     })
 
+@login_required
+def criar_instituicao(request):
+    if request.method == "POST":
+        nome = request.POST.get('nome')
+        endereco = request.POST.get('endereco')
+        departamento = request.POST.get('departamento')
+
+        if nome and endereco and departamento:
+            instituicao = Instituicao(
+                nome=nome,
+                endereco=endereco,
+                departamento=departamento
+            )
+            instituicao.save()
+            messages.success(request, "Instituição criada com sucesso!")
+            return redirect('projetos/adicionar_projeto')  # Redireciona para a página de adicionar projeto
+        else:
+            messages.error(request, "Todos os campos são obrigatórios.")
+
+    return render(request, 'instituicoes/criar_instituicao.html')
+
+
 # Adicionar um novo projeto (Apenas o admin pode acessar)
 @staff_member_required
 def adicionar_projeto(request):
-    if request.method == 'POST':
-        # Coletando os dados do formulário
+    if request.method == "POST":
         titulo = request.POST.get('titulo')
         resumo = request.POST.get('resumo')
-        resultados = request.POST.get('resultados')
-        situacao = request.POST.get('situacao')
-        descricao = request.POST.get('descricao')
+        resultados = request.POST.get('resultados', '')
+        situacao = request.POST.get('situacao', 'planejamento')
+        descricao = request.POST.get('descricao', '')
+        fotos = request.FILES.get('fotos')
+        artigos = request.FILES.get('artigos')
 
-
-        fotos = request.FILES.getlist('fotos')
-        artigos = request.FILES.getlist('artigos')
-
-        # Criando o objeto Projeto
-        projeto = Projeto.objects.create(
+        projeto = Projeto(
             titulo=titulo,
             resumo=resumo,
             resultados=resultados,
             situacao=situacao,
             descricao=descricao,
+            fotos=fotos,
+            artigos=artigos
         )
 
-        # Adicionando múltiplas fotos e artigos ao projeto
-        for foto in fotos:
-            projeto.fotos = foto
-            projeto.save()
-
-        for artigo in artigos:
-            projeto.artigos = artigo
-            projeto.save()
-
-        # Adicionando Pesquisadores
-        pesquisadores = request.POST.getlist('pesquisadores')
-        for pesquisador_id in pesquisadores:
-            pesquisador = Pesquisador.objects.get(id=pesquisador_id)
-            projeto.pesquisadores.add(pesquisador)
-
-        # Adicionando Instituições
-        instituicoes = request.POST.getlist('instituicoes')
-        for instituicao_id in instituicoes:
-            instituicao = Instituicao.objects.get(id=instituicao_id)
-            projeto.instituicoes.add(instituicao)
-
-        # Adicionando Alunos
-        alunos = request.POST.getlist('alunos')
-        for aluno_id in alunos:
-            aluno = Perfil.objects.get(id=aluno_id)
-            projeto.alunos.add(aluno)
-
-        # Salvando o projeto com todas as associações
         projeto.save()
 
-        # Mensagem de sucesso e redirecionamento
-        messages.success(request, 'Projeto cadastrado com sucesso.')
-        return redirect('listar_projetos')
 
-    # Carregando os dados para o formulário
-    pesquisadores = Pesquisador.objects.all()
-    instituicoes = Instituicao.objects.all()
-    alunos = Perfil.objects.filter(tipo_usuario='aluno')
+                # Criar a instituição, se fornecido o nome
+        nome_instituicao = request.POST.get('nome_instituicao')
+        endereco_instituicao = request.POST.get('endereco_instituicao')
+        departamento_instituicao = request.POST.get('departamento_instituicao')
 
-    # Renderizando o template de adicionar projeto
-    return render(request, 'projetos/adicionar_projeto.html', {
-        'pesquisadores': pesquisadores,
-        'instituicoes': instituicoes,
-        'alunos': alunos
-    })
+        if nome_instituicao and endereco_instituicao and departamento_instituicao:
+            instituicao = Instituicao(
+                nome=nome_instituicao,
+                endereco=endereco_instituicao,
+                departamento=departamento_instituicao
+            )
+            instituicao.save()
+        else:
+            # Se não fornecer os dados, usar uma instituição existente
+            instituicao = None  # Isso pode ser alterado dependendo da lógica de seu sistema
+
+        pesquisadores_ids = request.POST.getlist('pesquisadores')
+        professores_ids = request.POST.getlist('professores')
+        alunos_ids = request.POST.getlist('alunos')
+        instituicoes_ids = request.POST.getlist('instituicoes')
+
+# Adicionar pesquisadores ao projeto
+        for pesquisador_id in pesquisadores_ids:
+            try:
+                pesquisador = Pesquisador.objects.get(id=pesquisador_id)
+                projeto.pesquisadores.add(pesquisador)
+            except Pesquisador.DoesNotExist:
+                messages.error(request, f"Pesquisador com ID {pesquisador_id} não encontrado.")
+
+
+        # Adicionar alunos ao projeto
+        for aluno_id in alunos_ids:
+            try:
+                aluno = Perfil.objects.get(id=aluno_id)
+                projeto.alunos.add(aluno)
+            except Perfil.DoesNotExist:
+                messages.error(request, f"Aluno com ID {aluno_id} não encontrado.")
+
+        # Adicionar instituições ao projeto
+        for instituicao_id in instituicoes_ids:
+            try:
+                instituicao = Instituicao.objects.get(id=instituicao_id)
+                projeto.instituicoes.add(instituicao)
+            except Instituicao.DoesNotExist:
+                messages.error(request, f"Instituição com ID {instituicao_id} não encontrada.")
+
+        messages.success(request, "Projeto criado com sucesso!")
+        return redirect('/')
+
+    else:
+        pesquisadores = Perfil.objects.filter(tipo_usuario='Pesquisador')
+        professores = Perfil.objects.filter(tipo_usuario='Professor')
+        alunos = Perfil.objects.filter(tipo_usuario='Aluno')
+        instituicoes = Instituicao.objects.all()
+
+        return render(request, 'projetos/adicionar_projeto.html', {
+            'pesquisadores': pesquisadores,
+            'professores': professores,
+            'alunos': alunos,
+            'instituicoes': instituicoes,
+        })
+
+
 #  admin  editar um projeto
-
 
 @staff_member_required
 @login_required

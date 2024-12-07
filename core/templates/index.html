@@ -34,7 +34,7 @@
                 <div class="cards-container">
                     {% for projeto in ultimos_projetos|slice:":6" %}
                     <div class="card">
-                        <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                        <img src="{{ projeto.foto.url }}" alt="{{ projeto.titulo }}">
                         <nav>
                             <p>{{ projeto.titulo }}</p>
                             <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>

@@ -1,0 +1,16 @@
+<form method="POST">
+    {% csrf_token %}
+    <div>
+        <label for="nome">Nome da Instituição</label>
+        <input type="text" name="nome" id="nome" required>
+    </div>
+    <div>
+        <label for="endereco">Endereço</label>
+        <input type="text" name="endereco" id="endereco" required>
+    </div>
+    <div>
+        <label for="departamento">Departamento</label>
+        <input type="text" name="departamento" id="departamento" required>
+    </div>
+    <button type="submit">Criar Instituição</button>
+</form>
