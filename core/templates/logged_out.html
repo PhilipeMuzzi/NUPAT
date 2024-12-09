@@ -1,19 +1,79 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desconectado</title>
     <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="12x12">
     <link rel="stylesheet" href="{% static 'css/logged.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .icon {
+            font-size: 50px;
+            color: #4CAF50;
+        }
+        p {
+            margin: 10px 0 20px;
+        }
+        .btn {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .btn a {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            transition: background 0.3s;
+        }
+        .btn-primary {
+            background-color: #4CAF50;
+        }
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+        .btn-secondary {
+            background-color: #2196F3;
+        }
+        .btn-secondary:hover {
+            background-color: #1E88E5;
+        }
+    </style>
 </head>
 <body>
-    <nav class="container">
-        <h2>Você saiu!</h2>
-        <div class="btn">
-            <a href="{% url 'login' %}">Entrar novamente</a>    
-            <a href="{% url 'inicio' %}">Página Principal</a>
-        </div>
-    </nav>
+    <div class="container">
+        <nav>
+            <div class="icon">✓</div>
+            <h1>Desconectado</h1>
+            <h2>Você saiu com sucesso!</h2>
+            <p>Você pode entrar novamente ou voltar à página principal.</p>
+            <div class="btn">
+                <a class="btn-primary" href="{% url 'login' %}">Entrar novamente</a>
+                <a class="btn-secondary" href="{% url 'inicio' %}">Página Principal</a>
+            </div>
+        </nav>
+    </div>
 </body>
 </html>

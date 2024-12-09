@@ -75,11 +75,12 @@ class Projeto(models.Model):
     descricao = models.TextField(blank=True)
     artigos = models.FileField(upload_to='projetos/artigos/', blank=True, null=True)
 
+    # Relacionamentos com perfis específicos
+    professores = models.ManyToManyField('Perfil', related_name='projetos_professor', blank=True)
+    pesquisadores = models.ManyToManyField('Perfil', related_name='projetos_pesquisador', blank=True)
+    alunos = models.ManyToManyField('Perfil', related_name='projetos_aluno', blank=True)
 
-    pesquisadores = models.ManyToManyField('Pesquisador')
-    instituicoes = models.ManyToManyField('Instituicao')
-
-    alunos = models.ManyToManyField('Perfil', related_name='projetos', blank=True)
+    instituicoes = models.ManyToManyField('Instituicao', blank=True)
 
     def __str__(self):
         return self.titulo

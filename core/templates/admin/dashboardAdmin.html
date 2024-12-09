@@ -1,112 +1,123 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-
-
+    <title>Painel de Administração</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Painel de Administração</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Sair</a>
-                    </li>
-                </ul>
+<style>
+
+    .action-btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    color:#2e5606;
+    }
+
+    .action-btn-container .col-md-4 {
+    padding: 15px;
+    }
+
+    .action-btn {
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .action-btn .btn {
+    width: 100%;
+    font-size: 20px;
+    padding: 15px;
+    margin: 5px 0;
+    }
+
+    .btn i {
+    font-size: 42px;
+    display: block;
+    margin-bottom: 10px;
+    }
+
+    /* Responsividade */
+    @media (max-width: 767px) {
+    .action-btn-container .col-md-4 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    }
+    }
+</style>
+
+    <div class="col-md-12 py-4">
+        <h2 class="text-center mb-2">Bem-vindo(a)!</h2>
+        <p class="text-center">Este é o painel de administração. Aqui será possível gerenciar o conteúdo do site, usuários e muito mais.</p>
+    </div>
+
+<div class="container my-1">
+    <div class="row justify-content-center text-center">
+        <div class="col-md-4 mb-4">
+            <div class="stat-card">
+                <p class="stat-title"><b>Total de Usuários:</b></p>
+                <p class="stat-number" style="font-size: 2.5rem; color: green;">{{ total_usuarios }}</p>
             </div>
         </div>
-    </nav>
-
-<a href="{% url 'listar_duvidas' %}" class="btn btn-info">Ver Dúvidas dos Usuários</a>
-<a href="{% url 'resultados_pesquisa' %}" class="btn btn-warning">Ver Resultados da Pesquisa de Opinião</a>
-
-
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-md-3">
-
-                <ul class="list-group">
-                    <li class="list-group-item"><a href="#">Visão Geral</a></li>
-                   <li class="list-group-item">
-    <a href="{% url 'lista_usuarios' %}" class="btn btn-primary">Gerenciar Usuários</a>
-</li>
-
-                    <li class="list-group-item"><a href="{% url 'listar_projetos' %}">Gerenciar Projetos</a></li>
-                    <a href="{% url 'adicionar_projeto' %}" class="btn btn-primary">Adicionar Novo Projeto</a>
-
-                </ul>
-            </div>
-
-            <div class="col-md-9">
-
-                <h2>Bem-vindo, Admin!</h2>
-                <p>Este é o seu painel de administração. Aqui você pode gerenciar o conteúdo do site, usuários e muito mais.</p>
-
-                <div class="row">
-
-                    <div class="col-md-4">
-                        <div class="card text-white bg-primary mb-3" style="max-width: 18rem;">
-                            <div class="card-header">Usuários</div>
-                            <div class="card-body">
-                                <h5 class="card-title">Total de Usuários</h5>
-                                <p class="card-text">X usuários registrados.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
-                            <div class="card-header">Posts</div>
-                            <div class="card-body">
-                                <h5 class="card-title">Total de Projetos</h5>
-                                <p class="card-text">X projetos no site.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <h3>Últimos Usuários Cadastrados</h3>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Email</th>
-                            <th>Data de Cadastro</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {% for usuario in usuarios %}
-                        <tr>
-                            <td>{{ usuario.id }}</td>
-                            <td>{{ usuario.username }}</td>
-                            <td>{{ usuario.email }}</td>
-                            <td>{{ usuario.date_joined }}</td>
-                            <td>
-                                <a href="#" class="btn btn-sm btn-warning">Editar</a>
-                                <a href="#" class="btn btn-sm btn-danger">Excluir</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="col-md-4 mb-4">
+            <div class="stat-card">
+                <p class="stat-title"><b>Total de Projetos:</b></p>
+                <p class="stat-number" style="font-size: 2.5rem; color: green;">{{ total_projetos }}</p>
             </div>
         </div>
     </div>
+</div>
 
+
+
+<body class="bg-light">
+
+    <div class="container my-8">
+        <div class="action-btn-container">
+            <div class="col-md-4">
+                <div class="action-btn">
+                    <a href="{% url 'listar_duvidas' %}" class="btn btn">
+                        <i class="fas fa-question-circle"></i> Ver Dúvidas dos Usuários
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="action-btn">
+                    <a href="{% url 'resultados_pesquisa' %}" class="btn btn">
+                        <i class="fas fa-chart-bar"></i> Avaliações de usuários
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="action-btn">
+                    <a href="{% url 'lista_usuarios' %}" class="btn btn">
+                        <i class="fas fa-users"></i> Gerenciar Usuários
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="action-btn">
+                    <a href="{% url 'listar_projetos' %}" class="btn btn">
+                        <i class="fas fa-project-diagram"></i> Gerenciar Projetos
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="action-btn">
+                    <a href="{% url 'adicionar_projeto' %}" class="btn btn">
+                        <i class="fas fa-plus-circle"></i> Adicionar Novo Projeto
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </body>
+
 </html>

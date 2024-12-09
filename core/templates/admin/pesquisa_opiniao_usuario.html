@@ -1,18 +1,27 @@
-<h2>Resultados da Pesquisa de Opinião</h2>
-<p>Média de Notas: {{ media_notas|floatformat:1 }}</p>
-<table>
-    <thead>
-        <tr>
-            <th>Nota</th>
-            <th>Total de Votos</th>
-        </tr>
-    </thead>
-    <tbody>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Administração</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4" style="font-size: 2.5rem; color: #28a745;">Resultados da Pesquisa de Opinião</h2>
+
+    <div class="row justify-content-center">
         {% for nota in todas_notas %}
-        <tr>
-            <td>{{ nota.nota }}</td>
-            <td>{{ nota.total }}</td>
-        </tr>
+        <div class="col-md-4 mb-4 py-2">
+            <div class="card text-center shadow" style="border-radius: 15px; background-color: #f5f5f5;">
+                <div class="card-body">
+                    <h4 class="card-title" style="font-size: 2rem; color: #17a2b8;">Média de Notas: {{ nota.nota }}</h4>
+                    <p class="card-text" style="font-size: 1.2rem; color: #333;">Total de Votos: {{ nota.total }}</p>
+                </div>
+            </div>
+        </div>
+
         {% endfor %}
-    </tbody>
-</table>
+    </div>
+</div>
+

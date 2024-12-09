@@ -42,7 +42,7 @@
                 <!-- aviso de que o usuário deve completar o perfil caso ele ainda não tenha feito isso -->
                 {% if not perfil.telefone or not perfil.endereco or not perfil.instituto %}
                     <div class="alerta-perfil">
-                        <p style="background-color: green;">Complete seu perfil preenchendo as informações de endereço, instituição e telefone.</p>
+                        <p style="background-color: green; color: white; padding: 15px;"><b>Atenção:</b> Complete seu perfil preenchendo as informações de endereço, instituição e telefone.</p>
                     </div>
                 {% endif %}
 

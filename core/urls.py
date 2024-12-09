@@ -28,10 +28,9 @@ urlpatterns = [
     path('admin/editar_tipo_usuario/<int:usuario_id>/', views.editar_tipo_usuario, name='editar_tipo_usuario'),
     path('usuarios/<int:usuario_id>/editar/', views.editar_usuario, name='editar_usuario'),
     path('usuarios/<int:usuario_id>/deletar/', views.deletar_usuario, name='deletar_usuario'),
-
-
     path('enviar_duvida/', views.enviar_duvida, name='enviar_duvida'),
     path('admin/duvidas_usuarios/', views.listar_duvidas, name='listar_duvidas'),
+    path('duvidas/apagar/', views.apagar_duvida, name='apagar_duvida'),
     path('admin/listar_projetos/', views.listar_projetos, name= "listar_projetos"),
     path('pesquisa_opiniao/', views.pesquisa_opiniao, name='pesquisa_opiniao'),
     path('admin/pesquisa_opiniao_usuario/', views.resultados_pesquisa, name='resultados_pesquisa'),
@@ -49,8 +48,6 @@ urlpatterns = [
     # links para gerenciamento dos pesquisadores
     path('pesquisadores/', views.listar_pesquisadores, name='listar_pesquisadores'),
     path('pesquisadores/adicionar/', views.adicionar_pesquisador, name='adicionar_pesquisador'),
-
-
     path('pesquisadores/adicionar/', views.adicionar_pesquisador, name='adicionar_pesquisador'),
     path('pesquisadores/editar/<int:pesquisador_id>/', views.editar_projeto, name='editar_pesquisador'),
     path('pesquisadores/deletar/<int:pesquisador_id>/', views.deletar_projeto, name='deletar_pesquisador'),
@@ -69,6 +66,7 @@ urlpatterns = [
     # ADMIN
     path('usuarios/editar/<int:usuario_id>/', views.editar_tipo_usuario, name='editar_tipo_usuario'),
     path('admin/dashboard/', views.admin_dashboard, name='admin_dashboard'),
+
 
     #logout
     path('logout/', logout_view, name='logout'),

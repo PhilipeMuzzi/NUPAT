@@ -1,12 +1,180 @@
-{% block content %}
-<h1>Editar Projeto: {{ projeto.titulo }}</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Projeto</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-section {
+      margin-bottom: 20px;
+    }
+    h3 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: #343a40;
+    }
+    .badge-category {
+      background-color: #198754;
+      color: white;
+      font-size: 0.9rem;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
 
-<form method="post" enctype="multipart/form-data">
+<div class="container">
+<h2 class="text-center"><i class="fas fa-project-diagram"></i> Editar Projeto: {{ projeto.titulo }}</h2>
+
+
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+
+<div class="container">
+
+  <div class="form-section">
+    <h3><i class="fas fa-users icon"></i>Pessoas Envolvidas</h3>
+    <div class="mb-3">
+      <span class="badge badge-category">Total: {{ projeto.professores.count|add:projeto.pesquisadores.count|add:projeto.alunos.count }}</span>
+      <span class="badge badge-category">Professores: {{ projeto.professores.count }}</span>
+      <span class="badge badge-category">Pesquisadores: {{ projeto.pesquisadores.count }}</span>
+      <span class="badge badge-category">Alunos: {{ projeto.alunos.count }}</span>
+    </div>
+
+    <div class="form-section">
+      <h3><i class="fas fa-heading"></i> Título</h3>
+      <input type="text" id="titulo" name="titulo" class="form-control" value="{{ projeto.titulo }}" required>
+    </div>
+
+    <div class="form-section">
+      <h3><i class="fas fa-file-alt"></i> Resumo</h3>
+      <textarea id="resumo" name="resumo" class="form-control" rows="3" required>{{ projeto.resumo }}</textarea>
+    </div>
+
+    <div class="form-section">
+      <h3><i class="fas fa-align-left"></i> Descrição</h3>
+      <textarea id="descricao" name="descricao" class="form-control" rows="5" required>{{ projeto.descricao }}</textarea>
+    </div>
 
 
+    <div class="form-section">
+      <h3><i class="fas fa-chart-line"></i> Resultados</h3>
+      <textarea id="resultados" name="resultados" class="form-control" rows="3">{{ projeto.resultados }}</textarea>
+    </div>
 
-    <button type="submit" class="btn btn-success">Salvar Alterações</button>
-</form>
-{% endblock %}
+
+    <div class="form-section">
+      <h3><i class="fas fa-images"></i> Fotos</h3>
+      <input type="file" id="fotos" name="fotos" class="form-control" multiple>
+      <div class="mt-3">
+        {% for foto in projeto.fotos.all %}
+          <img src="{{ foto.url }}" alt="Foto do Projeto" class="img-thumbnail mb-2" style="max-width: 150px;">
+        {% empty %}
+          <p>Nenhuma foto adicionada.</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3><i class="fas fa-clipboard-check"></i> Situação</h3>
+      <select id="situacao" name="situacao" class="form-control">
+        <option value="andamento" {% if projeto.situacao == "andamento" %}selected{% endif %}>Em Andamento</option>
+        <option value="concluido" {% if projeto.situacao == "concluido" %}selected{% endif %}>Concluído</option>
+        <option value="planejamento" {% if projeto.situacao == "planejamento" %}selected{% endif %}>Em Planejamento</option>
+      </select>
+    </div>
+
+    <div class="form-section">
+      <h3><i class="fas fa-file-upload"></i> Artigos</h3>
+      <input type="file" id="artigos" name="artigos" class="form-control" multiple>
+      <div class="mt-3">
+        {% if projeto.artigos %}
+          <ul>
+            {% for artigo in projeto.artigos.all %}
+              <li><a href="{{ artigo.url }}" target="_blank">{{ artigo.name }}</a></li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>Nenhum artigo adicionado.</p>
+        {% endif %}
+
+      </div>
+    </div>
+
+
+    <div class="form-section">
+      <h3><i class="fas fa-user-tie"></i> Professores</h3>
+      <input type="text" id="searchProfessores" class="form-control search-bar" placeholder="Buscar professores..." onkeyup="filterCheckboxes('searchProfessores', 'professoresContainer')">
+      <div id="professoresContainer" class="form-check">
+        {{ form.professores }}
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3><i class="fas fa-user-graduate"></i> Pesquisadores</h3>
+      <input type="text" id="searchPesquisadores" class="form-control search-bar" placeholder="Buscar pesquisadores..." onkeyup="filterCheckboxes('searchPesquisadores', 'pesquisadoresContainer')">
+      <div id="pesquisadoresContainer" class="form-check">
+        {{ form.pesquisadores }}
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h3><i class="fas fa-user"></i> Alunos</h3>
+      <input type="text" id="searchAlunos" class="form-control search-bar" placeholder="Buscar alunos..." onkeyup="filterCheckboxes('searchAlunos', 'alunosContainer')">
+      <div id="alunosContainer" class="form-check">
+        {{ form.alunos }}
+      </div>
+    </div>
+
+    <div class="form-section">
+  <h3><i class="fas fa-building"></i> Instituições</h3>
+  <input type="text" id="searchInstituicoes" class="form-control search-bar" placeholder="Buscar Instituições..." onkeyup="filterCheckboxes('searchInstituicoes', 'instituicoesContainer')">
+  <div id="instituicoesContainer" class="form-check">
+    {{ form.instituicoes }}
+  </div>
+              <div class="text mb-4">
+            <a href="{% url 'criar_instituicao' %}" class="btn btn-outline-primary">
+                <i class="fa fa-plus" aria-hidden="true"></i> Criar Nova Instituição
+            </a>
+        </div>
+   </div>
+
+
+    <button type="submit" class="btn btn-primary w-100"><i class="fas fa-save"></i> Salvar Alterações</button>
+  </form>
+</div>
+
+<script>
+  function filterCheckboxes(searchId, containerId) {
+    var input, filter, container, checkboxes, label, i, txtValue;
+    input = document.getElementById(searchId);
+    filter = input.value.toLowerCase();
+    container = document.getElementById(containerId);
+    checkboxes = container.getElementsByTagName('label');
+
+    for (i = 0; i < checkboxes.length; i++) {
+      label = checkboxes[i];
+      txtValue = label.textContent || label.innerText;
+      if (txtValue.toLowerCase().indexOf(filter) > -1) {
+        label.style.display = "";
+      } else {
+        label.style.display = "none";
+      }
+    }
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

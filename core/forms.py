@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Perfil, Projeto, DuvidaUsuario, PesquisaOpiniao
+from .models import Perfil, Projeto, DuvidaUsuario, PesquisaOpiniao, Pesquisador, Instituicao
 
 
 class PerfilForm(forms.ModelForm):
@@ -23,7 +23,23 @@ class TipoUsuarioForm(forms.ModelForm):
 class ProjetoForm(forms.ModelForm):
     class Meta:
         model = Projeto
-        fields = ['titulo', 'resumo', 'resultados', 'fotos', 'situacao', 'descricao', 'artigos', 'pesquisadores', 'instituicoes', 'alunos']
+        fields = ['titulo', 'resumo', 'descricao', 'resultados', 'fotos', 'situacao', 'artigos', 'professores', 'pesquisadores', 'alunos', 'instituicoes']
+
+    professores = forms.ModelMultipleChoiceField(
+        queryset=Perfil.objects.filter(tipo_usuario='Professor'),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+    pesquisadores = forms.ModelMultipleChoiceField(
+        queryset=Perfil.objects.filter(tipo_usuario='Pesquisador'),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
+    alunos = forms.ModelMultipleChoiceField(
+        queryset=Perfil.objects.filter(tipo_usuario='Aluno'),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
 
 class RegistroUsuarioForm(UserCreationForm):
     telefone = forms.CharField(max_length=15, required=True)
@@ -61,6 +77,6 @@ class PesquisaOpiniaoForm(forms.ModelForm):
                 telefone=self.cleaned_data['telefone'],
                 endereco=self.cleaned_data['endereco'],
                 instituto=self.cleaned_data['instituto'],
-                tipo_usuario=''  #deixando vazio até que o admin de fato defina em suas configurações
+                tipo_usuario=''
             )
         return user

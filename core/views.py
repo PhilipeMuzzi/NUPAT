@@ -1,9 +1,12 @@
+import logging
+
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.contrib.auth import logout
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import PesquisaOpiniao, Projeto, Pesquisador, Instituicao
 from django.contrib.auth.views import LoginView
@@ -11,8 +14,8 @@ from django.contrib.auth import login, authenticate
 from django.db.models import Avg
 from django.urls import reverse
 from django.utils import timezone
-from . import models
-from .forms import RegistroUsuarioForm, PerfilForm, TipoUsuarioForm, PerfilAdminForm, DuvidaForm, \
+from django.db.models import Q
+from .forms import RegistroUsuarioForm, PerfilForm, TipoUsuarioForm, PerfilAdminForm, \
     PesquisaOpiniaoForm, ProjetoForm
 from .models import Perfil, Parceiro, DuvidaUsuario
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -60,7 +63,6 @@ def editar_perfil(request, usuario_id):
         form = PerfilForm(instance=perfil)
         tipo_usuario_form = TipoUsuarioForm(instance=perfil) if request.user.is_staff else None
 
-    # Redireciona para o template correto
     if request.user.is_staff:
         return render(request, 'admin-editUser.html', {'form': form, 'tipo_usuario_form': tipo_usuario_form, 'perfil': perfil})
     else:
@@ -189,7 +191,6 @@ def editar_detalhes(request, usuario_id):
 
     return render(request, 'usuarios/editardetalhes.html', {'form': form, 'perfil': perfil})
 
-
 # Login
 @login_required
 def login_view(request):
@@ -236,7 +237,14 @@ def is_admin(user):
 @user_passes_test(is_admin)
 @staff_member_required
 def admin_dashboard(request):
-    return render(request, 'admin/dashboardAdmin.html')
+
+    total_usuarios = User.objects.count()
+    total_projetos = Projeto.objects.count()
+    context = {
+        'total_usuarios': total_usuarios,
+        'total_projetos': total_projetos,
+    }
+    return render(request, 'admin/dashboardAdmin.html', context)
 
 
 # Listar Projetos  PARA O ADMIN, SOMENTE.
@@ -244,24 +252,6 @@ def listar_projetos(request):
     projetos = Projeto.objects.all()
     return render(request, 'admin/lista_projetos.html', {'projetos': projetos})
 
-
-# Editar Projeto
-@staff_member_required
-def editar_projeto(request, projeto_id):
-    projeto = get_object_or_404(Projeto, id=projeto_id)
-
-    if request.method == 'POST':
-        projeto.titulo = request.POST.get('titulo')
-        projeto.resumo = request.POST.get('resumo')
-        projeto.resultados = request.POST.get('resultados')
-        projeto.situacao = request.POST.get('situacao')
-        projeto.descricao = request.POST.get('descricao')
-        projeto.fotos = request.FILES.get('fotos', projeto.fotos)  # vai manter a foto padrão se não nova não for enviada
-        projeto.save()
-        messages.success(request, 'Projeto atualizado com sucesso.')
-        return redirect('listar_projetos')
-
-    return render(request, 'admin/editar_projeto.html', {'projeto': projeto})
 
 # Deletar Projeto
 @staff_member_required
@@ -299,150 +289,57 @@ def criar_instituicao(request):
             )
             instituicao.save()
             messages.success(request, "Instituição criada com sucesso!")
-            return redirect('projetos/adicionar_projeto')  # Redireciona para a página de adicionar projeto
+            return redirect('projetos/adicionar_projeto')
         else:
             messages.error(request, "Todos os campos são obrigatórios.")
 
     return render(request, 'instituicoes/criar_instituicao.html')
 
-
-# Adicionar um novo projeto (Apenas o admin pode acessar)
 @staff_member_required
 def adicionar_projeto(request):
     if request.method == "POST":
-        titulo = request.POST.get('titulo')
-        resumo = request.POST.get('resumo')
-        resultados = request.POST.get('resultados', '')
-        situacao = request.POST.get('situacao', 'planejamento')
-        descricao = request.POST.get('descricao', '')
-        fotos = request.FILES.get('fotos')
-        artigos = request.FILES.get('artigos')
-
-        projeto = Projeto(
-            titulo=titulo,
-            resumo=resumo,
-            resultados=resultados,
-            situacao=situacao,
-            descricao=descricao,
-            fotos=fotos,
-            artigos=artigos
-        )
-
-        projeto.save()
-
-
-                # Criar a instituição, se fornecido o nome
-        nome_instituicao = request.POST.get('nome_instituicao')
-        endereco_instituicao = request.POST.get('endereco_instituicao')
-        departamento_instituicao = request.POST.get('departamento_instituicao')
-
-        if nome_instituicao and endereco_instituicao and departamento_instituicao:
-            instituicao = Instituicao(
-                nome=nome_instituicao,
-                endereco=endereco_instituicao,
-                departamento=departamento_instituicao
-            )
-            instituicao.save()
+        form = ProjetoForm(request.POST, request.FILES)
+        if form.is_valid():
+            projeto = form.save(commit=False)
+            projeto.save()
+            form.save_m2m()
+            messages.success(request, "Projeto criado com sucesso!")
+            return redirect('/')
         else:
-            # Se não fornecer os dados, usar uma instituição existente
-            instituicao = None  # Isso pode ser alterado dependendo da lógica de seu sistema
-
-        pesquisadores_ids = request.POST.getlist('pesquisadores')
-        professores_ids = request.POST.getlist('professores')
-        alunos_ids = request.POST.getlist('alunos')
-        instituicoes_ids = request.POST.getlist('instituicoes')
-
-# Adicionar pesquisadores ao projeto
-        for pesquisador_id in pesquisadores_ids:
-            try:
-                pesquisador = Pesquisador.objects.get(id=pesquisador_id)
-                projeto.pesquisadores.add(pesquisador)
-            except Pesquisador.DoesNotExist:
-                messages.error(request, f"Pesquisador com ID {pesquisador_id} não encontrado.")
-
-
-        # Adicionar alunos ao projeto
-        for aluno_id in alunos_ids:
-            try:
-                aluno = Perfil.objects.get(id=aluno_id)
-                projeto.alunos.add(aluno)
-            except Perfil.DoesNotExist:
-                messages.error(request, f"Aluno com ID {aluno_id} não encontrado.")
-
-        # Adicionar instituições ao projeto
-        for instituicao_id in instituicoes_ids:
-            try:
-                instituicao = Instituicao.objects.get(id=instituicao_id)
-                projeto.instituicoes.add(instituicao)
-            except Instituicao.DoesNotExist:
-                messages.error(request, f"Instituição com ID {instituicao_id} não encontrada.")
-
-        messages.success(request, "Projeto criado com sucesso!")
-        return redirect('/')
-
+            messages.error(request, "Erro ao salvar o projeto. Verifique os campos.")
     else:
-        pesquisadores = Perfil.objects.filter(tipo_usuario='Pesquisador')
-        professores = Perfil.objects.filter(tipo_usuario='Professor')
-        alunos = Perfil.objects.filter(tipo_usuario='Aluno')
-        instituicoes = Instituicao.objects.all()
-
-        return render(request, 'projetos/adicionar_projeto.html', {
-            'pesquisadores': pesquisadores,
-            'professores': professores,
-            'alunos': alunos,
-            'instituicoes': instituicoes,
-        })
+        form = ProjetoForm()
 
 
-#  admin  editar um projeto
+    pesquisadores = Perfil.objects.filter(tipo_usuario='Pesquisador')
+    professores = Perfil.objects.filter(tipo_usuario='Professor')
+    alunos = Perfil.objects.filter(tipo_usuario='Aluno')
+    instituicoes = Instituicao.objects.all()
 
-@staff_member_required
-@login_required
+
+    return render(request, 'projetos/adicionar_projeto.html', {
+        'form': form,
+        'pesquisadores': pesquisadores,
+        'professores': professores,
+        'alunos': alunos,
+        'instituicoes': instituicoes,
+    })
+
 def editar_projeto(request, projeto_id):
     projeto = get_object_or_404(Projeto, id=projeto_id)
 
     if request.method == 'POST':
         form = ProjetoForm(request.POST, request.FILES, instance=projeto)
         if form.is_valid():
-            projeto = form.save(commit=False)
-
-            # Limpa as relações existentes
-            projeto.pesquisadores.clear()
-            projeto.instituicoes.clear()
-
-            # Atualiza os pesquisadores
-            pesquisadores = request.POST.getlist('pesquisadores')
-            for pesquisador_id in pesquisadores:
-                projeto.pesquisadores.add(Pesquisador.objects.get(id=pesquisador_id))
-
-            # Atualiza os professores (corrigindo a variável)
-            professores = request.POST.getlist('professores')
-            for professor_id in professores:
-                projeto.pesquisadores.add(Pesquisador.objects.get(id=professor_id))
-
-            # Atualiza as instituições
-            instituicoes = request.POST.getlist('instituicoes')
-            for instituicao_id in instituicoes:
-                projeto.instituicoes.add(Instituicao.objects.get(id=instituicao_id))
-
-            # Salva as mudanças no banco de dados
-            projeto.save()
-            messages.success(request, 'Projeto atualizado com sucesso.')
-            return redirect('listar_projetos')
+            projeto = form.save()
+            messages.success(request, "Projeto atualizado com sucesso!")
+            return redirect('/')
+        else:
+            messages.error(request, "Erro ao atualizar o projeto.")
     else:
         form = ProjetoForm(instance=projeto)
 
-    # Carrega os dados necessários para o template
-    pesquisadores = Pesquisador.objects.all()
-    instituicoes = Instituicao.objects.all()
-
-    return render(request, 'admin/editar_projeto.html', {
-        'form': form,
-        'projeto': projeto,
-        'pesquisadores': pesquisadores,
-        'instituicoes': instituicoes,
-    })
-
+    return render(request, 'admin/editar_projeto.html', {'form': form, 'projeto': projeto})
 
 # view para deletar o projeto
 @login_required
@@ -453,9 +350,6 @@ def deletar_projeto(request, projeto_id):
         messages.success(request, 'Projeto deletado com sucesso.')
         return redirect('listar_projetos')
     return render(request, 'admin/deletar_projeto.html', {'projeto': projeto})
-
-
-
 
 # listagem de pesquisadores
 @login_required
@@ -531,14 +425,22 @@ def adicionar_instituicao(request):
         return redirect('listar_instituicoes')
     return render(request, 'instituicoes/adicionar_instituicao.html')
 
-
-
 #listagem de usuários
+@staff_member_required()
 @login_required
 def lista_usuarios(request):
-    # listar os usuários e seus perfis
-    usuarios = Perfil.objects.all()
-    return render(request, 'usuarios/lista_usuarios.html', {'usuarios': usuarios})
+
+    search_query = request.GET.get('search', '')
+
+    if search_query:
+        usuarios = Perfil.objects.filter(
+            Q(usuario__username__icontains=search_query) |
+            Q(usuario__email__icontains=search_query)
+        )
+    else:
+        usuarios = Perfil.objects.all()
+
+    return render(request, 'usuarios/lista_usuarios.html', {'usuarios': usuarios, 'search_query': search_query})
 
 @login_required
 def detalhes_usuario(request, usuario_id):
@@ -552,17 +454,19 @@ def criar_perfil(sender, instance, created, **kwargs):
     if created:
         Perfil.objects.create(usuario=instance)
 
+
 @staff_member_required
 def deletar_usuario(request, usuario_id):
-    usuario = get_object_or_404(Perfil, user_id=usuario_id)
+    usuario = get_object_or_404(Perfil, id=usuario_id)
 
     if request.method == 'POST':
         usuario.delete()
         messages.success(request, 'Usuário deletado com sucesso.')
-        return redirect('lista_usuarios')
 
-    return render(request, 'usuarios/deletar_usuario.html', {'usuario': usuario})
 
+    usuarios = Perfil.objects.all()
+
+    return render(request, 'usuarios/lista_usuarios.html', {'usuarios': usuarios})
 
 @staff_member_required
 def editar_usuario(request, usuario_id):
@@ -574,12 +478,9 @@ def editar_usuario(request, usuario_id):
             perfil.tipo_usuario = novo_tipo
             perfil.save()
             messages.success(request, 'Tipo de usuário atualizado com sucesso.')
-            return redirect('detalhes_usuario', usuario_id=usuario_id)  #salva
+            return redirect('detalhes_usuario', usuario_id=usuario_id)
 
     return render(request, 'editar_detalhes_usuario.html', {'perfil': perfil})
-
-
-
 @login_required
 def enviar_duvida(request):
     mensagem = ""
@@ -594,12 +495,20 @@ def enviar_duvida(request):
 
     return render(request, 'usuarios/enviar_duvida.html', {'mensagem': mensagem})
 
-
 @login_required
 def listar_duvidas(request):
     duvidas = DuvidaUsuario.objects.all().order_by('-data_envio')
     return render(request, 'admin/duvidas_usuarios.html', {'duvidas': duvidas})
 
+# View para apagar uma dúvida
+
+def apagar_duvida(request):
+    if request.method == 'POST':
+        duvida_id = request.POST.get('duvida_id')
+        duvida = get_object_or_404(DuvidaUsuario, id=duvida_id)
+        duvida.delete()
+        messages.success(request, 'Dúvida excluída com sucesso!')
+    return redirect('listar_duvidas')
 
 @login_required
 def pesquisa_opiniao(request):
@@ -620,7 +529,6 @@ def pesquisa_opiniao(request):
         form = PesquisaOpiniaoForm()
 
     return render(request, 'usuarios/pesquisa_opiniao.html', {'form': form})
-
 
 def resultados_pesquisa(request):
     todas_notas = PesquisaOpiniao.objects.values('nota').annotate(total=Count('nota')).order_by('nota')

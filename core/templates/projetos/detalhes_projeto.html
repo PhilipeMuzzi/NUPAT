@@ -41,14 +41,17 @@
             {{projeto.resumo}}
             </p>
             <div class="cards">
-                <div class="card">
-                    <h3>Pesquisadores</h3>
+            <div class="card">
+                <h3>Pesquisadores</h3>
+                <ul>
                     {% for pesquisador in projeto.pesquisadores.all %}
                         <li>{{ pesquisador.nome }} ({{ pesquisador.instituicao.nome }})</li>
                     {% empty %}
                         <li>Nenhum pesquisador associado.</li>
                     {% endfor %}
-                </div>
+                </ul>
+            </div>
+
                 <div class="card">
                     <h3>Intituições</h3>
                     {% for instituicao in projeto.instituicoes.all %}

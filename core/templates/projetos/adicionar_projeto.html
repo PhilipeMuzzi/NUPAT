@@ -1,98 +1,112 @@
 {% block content %}
-
-<head><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<h2>Adicionar Novo Projeto</h2>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
 
-    <div>
-        <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo" required>
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h2 class="display-4 text-success">Adicionar Novo Projeto</h2>
+        <p class="lead text-muted">Preencha os detalhes do projeto e selecione as opções necessárias.</p>
     </div>
 
-    <div>
-        <label for="resumo">Resumo:</label>
-        <textarea id="resumo" name="resumo" required></textarea>
-    </div>
+    <form method="post" enctype="multipart/form-data" class="p-4 shadow-lg rounded bg-light">
+        {% csrf_token %}
 
-    <div>
-        <label for="resultados">Resultados:</label>
-        <textarea id="resultados" name="resultados"></textarea>
-    </div>
+        <div class="mb-4">
+            <label for="titulo" class="form-label">Título:</label>
+            <input type="text" id="titulo" name="titulo" class="form-control" required>
+        </div>
 
-    <div>
-        <label for="situacao">Situação:</label>
-        <select id="situacao" name="situacao">
-            <option value="concluido">Concluído</option>
-            <option value="andamento">Em Andamento</option>
-            <option value="planejamento">Em Planejamento</option>
-        </select>
-    </div>
+        <div class="mb-4">
+            <label for="resumo" class="form-label">Resumo:</label>
+            <textarea id="resumo" name="resumo" class="form-control" required></textarea>
+        </div>
 
-    <div>
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao"></textarea>
-    </div>
+        <div class="mb-4">
+            <label for="resultados" class="form-label">Resultados:</label>
+            <textarea id="resultados" name="resultados" class="form-control"></textarea>
+        </div>
 
-    <div>
-        <label for="fotos">Fotos:</label>
-        <input type="file" id="fotos" name="fotos" multiple>
-    </div>
+        <div class="mb-4">
+            <label for="situacao" class="form-label">Situação:</label>
+            <select id="situacao" name="situacao" class="form-select">
+                <option value="concluido">Concluído</option>
+                <option value="andamento">Em Andamento</option>
+                <option value="planejamento">Em Planejamento</option>
+            </select>
+        </div>
 
-    <div>
-        <label for="artigos">Artigos:</label>
-        <input type="file" id="artigos" name="artigos" multiple>
-    </div>
+        <div class="mb-4">
+            <label for="descricao" class="form-label">Descrição:</label>
+            <textarea id="descricao" name="descricao" class="form-control"></textarea>
+        </div>
 
-    <div>
-        <h3>Pesquisadores:</h3>
-        <select id="pesquisadores" name="pesquisadores" multiple>
-            {% for pesquisador in pesquisadores %}
-                <option value="{{ pesquisador.id }}">{{ pesquisador.usuario.username }}</option>
-            {% empty %}
-                <option disabled>Nenhum pesquisador encontrado</option>
-            {% endfor %}
-        </select>
-    </div>
+        <div class="mb-4">
+            <label for="fotos" class="form-label">Fotos:</label>
+            <input type="file" id="fotos" name="fotos" class="form-control" multiple>
+        </div>
 
-    <div>
-        <h3>Professores:</h3>
-        <select id="professores" name="professores" multiple>
-            {% for professor in professores %}
-                <option value="{{ professor.id }}">{{ professor.usuario.username }}</option>
-            {% empty %}
-                <option disabled>Nenhum professor encontrado</option>
-            {% endfor %}
-        </select>
-    </div>
+        <div class="mb-4">
+            <label for="artigos" class="form-label">Artigos:</label>
+            <input type="file" id="artigos" name="artigos" class="form-control" multiple>
+        </div>
 
-    <div>
-        <h3>Alunos:</h3>
-        <select id="alunos" name="alunos" multiple>
-            {% for aluno in alunos %}
-                <option value="{{ aluno.id }}">{{ aluno.usuario.username }}</option>
-            {% empty %}
-                <option disabled>Nenhum aluno encontrado</option>
-            {% endfor %}
-        </select>
-    </div>
+        <div class="mb-4">
+            <label for="pesquisadores" class="form-label">Pesquisadores:</label>
+            <select id="pesquisadores" name="pesquisadores" class="form-select" multiple>
+                {% for pesquisador in pesquisadores %}
+                    <option value="{{ pesquisador.id }}">{{ pesquisador.usuario.username }}</option>
+                {% empty %}
+                    <option disabled>Nenhum pesquisador encontrado</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <div>
-        <label for="instituicoes">Instituições Envolvidas:</label>
-        <select id="instituicoes" name="instituicoes" multiple>
-            {% for instituicao in instituicoes %}
-                <option value="{{ instituicao.id }}">{{ instituicao.nome }}</option>
-            {% endfor %}
-        </select>
-    </div>
+        <div class="mb-4">
+            <label for="professores" class="form-label">Professores:</label>
+            <select id="professores" name="professores" class="form-select" multiple>
+                {% for professor in professores %}
+                    <option value="{{ professor.id }}">{{ professor.usuario.username }}</option>
+                {% empty %}
+                    <option disabled>Nenhum professor encontrado</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="alunos" class="form-label">Alunos:</label>
+            <select id="alunos" name="alunos" class="form-select" multiple>
+                {% for aluno in alunos %}
+                    <option value="{{ aluno.id }}">{{ aluno.usuario.username }}</option>
+                {% empty %}
+                    <option disabled>Nenhum aluno encontrado</option>
+                {% endfor %}
+            </select>
+        </div>
 
-    <!-- Botão/ícone para criar nova instituição -->
-    <a href="{% url 'criar_instituicao' %}" style="text-decoration: none; color: #007bff;">
-        <i class="fa fa-plus" aria-hidden="true"></i> Criar Nova Instituição
-    </a>
+        <div class="mb-4">
+            <label for="instituicoes" class="form-label">Instituições Envolvidas:</label>
+            <select id="instituicoes" name="instituicoes" class="form-select" multiple>
+                {% for instituicao in instituicoes %}
+                    <option value="{{ instituicao.id }}">{{ instituicao.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
+        <div class="text mb-4">
+            <a href="{% url 'criar_instituicao' %}" class="btn btn-outline-primary">
+                <i class="fa fa-plus" aria-hidden="true"></i> Criar Nova Instituição
+            </a>
+        </div>
 
-    <button type="submit">Salvar Projeto</button>
-</form>
+        <div class="d-flex justify-content-between">
+            <a href="{% url 'listar_projetos' %}" class="btn btn-secondary">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Voltar
+            </a>
+            <button type="submit" class="btn btn-success">
+                <i class="fa fa-save" aria-hidden="true"></i> Salvar Projeto
+            </button>
+        </div>
+    </form>
+</div>
 {% endblock %}

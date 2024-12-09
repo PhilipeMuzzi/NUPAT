@@ -1,6 +1,15 @@
-<h2>Criar Novo Usuário</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success">Criar Usuário</button>
-</form>
+<div class="max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-6 mt-10">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Criar Novo Usuário</h2>
+
+    <form method="post" class="space-y-6">
+        {% csrf_token %}
+
+        <div class="space-y-4">
+            {{ form.as_p|safe }}
+        </div>
+
+        <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75">
+            Criar Usuário
+        </button>
+    </form>
+</div>

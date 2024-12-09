@@ -1,17 +1,27 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8 mt-10">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Editar Perfil de {{ perfil.usuario.username }}</h2>
 
-<h2>Editar Perfil de {{ perfil.usuario.username }}</h2>
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+        <div class="space-y-4">
+            {{ form.as_p|safe }}
+        </div>
 
-    {{ form.as_p }}
+        <div class="border-t border-gray-300 my-6"></div>
 
-    <h3>Tipo de Usuário</h3>
-    {{ tipo_usuario_form.as_p }}
+        <h3 class="text-xl font-semibold text-gray-700">Tipo de Usuário</h3>
+        <div class="space-y-4 mt-4">
+            {{ tipo_usuario_form.as_p|safe }}
+        </div>
 
-    <button type="submit">Salvar Alterações</button>
-</form>
+        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75">
+            Salvar Alterações
+        </button>
+    </form>
+</div>
+
 {% endblock %}

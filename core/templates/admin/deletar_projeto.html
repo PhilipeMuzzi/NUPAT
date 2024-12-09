@@ -1,10 +1,56 @@
-{% block content %}
-  <h2>Deletar Projeto</h2>
-  <p>Você tem certeza que deseja deletar o projeto <strong>{{ projeto.titulo }}</strong>?</p>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Deletar Projeto</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
 
-  <form method="POST">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Deletar</button>
-    <a href="{% url 'listar_projetos' %}" class="btn btn-secondary">Cancelar</a>
-  </form>
-{% endblock %}
+      .ifrn-green {
+      background-color: #1D8A4A;
+      color: white;
+      }
+
+      .custom-container {
+      max-width: 900px;
+      margin: 0 auto;
+      }
+
+
+      .btn-ifrn {
+      background-color: #e10202;
+      color: white;
+      }
+
+      .btn-ifrn:hover {
+      background-color: #89a296;
+      }
+
+
+  </style>
+</head>
+<body>
+  <div class="container-fluid ifrn-green py-5">
+    <div class="custom-container">
+      <h2 class="text-center">Deletar Projeto</h2>
+      <p class="lead text-center">Você tem certeza que deseja deletar o projeto <strong>{{ projeto.titulo }}</strong>?</p>
+
+      <div class="d-flex justify-content-center">
+    <form method="POST" class="p-4 py-5 rounded shadow-sm bg-light">
+
+          {% csrf_token %}
+          <div class="form-group text-center mb-12">
+            <button type="submit" class="btn btn-ifrn btn-lg ">Deletar</button>
+          </div>
+          <div class="form-group text-center">
+            <a href="{% url 'listar_projetos' %}" class="btn btn-secondary btn-lg">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
