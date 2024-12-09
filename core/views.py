@@ -194,22 +194,17 @@ def editar_detalhes(request, usuario_id):
 @login_required
 def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
+        email = request.POST['email']
         password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=email, password=password)  # Autentica com o email
 
         if user is not None:
             login(request, user)
-
-
             if user.is_superuser or user.is_staff:
-
                 return redirect('admin_dashboard')
             else:
-
                 return redirect('index')
         else:
-
             messages.error(request, 'Credenciais inválidas.')
             return render(request, 'login.html')
 

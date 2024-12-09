@@ -18,30 +18,27 @@
             <img src="{% static 'img/img-login.png'%}" alt="login">
         </div>
 
-
         <div class="container">
             <form method="post">
                 {% csrf_token %}
                 <h1>Login</h1>
 
-                <label for="id_username" class="form-label">Nome de Usuário:</label>
-                <input type="text" class="form-control" name="username" id="id_username" required style="margin-bottom: 10px;">
+                <label for="id_email" class="form-label">E-mail:</label>
+                <input type="email" class="form-control" name="username" id="id_email" required style="margin-bottom: 10px;">
 
                 <label for="id_password" class="form-label">Senha:</label>
                 <input type="password" class="form-control" name="password" id="id_password" required style="margin-bottom: 10px;">
-                <p>Esqueceu a senha? <a href="">Clique aqui</a></p>
-                
+
+                <p>Esqueceu a senha? <a href="#">Clique aqui</a></p>
 
                 <div class="btn">
                     <button type="submit" class="btn btn-danger">Entrar</button>
                     <a href="{% url 'register' %}">Cadastre-se</a>
                 </div>
-
             </form>
         </div>
     </main>
 
     {% include 'base-footer.html' %}
-
 </body>
 </html>

@@ -43,16 +43,17 @@ class ProjetoForm(forms.ModelForm):
 
 class RegistroUsuarioForm(UserCreationForm):
     nome_completo = forms.CharField(max_length=150, required=True, label="Nome Completo")
+
     class Meta:
         model = User
         fields = ['username', 'email', 'nome_completo', 'password1', 'password2']
+
     def save(self, commit=True):
         user = super().save(commit=False)
         user.first_name = self.cleaned_data['nome_completo']
         if commit:
             user.save()
         return user
-
 
 
 

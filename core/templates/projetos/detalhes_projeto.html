@@ -21,7 +21,7 @@
     .instituicoes .badges-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px; /* Espaçamento entre as badges */
+    gap: 8px; /* espaçamento entre os badges*/
 
 }
 
@@ -30,29 +30,27 @@
     padding: 0.4em 0.8em;
     font-size: 0.9em;
     color: #fff;
-    border-radius: 0.25rem;
-    background-color: #69b023; /* Cor das badges de instituições */
+    border-radius: 2.25rem;
+    background-color: #69b023;
     text-align: center;
-    width: calc(33.33% - 8px); /* 3 badges por linha, com o espaçamento */
+    width: calc(33.33% - 8px);
     box-sizing: border-box;
 }
 
-/* Garantir que, no caso de um único item, ele ainda se ajuste corretamente */
 .instituicoes .badge:only-child {
-    width: auto; /* Permite que o único item ocupe o espaço necessário sem distorção */
+    width: auto;
 }
 
-/* Para telas menores, 2 badges por linha */
+
 @media (max-width: 767px) {
     .instituicoes .badge {
-        width: calc(50% - 8px); /* 2 badges por linha */
+        width: calc(50% - 8px);
     }
 }
 
-/* Para telas muito pequenas, 1 badge por linha */
 @media (max-width: 480px) {
     .instituicoes .badge {
-        width: 100%; /* 1 badge por linha */
+        width: 100%;
     }
 }
 
@@ -65,9 +63,9 @@
 
     .pesquisadores-badges {
     display: flex;
-    flex-wrap: wrap; /* Permite que as badges quebrem para a linha seguinte quando necessário */
-    gap: 8px; /* Espaçamento entre as badges */
-    justify-content: flex-start; /* Garantir que as badges comecem alinhadas à esquerda */
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
     }
 
     .pesquisadores-badges .badge  {
@@ -75,32 +73,30 @@
     padding: 0.4em 0.8em;
     font-size: 0.9em;
     color: #fff;
-    border-radius: 0.25rem;
-    background-color: #69b023; /* Cor das badges */
+    border-radius: 2.25rem;
+    background-color: #69b023;
     text-align: center;
-    width: calc(33.33% - 8px); /* 3 badges por linha, com o espaçamento */
+    width: calc(33.33% - 8px);
     box-sizing: border-box;
     }
 
-    /* Garantir que, no caso de um único item, ele ainda se ajuste corretamente */
     .pesquisadores-badges .badge:only-child {
-    width: auto; /* Permite que o único item ocupe o espaço necessário sem distorção */
+    width: auto;
     }
 
-    /* Para telas menores, 2 badges por linha */
+    /* Para telas menores, 2 badges por linha para não quebrar o layout */
     @media (max-width: 767px) {
     .pesquisadores-badges .badge {
     width: calc(50% - 8px); /* 2 badges por linha */
     }
     }
 
-    /* Para telas muito pequenas, 1 badge por linha */
+    /* Para telas muito pequenas, 1 badge por linha apenas */
     @media (max-width: 480px) {
     .pesquisadores-badges .badge {
     width: 100%; /* 1 badge por linha */
     }
     }
-
 
 </style>
 
@@ -124,7 +120,6 @@
                 </nav>
             </div>
 
-            <!-- Imagem do Projeto -->
             <div class="img">
                 {% if projeto.fotos %}
                 <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
@@ -133,18 +128,16 @@
                 {% endif %}
             </div>
 
-            <!-- Resumo -->
             <section>
                 <h2>Resumo</h2>
                 <p>{{ projeto.resumo }}</p>
             </section>
 
-            <!-- Descrição -->
             <section>
                 <h2>Descrição</h2>
                 <p>{{ projeto.descricao }}</p>
             </section>
-            <!-- Resultados -->
+
             <section>
                 <h2>Resultados</h2>
                 {% if projeto.resultados %}
@@ -153,7 +146,10 @@
                 <p>Nenhum resultado disponível.</p>
                 {% endif %}
             </section>
-            <!-- Pesquisadores e Instituições -->
+
+
+
+            <!-- Pesquisadores e Instituições vinculados a este projeto especificamente-->
             <div class="cards">
                 <!-- Pesquisadores -->
                 <div class="">
@@ -171,7 +167,7 @@
 
                 </div>
 
-        <!-- Instituições -->
+        <!-- Instituições vinculadas -->
         <div class="instituicoes">
             <h3>Instituições:</h3><br>
             <div class="badges-container">
