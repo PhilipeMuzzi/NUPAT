@@ -36,7 +36,8 @@ def editar_tipo_usuario(request, usuario_id):
 
     return render(request, 'admin/editar_tipo_usuario.html', {'perfil': perfil})
 
-def editar_perfil(request, usuario_id):
+def \
+        editar_perfil(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
 
     if request.method == 'POST':
@@ -124,11 +125,10 @@ def registro(request):
         formulario = RegistroUsuarioForm(request.POST)
         if formulario.is_valid():
             formulario.save()
-            return redirect('login')  # redirecionando para a página de login
+            return redirect('login')
     else:
         formulario = RegistroUsuarioForm()
     return render(request, 'registration/registro.html', {'formulario': formulario})
-
 
 def atualiza_perfil(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario_id=usuario_id)
@@ -167,7 +167,6 @@ def atualiza_perfil(request, usuario_id):
 
 def editar_detalhes(request, usuario_id):
     perfil = get_object_or_404(Perfil, usuario__id=usuario_id)
-
 
     if request.user.id == perfil.usuario.id:
 
@@ -238,7 +237,7 @@ def is_admin(user):
 @staff_member_required
 def admin_dashboard(request):
 
-    total_usuarios = User.objects.count()
+    total_usuarios = User.objects.filter(is_active=True).count()
     total_projetos = Projeto.objects.count()
     context = {
         'total_usuarios': total_usuarios,
@@ -267,11 +266,12 @@ def deletar_projeto(request, projeto_id):
 def detalhes_projeto(request, projeto_id):
     projeto = get_object_or_404(Projeto, id=projeto_id)
     alunos = projeto.alunos.all()
-    parceiros = projeto.pesquisadores.all()
+    pesquisadores = projeto.pesquisadores.all()
     return render(request, 'projetos/detalhes_projeto.html', {
         'projeto': projeto,
         'alunos': alunos,
-        'parceiros': parceiros
+        'parceiros': pesquisadores,
+
     })
 
 @login_required
@@ -460,13 +460,14 @@ def deletar_usuario(request, usuario_id):
     usuario = get_object_or_404(Perfil, id=usuario_id)
 
     if request.method == 'POST':
-        usuario.delete()
-        messages.success(request, 'Usuário deletado com sucesso.')
 
+        usuario.usuario.delete()
+        messages.success(request, 'Usuário deletado com sucesso.')
 
     usuarios = Perfil.objects.all()
 
     return render(request, 'usuarios/lista_usuarios.html', {'usuarios': usuarios})
+
 
 @staff_member_required
 def editar_usuario(request, usuario_id):

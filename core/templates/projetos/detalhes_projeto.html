@@ -1,34 +1,130 @@
 {% load static %}
 
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalhes Projetos</title>
+    <title>Detalhes do Projeto</title>
     <link rel="stylesheet" href="{% static 'css/detalhes.css' %}">
     <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="16x16">
     <script src="https://kit.fontawesome.com/af6c14a78e.js" crossorigin="anonymous"></script>
 </head>
+
+<style>
+
+    .instituicoes{
+     margin-left: 25px;
+    }
+
+    .instituicoes .badges-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Espaçamento entre as badges */
+
+}
+
+.instituicoes .badge {
+    display: inline-block;
+    padding: 0.4em 0.8em;
+    font-size: 0.9em;
+    color: #fff;
+    border-radius: 0.25rem;
+    background-color: #69b023; /* Cor das badges de instituições */
+    text-align: center;
+    width: calc(33.33% - 8px); /* 3 badges por linha, com o espaçamento */
+    box-sizing: border-box;
+}
+
+/* Garantir que, no caso de um único item, ele ainda se ajuste corretamente */
+.instituicoes .badge:only-child {
+    width: auto; /* Permite que o único item ocupe o espaço necessário sem distorção */
+}
+
+/* Para telas menores, 2 badges por linha */
+@media (max-width: 767px) {
+    .instituicoes .badge {
+        width: calc(50% - 8px); /* 2 badges por linha */
+    }
+}
+
+/* Para telas muito pequenas, 1 badge por linha */
+@media (max-width: 480px) {
+    .instituicoes .badge {
+        width: 100%; /* 1 badge por linha */
+    }
+}
+
+    .pesquisadores-badges {
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    }
+
+    .pesquisadores-badges {
+    display: flex;
+    flex-wrap: wrap; /* Permite que as badges quebrem para a linha seguinte quando necessário */
+    gap: 8px; /* Espaçamento entre as badges */
+    justify-content: flex-start; /* Garantir que as badges comecem alinhadas à esquerda */
+    }
+
+    .pesquisadores-badges .badge  {
+    display: inline-block;
+    padding: 0.4em 0.8em;
+    font-size: 0.9em;
+    color: #fff;
+    border-radius: 0.25rem;
+    background-color: #69b023; /* Cor das badges */
+    text-align: center;
+    width: calc(33.33% - 8px); /* 3 badges por linha, com o espaçamento */
+    box-sizing: border-box;
+    }
+
+    /* Garantir que, no caso de um único item, ele ainda se ajuste corretamente */
+    .pesquisadores-badges .badge:only-child {
+    width: auto; /* Permite que o único item ocupe o espaço necessário sem distorção */
+    }
+
+    /* Para telas menores, 2 badges por linha */
+    @media (max-width: 767px) {
+    .pesquisadores-badges .badge {
+    width: calc(50% - 8px); /* 2 badges por linha */
+    }
+    }
+
+    /* Para telas muito pequenas, 1 badge por linha */
+    @media (max-width: 480px) {
+    .pesquisadores-badges .badge {
+    width: 100%; /* 1 badge por linha */
+    }
+    }
+
+
+</style>
 
 <body>
     {% include 'base-header.html' %}
 
     <div class="container">
         <main>
-            <h1 class="titulo">{{projeto.titulo}}</h1>
+            <h1 class="titulo">{{ projeto.titulo }}</h1>
             <hr>
             <div class="info-download">
                 <nav class="dados">
-                    <h3>Por: </h3>
-                    <h3>Status: {{projeto.get_situacao_display}}</h3>
+                    <h3>Status: {{ projeto.get_situacao_display }}</h3>
                 </nav>
                 <nav class="download">
-                    <a href="">PDF <i class="fa-solid fa-file-lines"></i></a>
+                    {% if projeto.artigos %}
+                    <a href="{{ projeto.artigos.url }}" target="_blank">PDF <i class="fa-solid fa-file-lines"></i></a>
+                    {% else %}
+                    <span>Sem PDF disponível</span>
+                    {% endif %}
                 </nav>
             </div>
+
+            <!-- Imagem do Projeto -->
             <div class="img">
                 {% if projeto.fotos %}
                 <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
@@ -36,91 +132,71 @@
                 <p>Nenhuma imagem disponível.</p>
                 {% endif %}
             </div>
-            <p>
-            <h1>Resumo</h1>
-            {{projeto.resumo}}
-            </p>
-            <div class="cards">
-            <div class="card">
-                <h3>Pesquisadores</h3>
-                <ul>
-                    {% for pesquisador in projeto.pesquisadores.all %}
-                        <li>{{ pesquisador.nome }} ({{ pesquisador.instituicao.nome }})</li>
-                    {% empty %}
-                        <li>Nenhum pesquisador associado.</li>
-                    {% endfor %}
-                </ul>
-            </div>
 
-                <div class="card">
-                    <h3>Intituições</h3>
-                    {% for instituicao in projeto.instituicoes.all %}
-                        <li>{{ instituicao.nome }}</li>
-                    {% empty %}
-                        <li>Nenhuma instituição associada.</li>
-                    {% endfor %}
+            <!-- Resumo -->
+            <section>
+                <h2>Resumo</h2>
+                <p>{{ projeto.resumo }}</p>
+            </section>
+
+            <!-- Descrição -->
+            <section>
+                <h2>Descrição</h2>
+                <p>{{ projeto.descricao }}</p>
+            </section>
+            <!-- Resultados -->
+            <section>
+                <h2>Resultados</h2>
+                {% if projeto.resultados %}
+                <p>{{ projeto.resultados }}</p>
+                {% else %}
+                <p>Nenhum resultado disponível.</p>
+                {% endif %}
+            </section>
+            <!-- Pesquisadores e Instituições -->
+            <div class="cards">
+                <!-- Pesquisadores -->
+                <div class="">
+
+        <h3>Pesquisadores</h3><br>
+        <div class="pesquisadores-badges">
+            {% for pesquisador in projeto.pesquisadores.all %}
+                <span class="badge">
+                    {{ pesquisador.nome|default:pesquisador }}
+                </span>
+            {% empty %}
+                <span class="badge empty">Nenhum pesquisador associado.</span>
+            {% endfor %}
+        </div>
+
                 </div>
+
+        <!-- Instituições -->
+        <div class="instituicoes">
+            <h3>Instituições:</h3><br>
+            <div class="badges-container">
+                {% for instituicao in projeto.instituicoes.all %}
+                    <span class="badge">{{ instituicao.nome }}</span>
+                {% empty %}
+                    <span class="badge">Nenhuma instituição associada.</span>
+                {% endfor %}
+            </div>
+        </div>
+
+
+            <!-- Ações -->
+            <div class="acoes">
+                {% if user.is_authenticated and user.perfil.tipo_usuario == 'staff' %}
+                <a href="{% url 'editar_projeto' projeto.id %}" class="btn btn-primary">Editar Projeto</a>
+                <a href="{% url 'deletar_projeto' projeto.id %}" class="btn btn-danger">Deletar Projeto</a>
+                {% elif user.is_authenticated and user.perfil.tipo_usuario == 'aluno' %}
+                <a href="{% url 'inscricao' projeto.id %}" class="btn btn-success">Inscrever-se no Projeto</a>
+                {% endif %}
             </div>
         </main>
     </div>
+
     {% include 'base-footer.html' %}
 </body>
 
 </html>
-
-
-<!-- <h2>{{ projeto.titulo }}</h2>
-<p><strong>Resumo:</strong> {{ projeto.resumo }}</p>
-
-<p><strong>Resultados:</strong>
-    {% if projeto.resultados %}
-        {{ projeto.resultados }}
-    {% else %}
-        Nenhum resultado disponível.
-    {% endif %}
-</p>
-
-<p><strong>Situação:</strong> {{ projeto.get_situacao_display }}</p>
-<p><strong>Descrição:</strong> {{ projeto.descricao }}</p>
-
-<p><strong>Artigos:</strong>
-    {% if projeto.artigos %}
-        <a href="{{ projeto.artigos.url }}">Visualizar Artigo</a>
-    {% else %}
-        Nenhum artigo disponível.
-    {% endif %}
-</p>
-
-<p><strong>Imagem do Projeto:</strong></p>
-{% if projeto.fotos %}
-    <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}" style="max-width: 100%; height: auto;">
-{% else %}
-    <p>Nenhuma imagem disponível.</p>
-{% endif %}
-
-<p><strong>Pesquisadores Envolvidos:</strong>
-    <ul>
-        {% for pesquisador in projeto.pesquisadores.all %}
-            <li>{{ pesquisador.nome }} ({{ pesquisador.instituicao.nome }})</li>
-        {% empty %}
-            <li>Nenhum pesquisador associado.</li>
-        {% endfor %}
-    </ul>
-</p>
-
-<p><strong>Instituições Envolvidas:</strong>
-    <ul>
-        {% for instituicao in projeto.instituicoes.all %}
-            <li>{{ instituicao.nome }}</li>
-        {% empty %}
-            <li>Nenhuma instituição associada.</li>
-        {% endfor %}
-    </ul>
-</p>
-
-{% if user.is_authenticated and user.perfil.tipo_usuario == 'staff' %}
-    <a href="{% url 'editar_projeto' projeto.id %}">Editar Projeto</a>
-    <a href="{% url 'deletar_projeto' projeto.id %}">Deletar Projeto</a>
-{% elif user.is_authenticated and user.perfil.tipo_usuario == 'aluno' %}
-    <a href="{% url 'inscricao' projeto.id %}">Inscrever-se no Projeto</a>
-{% endif %} -->

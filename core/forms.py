@@ -1,18 +1,18 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Perfil, Projeto, DuvidaUsuario, PesquisaOpiniao, Pesquisador, Instituicao
+from .models import Perfil, Projeto, DuvidaUsuario, PesquisaOpiniao
 
 
 class PerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
-        fields = ['telefone', 'endereco', 'instituto', 'foto_perfil']
+        fields = ['telefone', 'endereco', 'instituto', 'foto_perfil', 'nome_completo']
 
 class PerfilAdminForm(forms.ModelForm):
     class Meta:
         model = Perfil
-        fields = ['telefone', 'endereco', 'instituto', 'foto_perfil', 'tipo_usuario']
+        fields = ['telefone', 'endereco', 'instituto', 'foto_perfil', 'tipo_usuario', 'nome_completo']
 
 class TipoUsuarioForm(forms.ModelForm):
     class Meta:
@@ -42,16 +42,17 @@ class ProjetoForm(forms.ModelForm):
     )
 
 class RegistroUsuarioForm(UserCreationForm):
-    telefone = forms.CharField(max_length=15, required=True)
-    endereco = forms.CharField(max_length=255, required=True)
-    instituto = forms.CharField(max_length=100)
-
+    nome_completo = forms.CharField(max_length=150, required=True, label="Nome Completo")
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2', 'instituto', 'telefone', 'endereco']
-
+        fields = ['username', 'email', 'nome_completo', 'password1', 'password2']
     def save(self, commit=True):
-        user = super().save(commit=commit)
+        user = super().save(commit=False)
+        user.first_name = self.cleaned_data['nome_completo']
+        if commit:
+            user.save()
+        return user
+
 
 
 

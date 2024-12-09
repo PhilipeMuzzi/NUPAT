@@ -8,6 +8,8 @@ class Perfil(models.Model):
     endereco = models.CharField(max_length=255)
     instituto = models.CharField(max_length=100)
     foto_perfil = models.ImageField(upload_to='user/fotos_perfil/', blank=True, null=True)
+    nome_completo = models.CharField(max_length=150, default='Nome Não Informado')
+
 
     TIPO_USUARIO_CHOICES = [
         ('Aluno', 'Aluno'),

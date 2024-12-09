@@ -46,7 +46,8 @@
                     </div>
                 {% endif %}
 
-                <p>Nome Completo: {{ perfil.usuario.first_name|default:perfil.usuario.username }}</p>
+                <p>Nome Completo: {{ perfil.nome_completo }}</p>
+
 
 
                 {% if perfil.tipo_usuario and perfil.tipo_usuario != ' ' %}

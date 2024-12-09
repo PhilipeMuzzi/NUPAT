@@ -9,7 +9,7 @@
 * {
     margin: 0;
     padding: 0;
-    
+
 }
 
 body {
@@ -63,9 +63,10 @@ header {
 }
 
 header>.logo {
-    width: 250px;
+    width: 240px;
     height: 240px;
 }
+
 
 header .perfil {
     width: 150px;
@@ -150,7 +151,7 @@ header .perfil i {
 }
 .container > article > nav > .image {
     width: 90%;
-    height: 40%;    
+    height: 40%;
 }
 .container > article > nav > .image img {
     width: 100%;
@@ -298,7 +299,7 @@ footer article {
 .segundo-txt p{
     display: grid;
     gap: 7px;
-    
+
 }
 .img-dados {
     display: flex;
@@ -309,7 +310,7 @@ footer article {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    
+
 }
 .dados-icons {
     color: var(--verde);
@@ -375,8 +376,8 @@ footer article {
     }
 
     header>.logo {
-        width: 190px;
-        height: 190px;
+        width: 150px;
+        height: 150px;
     }
 
     .container {

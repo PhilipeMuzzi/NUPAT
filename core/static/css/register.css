@@ -8,7 +8,7 @@
     --navbar-height: 4.75rem;
     --verde:#304D30;
 
-} 
+}
 body {
     font-family: Arial, sans-serif;
     background-color: var(--verde);
@@ -66,7 +66,7 @@ main .img img {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    
+
 }
 
 h2 {

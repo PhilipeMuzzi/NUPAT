@@ -30,11 +30,11 @@
 
             {% if ultimos_projetos %}
             <article class="second">
-                <h1 class="title2">Adicionandos Recentemente</h1>
+                <h1 class="title2">Adicionados Recentemente</h1>
                 <div class="cards-container">
                     {% for projeto in ultimos_projetos|slice:":6" %}
                     <div class="card">
-                        <img src="{{ projeto.foto.url }}" alt="{{ projeto.titulo }}">
+                        <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
                         <nav>
                             <p>{{ projeto.titulo }}</p>
                             <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>
@@ -127,25 +127,77 @@
             {% endif %} -->
         </div>
 
-        <div class="segundo-corpo"> <!--segundo corpo-->
-            <div class="notice">
-                <div onload="carregarNoticias()">
-                    <div class="card-noticias">
-                        <h2>Notícias</h2>
-                        <div id="noticias"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="nupat">
-                <a href="{% url 'quem_somos' %}">
-                    <p> Quem somos?</p>
-                </a>
+<div class="segundo-corpo"> <!-- segundo corpo -->
+    <div class="notice">
+        <div class="card-noticias">
+            <h2>Notícias</h2>
+            <div id="noticias">
+                <!-- As notícias serão inseridas aqui dinamicamente -->
             </div>
         </div>
     </div>
+
+    <div class="nupat">
+        <a href="{% url 'quem_somos' %}">
+            <p> Quem somos?</p>
+        </a>
+    </div>
+</div>
+
+    </div>
     {% include 'base-footer.html' %}
-    
+
+    <script>
+
+// Função para carregar as notícias
+function carregarNoticias() {
+    const url = 'https://newsdata.io/api/1/news?apikey=pub_61809e1649953d464c959e01181adebb5f76c&q=educação&country=br&language=pt';
+
+    // Realizando a requisição para a API
+    fetch(url)
+    .then(response => response.json()) // Converte a resposta para JSON
+    .then(data => {
+        // Log para verificar a resposta
+        console.log("Resposta da API:", data);
+
+        // Verificando se temos notícias
+        if (data.results && data.results.length > 0) {
+            // Pegando o elemento onde as notícias vão ser exibidas
+            const noticiasContainer = document.getElementById('noticias');
+
+            // Limpa as notícias anteriores
+            noticiasContainer.innerHTML = '';
+
+            // Loop para adicionar as notícias na página
+            data.results.forEach(noticia => {
+                const noticiaDiv = document.createElement('div');
+                noticiaDiv.classList.add('noticia');
+
+                // Criando o conteúdo da notícia
+                noticiaDiv.innerHTML = `
+                    <h3>${noticia.title}</h3>
+                    <p>${noticia.description}</p>
+                    <a href="${noticia.url}" target="_blank">Leia mais</a>
+                `;
+
+                // Adicionando a notícia no container
+                noticiasContainer.appendChild(noticiaDiv);
+            });
+        } else {
+            // Caso não haja notícias
+            console.log("Nenhuma notícia encontrada.");
+        }
+    })
+    .catch(error => {
+        // Caso ocorra um erro na requisição
+        console.log("Erro ao carregar as notícias:", error);
+    });
+}
+
+
+    </script>
+
+
     <script src="{% static 'js/main-pagprincipal.js' %}"></script>
     <script src="{% static 'js/slider.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
