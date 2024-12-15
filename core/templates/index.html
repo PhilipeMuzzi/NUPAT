@@ -85,58 +85,10 @@
                         </div>
                     </div>
                 </section>
-            </div>
-
-            <!-- 
-            {% if projeto %}
-            <article class="second">
-                <h1 class="title2"> Relevantes</h1>
-                <div class="cards-container">
-                    <div class="card">
-                        <a href="#">
-                            <p>card 1</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 1</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 1</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 2</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 2</p>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="#">
-                            <p>card 2</p>
-                        </a>
-                    </div>
-                </div>
-            </article>
-            {% endif %} -->
+            </div> 
         </div>
 
 <div class="segundo-corpo"> <!-- segundo corpo -->
-    <div class="notice">
-        <div class="card-noticias">
-            <h2>Notícias</h2>
-            <div id="noticias">
-                <!-- As notícias serão inseridas aqui dinamicamente -->
-            </div>
-        </div>
-    </div>
-
     <div class="nupat">
         <a href="{% url 'quem_somos' %}">
             <p> Quem somos?</p>
@@ -148,7 +100,6 @@
     {% include 'base-footer.html' %}
 
     <script>
-
 // Função para carregar as notícias
 function carregarNoticias() {
     const url = 'https://newsdata.io/api/1/news?apikey=pub_61809e1649953d464c959e01181adebb5f76c&q=educação&country=br&language=pt';
