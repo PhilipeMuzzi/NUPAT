@@ -15,6 +15,7 @@ main img{
     width: 100%;
     height: 550px;
     display: flex;
+
 }
 main .img-text{
     position:absolute;
@@ -51,7 +52,7 @@ main .atendimento h1, .suporte h1, .perguntas h1{
 main .atendimento h5{
     background-color: #5ba55b69;
     width: 16%;
-    height: 20px;
+    height: auto;
     padding: 10px;
     align-items: center;
     text-align: center;
@@ -59,8 +60,6 @@ main .atendimento h5{
     margin-left: 5%;
     font-size: 14px;
     font-weight: lighter;
-    padding-bottom: 30px;
-    margin-bottom: 60px;
 }
 main .atendimento ul li:hover{
     background-color: #afc9afa8;
@@ -193,6 +192,45 @@ main .atendimento ul li{
 
 
 @media screen and (max-width:490px) {
+    h1 {
+        font-size: 1rem;
+    }
+    main .img-text{
+        position:absolute;
+        top: 35%;
+        left: 2%;
+        width: 60%;
+        text-align: start;
+        transform: translate(-50%, -50%);
+        border-radius: 15px;
+        color: #272c27;
+        background-color: #eef0e5cc;
+        padding: 10px;
+        z-index: 1;
+    }
+    .img-text h2 {
+        font-size: 12px;
+    }
+    .atendimento h1 {
+        font-size: 1rem;
+    }
+    main .atendimento h5 {
+        margin-top: 20px;
+        width: 50%;
+    }
+    .img-container img {
+        height: 200px;
+    }
+    /* .card01, .card02, .card03, .atendimento ul li {
+        flex: 0 1 50%;             
+        margin: 15px;               
+        padding: 20px;             
+        height: auto;             
+        background-color: #E7E4D7; 
+        border-radius: 15px;        
+        text-align: center;         
+        transition: background 0.5s;
+    } */
     .primeiro-rodape {
         height: 100%;
         color: white;
