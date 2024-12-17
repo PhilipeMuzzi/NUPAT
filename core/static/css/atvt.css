@@ -19,7 +19,7 @@ main img{
 }
 main .img-text{
     position:absolute;
-    top: 80%;
+    top: 60%;
     left: 2%;
     width: 60%;
     text-align: start;
@@ -189,7 +189,13 @@ main .atendimento ul li{
 .suporte > div {
     animation-delay: 2s; 
 }
+@media screen and (max-width:1200px) {
+    main .img-text{
+        position:absolute;
+        top: 80%;
+    }
 
+}
 
 @media screen and (max-width:490px) {
     h1 {
