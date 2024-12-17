@@ -195,10 +195,6 @@ nav ul {
 .menu img {
     width: 120px;
     height: 100px;
-<<<<<<< HEAD
-=======
-    margin-left: -6rem;
->>>>>>> c6e053f6e0bba1644f51cb29600540fd06271b5a
     object-fit: contain;
 }
 
@@ -298,4 +294,18 @@ nav ul {
 
 .submenu ul ul li a {
     display: block;
+}
+@media screen and (max-width:450px) {
+    .cbc-acessibilidade {
+        height: 80px;
+    }
+
+    .menu .profile {
+        margin-left: 0;
+    }
+    .submenu ul{
+        gap: 100px;
+    }
+    
+
 }

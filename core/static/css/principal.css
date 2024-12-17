@@ -224,23 +224,15 @@
 
 
 .nupat {
-    width: 60%;
-    height: 200px;
+    width: 80%;
+    height: auto;
+    padding: 20px;
     background-color: var(--verdefraco);
     border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-.nupat p {
-    font-size: 50px;
-    text-align: center;
-}
-
-
-
-
 
 main {
     width: 30%;
@@ -458,19 +450,15 @@ section.slider {
         display: none;
     }
 
-    .container {
-        grid-template-areas:
-            "primeiro-corpo"
-            "segundo-corpo";
-
-    }
 
     /* Rodape */
     .primeiro-rodape {
         height: 100%;
         color: white;
     }
-
+    .nupat h2 {
+        font-size: 12px;
+    }
     .img-dados {
         display: block;
     }
