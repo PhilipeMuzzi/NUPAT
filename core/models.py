@@ -51,7 +51,7 @@ class PesquisaOpiniao(models.Model):
 
 #models para pesquisador e se
 class Pesquisador(models.Model):
-    nome = models.CharField(max_length=255)
+    nome = models.CharField(max_length=255) 
     instituicao = models.ForeignKey(Instituicao, on_delete=models.SET_NULL, null=True)
     contato = models.CharField(max_length=255, blank=True)
 
