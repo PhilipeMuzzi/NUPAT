@@ -81,6 +81,7 @@ class Projeto(models.Model):
     professores = models.ManyToManyField('Perfil', related_name='projetos_professor', blank=True)
     pesquisadores = models.ManyToManyField('Perfil', related_name='projetos_pesquisador', blank=True)
     alunos = models.ManyToManyField('Perfil', related_name='projetos_aluno', blank=True)
+    ano = models.IntegerField()  # Ou models.DateField() se precisar de mais detalhes
 
     instituicoes = models.ManyToManyField('Instituicao', blank=True)
 

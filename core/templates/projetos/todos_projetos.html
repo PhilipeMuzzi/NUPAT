@@ -1,0 +1,187 @@
+{% include 'base-header.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/projetos_iniciados.css' %}">
+    <title>Projetos em Andamento</title>
+</head>
+
+<main>
+    <h1>
+        <strong>Projetos em Andamento</strong>
+        <hr class="linha-fina">
+    </h1>
+    <article>
+        <section class="filtro">
+            <form class="buscar-box" action="{% url 'projetos_andamento' %}" method="GET">
+                <div class="input-buscar">
+                    <input type="text" name="pesquisa" value="{{ request.GET.pesquisa }}" placeholder="Pesquise um projeto" class="form-control">
+                    <button type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+            <form id="filterForm" action="{% url 'projetos_andamento' %}" method="GET">
+                <ul class="fi">
+                    <li>
+                        <h2><strong>Filtros</strong></h2>
+                        <hr class="lineex">
+                    </li>
+                    <li>
+                        <h3><strong>Anos</strong></h3>
+                        <ul>
+                            {% for ano in anos %}
+                            <li>
+                                <input type="checkbox" id="anos-{{ ano }}" name="anos" value="{{ ano }}" {% if ano|stringformat:'s' in request.GET.anos %}checked{% endif %}>
+                                <label for="anos-{{ ano }}">{{ ano }}</label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li>
+                        <h3><strong>Instituições</strong></h3>
+                        <ul>
+                            {% for instituicao in instituicoes %}
+                            <li>
+                                <input type="checkbox" id="instituicao-{{ instituicao.id }}" name="instituicoes" value="{{ instituicao.id }}" {% if instituicao.id|stringformat:'s' in request.GET.instituicoes %}checked{% endif %}>
+                                <label for="instituicao-{{ instituicao.id }}">{{ instituicao.nome }}</label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li>
+                        <h3><strong>Pesquisadores</strong></h3>
+                        <ul>
+                            {% for pesquisador in pesquisadores %}
+                            <li>
+                                <input type="checkbox" id="pesquisador-{{ pesquisador.id }}" name="pesquisadores" value="{{ pesquisador.id }}" {% if pesquisador.id|stringformat:'s' in request.GET.pesquisadores %}checked{% endif %}>
+                                <label for="pesquisador-{{ pesquisador.id }}">{{ pesquisador.nome }}</label>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </form>
+        </section>
+        <section class="proj">
+            <h1><strong>Resultados</strong></h1>
+            <div class="cards-container">
+        {% for projeto in projetos %}
+        <div class="card">
+            <a href="{% url 'detalhes_projeto' projeto.id %}" class="card-link">
+                <div class="card-image">
+                    <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                    <h3 class="card-title">{{ projeto.titulo }}</h3>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <p class="no-projects">Nenhum projeto encontrado.</p>
+        {% endfor %}
+
+            </div>
+        </section>
+    </article>
+</main>
+
+<style>
+    .cards-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .card {
+        flex: 1 1 calc(33.33% - 20px);
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+    .card-link {
+        text-decoration: none;
+    }
+
+    .card-image {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: filter 0.3s ease;
+    }
+
+    .card:hover img {
+        filter: brightness(50%);
+    }
+
+    .card-title {
+        position: absolute;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        margin: 0;
+        padding: 5px;
+        background: rgba(0, 0, 0, 0.7);
+        color: #fff;
+        font-size: 18px;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .card:hover .card-title {
+        opacity: 1;
+    }
+
+    .no-projects {
+        font-size: 16px;
+        color: #999;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+        .card {
+            flex: 1 1 calc(50% - 20px);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .card {
+            flex: 1 1 100%;
+        }
+    }
+</style>
+
+<script>
+    const filterForm = document.getElementById('filterForm');
+    filterForm.addEventListener('change', () => {
+        const formData = new FormData(filterForm);
+        const queryParams = new URLSearchParams(formData).toString();
+
+        fetch(`?${queryParams}`)
+            .then(response => response.text())
+            .then(html => {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                const newContent = doc.querySelector('.proj .cards-container').innerHTML;
+                document.querySelector('.proj .cards-container').innerHTML = newContent;
+            });
+    });
+</script>
+{% endblock %}
+{% include 'base-footer.html' %}

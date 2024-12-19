@@ -96,7 +96,7 @@ def projetos_andamento(request):
         projetos_andamento = Projeto.objects.filter(situacao='andamento', titulo__icontains=pesquisa)
     else:
         projetos_andamento = Projeto.objects.filter(situacao='andamento')
-    return render(request, 'projetos/projetos_andamento.html', {'projetos_andamento': projetos_andamento})
+    return render(request, 'projetos/todos_projetos.html', {'projetos_andamento': projetos_andamento})
 
 # Projetos marcados pelo admin como "Concluídos"
 def projetos_concluidos(request):
@@ -536,6 +536,43 @@ def resultados_pesquisa(request):
     }
 
     return render(request, 'admin/pesquisa_opiniao_usuario.html', contexto)
+
+def projetos_por_status(request, status=None):
+    if status:
+        projetos = Projeto.objects.filter(situacao=status)
+    else:
+        projetos = Projeto.objects.all()
+
+    # Obtenha filtros para preencher o template
+    anos = Projeto.objects.values_list('ano', flat=True).distinct()
+    instituicoes = Instituicao.objects.all()
+    pesquisadores = Pesquisador.objects.all()
+
+    # Captura os filtros selecionados na requisição GET
+    ano_selecionado = request.GET.get('ano')
+    instituicao_selecionada = request.GET.getlist('instituicoes')
+    pesquisador_selecionado = request.GET.getlist('pesquisadores')
+
+    if ano_selecionado:
+        projetos = projetos.filter(ano=ano_selecionado)
+    if instituicao_selecionada:
+        projetos = projetos.filter(instituicao__id__in=instituicao_selecionada)
+    if pesquisador_selecionado:
+        projetos = projetos.filter(pesquisadores__id__in=pesquisador_selecionado)
+
+
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return render(request, 'projetos/partials/projetos_list.html', {'projetos': projetos})
+
+
+    return render(request, 'projetos/todos_projetos.html', {
+        'projetos': projetos,
+        'anos': anos,
+        'instituicoes': instituicoes,
+        'pesquisadores': pesquisadores,
+        'status': status,
+    })
+
 
 #logout
 @login_required

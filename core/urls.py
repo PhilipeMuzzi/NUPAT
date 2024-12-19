@@ -18,9 +18,11 @@ urlpatterns = [
     path('quem-somos/', quem_somos, name='quem_somos'),
     path('area-suporte/', area_suporte, name='area_suporte'),
     path('atendimento-virtual/', atendimento_virtual, name='atendimento_virtual'),
-    path('projetos/andamento/', views.projetos_andamento, name='projetos_andamento'),
-    path('projetos/concluidos/', views.projetos_concluidos, name='projetos_concluidos'),
-    path('projetos/iniciados/', views.projetos_iniciados, name='projetos_iniciados'),
+
+    path('projetos/', views.projetos_por_status, name='todos_projetos'),
+    path('projetos/<str:status>/', views.projetos_por_status, name='projetos_por_status'),
+    path('projetos/andamento/', views.projetos_por_status, name='projetos_andamento'),
+
 
     # gerenciamento de usuários
     path('usuarios/', views.lista_usuarios, name='lista_usuarios'),
