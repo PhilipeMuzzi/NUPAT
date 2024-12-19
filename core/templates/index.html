@@ -103,30 +103,34 @@
         <div class="primeiro-corpo">
             <div class="carrosel">
                 <section class="slider">
-                    <div class="slider-content">
-                        {% if ultimos_projetos %}
-                            {% for projeto in ultimos_projetos|slice:":6" %}
-                                <div class="slider-box">
-                                    <div class="img-container">
 
-                                        {% if projeto.fotos %}
-                                            <img class="img-desktop" src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
-                                        {% else %}
-                                            <img class="img-desktop" src="{% static 'images/default_project.png' %}" alt="Imagem padrão">
-                                        {% endif %}
 
-                                        <div class="overlay">
-                                            <h2>{{ projeto.titulo }}</h2>
-                                            <p>{{ projeto.descricao|truncatewords:20 }}</p>
-                                            <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        {% else %}
-                            <p>Nenhum projeto cadastrado no momento.</p>
-                        {% endif %}
+<div class="slider-content">
+    {% if ultimos_projetos %}
+        {% for projeto in ultimos_projetos|slice:":6" %}
+            <div class="slider-box">
+                <div class="img-container">
+                    {% if projeto.fotos %}
+                        <img class="img-desktop" src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                    {% else %}
+                        <img class="img-desktop" src="{% static 'images/default_project.png' %}" alt="Imagem padrão">
+                    {% endif %}
+
+                    <div class="overlay">
+                        <h2>{{ projeto.titulo }}</h2>
+                        <p>{{ projeto.descricao|truncatewords:20 }}</p>
+                        <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>
                     </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Nenhum projeto cadastrado no momento.</p>
+    {% endif %}
+</div>
+
+
+
                 </section>
             </div>
         </div>
