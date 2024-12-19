@@ -1,162 +1,150 @@
 {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Principal - NUPAT</title>
     <link rel="stylesheet" href="{% static 'css/principal.css' %}">
     <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="16x16">
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
     <script src="https://kit.fontawesome.com/af6c14a78e.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
-    <link rel='stylesheet'
-        href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-</head>
+    <style>
 
+        .img-container {
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img-desktop {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto;
+        }
+
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .overlay h2, .overlay p {
+            margin: 10px 0;
+        }
+
+        .overlay a {
+            color: white;
+            text-decoration: none;
+            background-color: #A8E6CF; /* Verde claro */
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            display: inline-block;
+            text-align: center;
+            border: 2px solid #4CAF50;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .overlay a:hover {
+            background-color: #81C784;
+            transform: scale(1.05);
+        }
+
+        .carrosel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .slider-content {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            animation: slide 15s infinite;
+        }
+
+        .slider-box {
+            min-width: 100%;
+            position: relative;
+        }
+
+
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-100%); }
+            40% { transform: translateX(-200%); }
+            60% { transform: translateX(-300%); }
+            80% { transform: translateX(-400%); }
+            100% { transform: translateX(-500%); }
+        }
+
+
+    </style>
+</head>
 <body>
     {% include 'base-header.html' %}
 
     <div class="container">
-
         <div class="primeiro-corpo">
-
-        {% if ultimos_projetos %}
-        <article class="second">
-            <h1 class="title2">Adicionados Recentemente</h1>
-            <div class="cards-container">
-                {% for projeto in ultimos_projetos|slice:":6" %}
-                <div class="card">
-                    {% if projeto.fotos %}
-                    <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}" style="max-width: 100%; height: auto;">
-                    {% else %}
-                    <img src="{% static 'images/default_project.png' %}" alt="Imagem padrão" style="max-width: 100%; height: auto;">
-                    {% endif %}
-                    <nav>
-                        <p>{{ projeto.titulo }}</p>
-                        <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>
-                    </nav>
-                </div>
-                {% endfor %}
-            </div>
-        </article>
-        {% else %}
-        <p>Nenhum projeto cadastrado no momento.</p>
-        {% endif %}
-
-
-
-            <!--Carrossel principal-->
             <div class="carrosel">
                 <section class="slider">
                     <div class="slider-content">
-                        <input type="radio" name="btn-radio" id="radio1" checked>
-                        <input type="radio" name="btn-radio" id="radio2">
-                        <input type="radio" name="btn-radio" id="radio3">
+                        {% if ultimos_projetos %}
+                            {% for projeto in ultimos_projetos|slice:":6" %}
+                                <div class="slider-box">
+                                    <div class="img-container">
 
-                        <!--As imagens abaixo vai ser alterada para fotos posteriores dos componentes dos grupos em atividades relacionada ao NUPAT-->
-                        <div class="slider-box primeiro">
-                            <div class="img-container">
-                                <img class="img-desktop" src="{% static 'img/carrosel2.png' %}" alt="">
-                            </div>
-                        </div>
-                        <div class="slider-box">
-                            <div class="img-container">
-                                <img class="img-desktop" src="{% static 'img/carrosel2.png' %}" alt="">
-                            </div>
-                        </div>
-                        <div class="slider-box">
-                            <div class="img-container">
-                                <img class="img-desktop" src="{% static 'img/carrosel2.png' %}" alt="">
-                            </div>
-                        </div>
-                        <div class="nav-auto">
-                            <div class="auto-btn1"></div>
-                            <div class="auto-btn2"></div>
-                            <div class="auto-btn3"></div>
-                        </div>
-                        <div class="nav-manual">
-                            <label for="radio1" class="manual-btn"></label>
-                            <label for="radio2" class="manual-btn"></label>
-                            <label for="radio3" class="manual-btn"></label>
-                        </div>
+                                        {% if projeto.fotos %}
+                                            <img class="img-desktop" src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                                        {% else %}
+                                            <img class="img-desktop" src="{% static 'images/default_project.png' %}" alt="Imagem padrão">
+                                        {% endif %}
+
+                                        <div class="overlay">
+                                            <h2>{{ projeto.titulo }}</h2>
+                                            <p>{{ projeto.descricao|truncatewords:20 }}</p>
+                                            <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <p>Nenhum projeto cadastrado no momento.</p>
+                        {% endif %}
                     </div>
                 </section>
             </div>
         </div>
 
-<div class="segundo-corpo"> <!-- segundo corpo -->
-    <div class="nupat">
-        <a href="{% url 'quem_somos' %}">
-            <h2>Quem Somos?</h2>
-        </a>
+        <div class="segundo-corpo">
+            <div class="nupat" style="text-align: right;">
+                <a href="{% url 'quem_somos' %}">
+                    <h2>Quem Somos?</h2>
+                </a>
+            </div>
+        </div>
     </div>
-</div>
 
-    </div>
     {% include 'base-footer.html' %}
-
-    <script>
-// Função para carregar as notícias
-function carregarNoticias() {
-    const url = 'https://newsdata.io/api/1/news?apikey=pub_61809e1649953d464c959e01181adebb5f76c&q=educação&country=br&language=pt';
-
-    // Realizando a requisição para a API
-    fetch(url)
-    .then(response => response.json()) // Converte a resposta para JSON
-    .then(data => {
-        // Log para verificar a resposta
-        console.log("Resposta da API:", data);
-
-        // Verificando se temos notícias
-        if (data.results && data.results.length > 0) {
-            // Pegando o elemento onde as notícias vão ser exibidas
-            const noticiasContainer = document.getElementById('noticias');
-
-            // Limpa as notícias anteriores
-            noticiasContainer.innerHTML = '';
-
-            // Loop para adicionar as notícias na página
-            data.results.forEach(noticia => {
-                const noticiaDiv = document.createElement('div');
-                noticiaDiv.classList.add('noticia');
-
-                // Criando o conteúdo da notícia
-                noticiaDiv.innerHTML = `
-                    <h3>${noticia.title}</h3>
-                    <p>${noticia.description}</p>
-                    <a href="${noticia.url}" target="_blank">Leia mais</a>
-                `;
-
-                // Adicionando a notícia no container
-                noticiasContainer.appendChild(noticiaDiv);
-            });
-        } else {
-            // Caso não haja notícias
-            console.log("Nenhuma notícia encontrada.");
-        }
-    })
-    .catch(error => {
-        // Caso ocorra um erro na requisição
-        console.log("Erro ao carregar as notícias:", error);
-    });
-}
-
-
-    </script>
-
 
     <script src="{% static 'js/main-pagprincipal.js' %}"></script>
     <script src="{% static 'js/slider.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
-    
 </body>
-
 </html>
+
