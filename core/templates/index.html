@@ -28,25 +28,29 @@
 
         <div class="primeiro-corpo">
 
-            {% if ultimos_projetos %}
-            <article class="second">
-                <h1 class="title2">Adicionados Recentemente</h1>
-                <div class="cards-container">
-                    {% for projeto in ultimos_projetos|slice:":6" %}
-                    <div class="card">
-                        <img src="{{ projeto.foto.url }}" alt="{{ projeto.titulo }}">
-                        <nav>
-                            <p>{{ projeto.titulo }}</p>
-                            <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>
-                        </nav>
-
-                    </div>
-                    {% endfor %}
+        {% if ultimos_projetos %}
+        <article class="second">
+            <h1 class="title2">Adicionados Recentemente</h1>
+            <div class="cards-container">
+                {% for projeto in ultimos_projetos|slice:":6" %}
+                <div class="card">
+                    {% if projeto.fotos %}
+                    <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}" style="max-width: 100%; height: auto;">
+                    {% else %}
+                    <img src="{% static 'images/default_project.png' %}" alt="Imagem padrão" style="max-width: 100%; height: auto;">
+                    {% endif %}
+                    <nav>
+                        <p>{{ projeto.titulo }}</p>
+                        <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>
+                    </nav>
                 </div>
-            </article>
-            {% else %}
-            <p>Nenhum projeto cadastrado no momento.</p>
-            {% endif %}
+                {% endfor %}
+            </div>
+        </article>
+        {% else %}
+        <p>Nenhum projeto cadastrado no momento.</p>
+        {% endif %}
+
 
 
             <!--Carrossel principal-->
@@ -85,7 +89,7 @@
                         </div>
                     </div>
                 </section>
-            </div> 
+            </div>
         </div>
 
 <div class="segundo-corpo"> <!-- segundo corpo -->
