@@ -76,18 +76,15 @@ class Projeto(models.Model):
     situacao = models.CharField(max_length=20, choices=SITUACAO_CHOICES, default='planejamento')
     descricao = models.TextField(blank=True)
     artigos = models.FileField(upload_to='projetos/artigos/', blank=True, null=True)
-
-    # Relacionamentos com perfis específicos
     professores = models.ManyToManyField('Perfil', related_name='projetos_professor', blank=True)
     pesquisadores = models.ManyToManyField('Perfil', related_name='projetos_pesquisador', blank=True)
     alunos = models.ManyToManyField('Perfil', related_name='projetos_aluno', blank=True)
-    ano = models.IntegerField()  # Ou models.DateField() se precisar de mais detalhes
+
 
     instituicoes = models.ManyToManyField('Instituicao', blank=True)
 
     def __str__(self):
         return self.titulo
-
 
 
 #models parceiros
