@@ -2,163 +2,193 @@
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NUPAT - Quem Somos?</title>
     <link rel="icon" href="{% static 'img/icon_uu.webp' %}" sizes="16x16">
     <link rel="stylesheet" href="{% static 'css/quemsomos.css' %}">
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-straight/css/uicons-solid-straight.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.3.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
 
     <script src="https://kit.fontawesome.com/af6c14a78e.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet'
+        href='https://cdn-uicons.flaticon.com/2.4.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
 
 </head>
+
 <body>
     {% include 'base-header.html' %}
-    <h1 class="lyste">Quem Somos</h1>
-    <div class="line"></div>
+
+
     <main>
-            <div class="container">
-                <div class="text1">
-                    <p>Somos o Núcleo de Pesquisa em Acessibilidade e Tecnologia (Nupat), 
-                        um projeto dedicado a promover a inclusão através da tecnologia. 
-                        Sob a coordenação da Mestra Tatiana Sorrentino Amaral, o Nupat está inserido no IFRN Campus Canguaretama, 
-                        localizado na BR 101, km 160, s/n, Areia Branca, Canguaretama/RN. Nossa equipe é composta por alunos dos cursos superiores em Sistemas para Internet, 
-                        atualmente nos 3° e 5° períodos. Unidos por uma paixão comum, trabalhamos com a missão de tornar o universo digital mais acessível para todos.
-                    </p>
-                    <br>
-                    <p>O Nupat foi fundado em abril de 2024, 
-                        fruto da visão e liderança da Mestra Tatiana Sorrentino Amaral, 
-                        que compartilha conosco seu profundo compromisso com a acessibilidade. 
-                        Desde o início, o nosso objetivo tem sido claro: desenvolver uma plataforma robusta, 
-                        funcionando como uma biblioteca digital onde serão armazenados e compartilhados projetos e artigos focados na acessibilidade em diversas áreas da tecnologia.
-                        Esta iniciativa não é apenas sobre armazenar conhecimento, mas também sobre disseminá-lo de forma que possa impactar positivamente a vida de todos, 
-                        independentemente de suas habilidades.
-                    </p>
-                    <br>
-                    <p>
-                        Nosso trabalho vai além da simples compilação de informações. Estamos engajados em pesquisas que exploram as diversas formas como a tecnologia 
-                        pode ser adaptada e aprimorada para atender às necessidades de indivíduos com diferentes níveis de acessibilidade. Seja no desenvolvimento de interfaces amigáveis 
-                        para pessoas com deficiências visuais, auditivas, motoras ou cognitivas,
-                        ou na criação de ferramentas que ampliem a usabilidade de sistemas complexos, o Nupat está na vanguarda da inovação acessível.
-                    </p>
-                </div>
+        <div class="titulo">
+            <h1 class="lyste">Quem Somos</h1>
+            <div class="line"></div>
+        </div>
+        <div class="container">
+            <div class="text1">
+                <p>Somos o Núcleo de Pesquisa em Acessibilidade e Tecnologia (Nupat),
+                    um projeto dedicado a promover a inclusão através da tecnologia.
+                    Sob a coordenação da Mestra Tatiana Sorrentino Amaral, o Nupat está inserido no IFRN Campus
+                    Canguaretama,
+                    localizado na BR 101, km 160, s/n, Areia Branca, Canguaretama/RN. Nossa equipe é composta por alunos
+                    dos cursos superiores em Sistemas para Internet,
+                    atualmente nos 3° e 5° períodos. Unidos por uma paixão comum, trabalhamos com a missão de tornar o
+                    universo digital mais acessível para todos.
+                </p>
+                <br>
+                <p>O Nupat foi fundado em abril de 2024,
+                    fruto da visão e liderança da Mestra Tatiana Sorrentino Amaral,
+                    que compartilha conosco seu profundo compromisso com a acessibilidade.
+                    Desde o início, o nosso objetivo tem sido claro: desenvolver uma plataforma robusta,
+                    funcionando como uma biblioteca digital onde serão armazenados e compartilhados projetos e artigos
+                    focados na acessibilidade em diversas áreas da tecnologia.
+                    Esta iniciativa não é apenas sobre armazenar conhecimento, mas também sobre disseminá-lo de forma
+                    que possa impactar positivamente a vida de todos,
+                    independentemente de suas habilidades.
+                </p>
+                <br>
+                <p>
+                    Nosso trabalho vai além da simples compilação de informações. Estamos engajados em pesquisas que
+                    exploram as diversas formas como a tecnologia
+                    pode ser adaptada e aprimorada para atender às necessidades de indivíduos com diferentes níveis de
+                    acessibilidade. Seja no desenvolvimento de interfaces amigáveis
+                    para pessoas com deficiências visuais, auditivas, motoras ou cognitivas,
+                    ou na criação de ferramentas que ampliem a usabilidade de sistemas complexos, o Nupat está na
+                    vanguarda da inovação acessível.
+                </p>
+            </div>
+
+            <div class="carrosel">
                 <section class="slider">
                     <div class="slider-content">
                         <input type="radio" name="btn-radio" id="radio1" checked>
                         <input type="radio" name="btn-radio" id="radio2">
                         <input type="radio" name="btn-radio" id="radio3">
-                        
-                        <!--As imagens abaixo vai ser alterada para fotos posteriores dos componentes dos grupos em atividades relacionada ao NUPAT--> 
+
+                        <!--As imagens abaixo vai ser alterada para fotos posteriores dos componentes dos grupos em atividades relacionada ao NUPAT-->
                         <div class="slider-box primeiro">
-                            <div class="img-container">  
-                            <img class="img-desktop" src="{%static 'img/nupat-equipe.jpeg' %}" alt="Imagem ilustrativa">
-                        </div></div>
+                            <div class="img-container">
+                                <img class="img-desktop" src="{%static 'img/nupat-equipe.jpeg' %}"
+                                    alt="Imagem ilustrativa">
+                            </div>
+                        </div>
                         <div class="slider-box">
                             <div class="img-container">
-                            <img class="img-desktop" src="{%static 'img/nupat-equipe1.jpeg' %}" alt="Imagem ilustrativa">
-                        </div></div>
+                                <img class="img-desktop" src="{%static 'img/nupat-equipe1.jpeg' %}"
+                                    alt="Imagem ilustrativa">
+                            </div>
+                        </div>
                         <div class="slider-box">
                             <div class="img-container">
-                            <img class="img-desktop" src="{%static 'img/nupat-equipe2.jpeg' %}" alt="Imagem ilustrativa">
-                        </div>
-                        </div>
-                        <div class="nav-auto">
-                            <div class="auto-btn1"></div>
-                            <div class="auto-btn2"></div>
-                            <div class="auto-btn3"></div>
-                        </div>
-                        <div class="nav-manual">
-                            <label for="radio1" class="manual-btn"></label>
-                            <label for="radio2" class="manual-btn"></label>
-                            <label for="radio3" class="manual-btn"></label>
+                                <img class="img-desktop" src="{%static 'img/nupat-equipe2.jpeg' %}"
+                                    alt="Imagem ilustrativa">
+                            </div>
                         </div>
                     </div>
                 </section>
-                <div class="text2">
-                    <p>Entendemos que a acessibilidade não é um luxo, mas uma necessidade fundamental. É por isso que nosso núcleo se esforça para educar e conscientizar a comunidade acadêmica e a sociedade em geral sobre a importância de uma abordagem inclusiva na tecnologia. Acreditamos que, ao tornar as ferramentas digitais acessíveis a todos, 
-                        estamos pavimentando o caminho para uma sociedade mais justa e equitativa.
-                     <br>
-                     <br>
-                        A previsão é que o sistema completo seja lançado até o final de 2024, mas nosso compromisso com a acessibilidade não termina aí. 
-                        Continuaremos a aprimorar nossas soluções e a colaborar com outros pesquisadores,
-                        desenvolvedores e ativistas para garantir que a inclusão seja sempre uma prioridade na evolução tecnológica em todos os aspectos garantindo que os ambas as partes cresçam juntos garantindo o acesso de todos os públicos.
+            </div>
+
+            <div class="text2">
+                <p>Entendemos que a acessibilidade não é um luxo, mas uma necessidade fundamental. É por isso que nosso
+                    núcleo se esforça para educar e conscientizar a comunidade acadêmica e a sociedade em geral sobre a
+                    importância de uma abordagem inclusiva na tecnologia. Acreditamos que, ao tornar as ferramentas
+                    digitais acessíveis a todos,
+                    estamos pavimentando o caminho para uma sociedade mais justa e equitativa.
                     <br>
                     <br>
-                        O Nupat não é apenas um núcleo de pesquisa; é uma comunidade em crescimento, dedicada a criar um futuro onde a tecnologia seja um direito de todos, e não um privilégio de poucos. Convidamos você a conhecer nosso trabalho, 
-                        participar de nossas iniciativas e juntar-se a nós na construção de um mundo digital mais inclusivo e acessível para todos.
-                    </p>
+                    A previsão é que o sistema completo seja lançado até o final de 2024, mas nosso compromisso com a
+                    acessibilidade não termina aí.
+                    Continuaremos a aprimorar nossas soluções e a colaborar com outros pesquisadores,
+                    desenvolvedores e ativistas para garantir que a inclusão seja sempre uma prioridade na evolução
+                    tecnológica em todos os aspectos garantindo que os ambas as partes cresçam juntos garantindo o
+                    acesso de todos os públicos.
+                    <br>
+                    <br>
+                    O Nupat não é apenas um núcleo de pesquisa; é uma comunidade em crescimento, dedicada a criar um
+                    futuro onde a tecnologia seja um direito de todos, e não um privilégio de poucos. Convidamos você a
+                    conhecer nosso trabalho,
+                    participar de nossas iniciativas e juntar-se a nós na construção de um mundo digital mais inclusivo
+                    e acessível para todos.
+                </p>
+
+            </div>
             
-                    <div class="lyne"></div>
-                   
-                </div>
-                <div class="menber">
-                    <h2> Membros do Nupat</h2>
-                </div>
+            <div class="menber">
+                <h2> Membros do Nupat</h2>
             </div>
-            <!--componentes do projeto -->
-            <div class="carousel-container">
-                <div class="photos">
-                    <div class="profilesec">
-                        <div class="circle">
-                            <img src="{% static 'img/prof_tati.jpg' %}" alt=" Foto de perfil da Mestra Amaral, coordenadora do NUPAT.">
-                        </div>
-                        <p>Tatiana Sorrentino | Professora e Coordenadora do Nupat. </p>
+        </div>
+        <!--componentes do projeto -->
+        <div class="carousel-container">
+            <div class="photos">
+                <div class="profilesec">
+                    <div class="circle">
+                        <img src="{% static 'img/prof_tati.jpg' %}"
+                            alt=" Foto de perfil da Mestra Amaral, coordenadora do NUPAT.">
                     </div>
-                    <div class="profilesec">
-                        <div class="circle">
-                            <img src="{% static 'img/Dev_vitor.jpg' %}" alt="Foto de perfil do aluno Vitor, Desenvolvedor Front-End">
-                        </div>
-                        <p> Vitor Emanuel | Desenvolvedor Front-end</p>
-                    </div>
-                    <div class="profilesec">
-                        <div class="circle">
-                            <img src="{% static 'img/Dev_David.jpg' %}" alt="Foto de Perfil do Aluno David, Desenvolvedor Front-End">
-                        </div>
-                        <p> David Lopes | Desenvolvedor Front-End</p>
-                    </div>
-                    <div class="profilesec">
-                        <div class="circle">
-                            <img src="{% static 'img/dev.vanessa.jpg' %}" alt="Foto de perfil da aluna Vanessa, Desenvolvedora Front-End">
-                        </div>
-                        <p>Vanessa Gonçalves | Desenvolvedora Front-End</p>
-                    </div>
-
-                    <div class="profilesec">
-                        <div class="circle">
-                            <img src="{%static 'img/devback.marcelo.jpg'%}" alt=" Foto de perfil do aluno Marcelo, Desenvolvedor Back-End">
-                        </div>
-                        <p>Marcelo Ryan | Desenvolvedor Back-end</p>
-                    </div>
-                    <div class="profilesec">
-                        <div class="circle">
-                            <img src="{% static 'img/dev.Philip.jpg' %}" alt="Person 7">
-                        </div>
-                        <p> Philipe Muzzi | Desenvolvedor Back-end</p>
-                    </div>
-                    <div class="profilesec">
-                        <div class="circle">
-                            <img src="{% static 'img/peu.designer.jpg'%}" alt="Foto de Perfil do Aluno Pedro, Designer UX/UI">
-                        </div>
-                        <p> Pedro Cavalcante | Designer UX/UI</p>
-                    </div>
-
+                    <p>Tatiana Sorrentino | Professora e Coordenadora do Nupat. </p>
                 </div>
-                <button class="prev" onclick="moveCarousel(-1)">&#10094;</button>
-                <button class="next" onclick="moveCarousel(1)">&#10095;</button>
+                <div class="profilesec">
+                    <div class="circle">
+                        <img src="{% static 'img/Dev_vitor.jpg' %}"
+                            alt="Foto de perfil do aluno Vitor, Desenvolvedor Front-End">
+                    </div>
+                    <p> Vitor Emanuel | Desenvolvedor Front-end</p>
+                </div>
+                <div class="profilesec">
+                    <div class="circle">
+                        <img src="{% static 'img/Dev_David.jpg' %}"
+                            alt="Foto de Perfil do Aluno David, Desenvolvedor Front-End">
+                    </div>
+                    <p> David Lopes | Desenvolvedor Front-End</p>
+                </div>
+                <div class="profilesec">
+                    <div class="circle">
+                        <img src="{% static 'img/dev.vanessa.jpg' %}"
+                            alt="Foto de perfil da aluna Vanessa, Desenvolvedora Front-End">
+                    </div>
+                    <p>Vanessa Gonçalves | Desenvolvedora Front-End</p>
+                </div>
+
+                <div class="profilesec">
+                    <div class="circle">
+                        <img src="{%static 'img/devback.marcelo.jpg'%}"
+                            alt=" Foto de perfil do aluno Marcelo, Desenvolvedor Back-End">
+                    </div>
+                    <p>Marcelo Ryan | Desenvolvedor Back-end</p>
+                </div>
+                <div class="profilesec">
+                    <div class="circle">
+                        <img src="{% static 'img/dev.Philip.jpg' %}" alt="Person 7">
+                    </div>
+                    <p> Philipe Muzzi | Desenvolvedor Back-end</p>
+                </div>
+                <div class="profilesec">
+                    <div class="circle">
+                        <img src="{% static 'img/peu.designer.jpg'%}"
+                            alt="Foto de Perfil do Aluno Pedro, Designer UX/UI">
+                    </div>
+                    <p> Pedro Cavalcante | Designer UX/UI</p>
+                </div>
+
             </div>
-            <!-- em faze de teste-->
+            <button class="prev" onclick="moveCarousel(-1)">&#10094;</button>
+            <button class="next" onclick="moveCarousel(1)">&#10095;</button>
+        </div>
+        <!-- em faze de teste-->
     </main>
     {% include 'base-footer.html' %}
     <!-- acessibilidade de libras -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
-        <div class="vw-plugin-top-wrapper"></div>
+            <div class="vw-plugin-top-wrapper"></div>
         </div>
     </div>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
@@ -170,4 +200,5 @@
     <script src="{% static  'js/carrosel.js' %}"></script>
     <script src="acessiblity_font.js"></script>
 </body>
+
 </html>

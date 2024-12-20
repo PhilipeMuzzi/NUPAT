@@ -5,7 +5,7 @@
     --bege: #E7E4D7;
     --verdefraco: #afc9afa8;
     --brancosolar: #EEF0E5;
-    --navbar-height: 4.75rem;
+    --navbar-height: 4.75rem;   
 
 }
 body {
@@ -30,27 +30,28 @@ main {
     place-items: center;
 
 }
+.titulo {
+    width: 90%;
+    margin: 50px;
+}
 .container {
-    background-color: #afc9afa8;
     width: 90%;
     height: auto;
 }
 .lyste {
     font-size: 38px;
     font-weight: bolder;
-    margin-left: 4%;
-    margin-top: 4.5%;
     color: var(--verde);
 }
 .line{
     width: 72%;
     height: 2px;
     background-color: #00ff00; 
-    margin-top: -1.5%;
-    margin-left: 23%;
+    margin-top: -1.2%;
+    margin-left: 15%;
 }
 .text1 { 
-    width: 90%;
+    width: 100%;
     text-align: justify;
     border-style: inherit;
     color: var(--verde);
@@ -60,11 +61,12 @@ main {
 section.slider {
     margin: 0 auto 0 auto;
     width: 80%;
-    height: 600px;
-    margin-top: 25%;
+    height: auto;
+    margin-top: 5%;
     overflow: hidden;
     border-radius: 1%;
-    box-shadow: 0 4px 6px var(--verdefraco); /*Adicionado só para teste*/
+
+    /*Adicionado só para teste*/
    
 }
 .slider-content {
@@ -77,16 +79,22 @@ section.slider {
 }
 .slider-box {
     width: 25%;
-    position: relative;
+    height: auto;
     text-align: center;
     transition: 1s;
+    margin: 20px;
 }
 .img-container {
-    position: relative;
     width: 100%;
+
+}
+.img-container img {
+    object-fit: contain;
+    height: auto;
 }
 .slider-box  img {
-    width: 100%;
+    width: 90%;
+    object-fit: contain;
     display: block;
 }
 .nav-manual, .nav-auto {
@@ -125,38 +133,22 @@ section.slider {
 }
 /* FIM DO CARROSEL PRINCIPAL*/
 
-
-.text2 p{  /*AJUSTAR AQUI PARA MONTAR A SEGUNDA PARTE DO TEXTO*/
-    position: absolute;
-    margin-top: -15%;
-    left: 50%;
-    width: 90%;
-    display: block;
-    padding-left: px;
-    text-align: justify;
-    transform: translate(-50%, -50%);
-    border-style: inherit;
-    color: var(--verde);
+.text2 {
+    width: 100%;
+    height: auto;
 }
-.text2 .lyne{
-    width: 67%;
-    height: 2px;
-    background-color: #00ff00; 
-    margin-top: 25%;
-    margin-left: 28%;
+.menber {
+    margin-top: 50px;
 }
 .menber h2{
-    margin-top:-1.8%;
     font-size: 38px;
     font-weight: bolder;
-    margin-left: 4%;
     color: var(--verde);
 }
 /*Seção das fotos dos componentes do NUPAT*/
 .carousel-container {
-    position: relative;
     width: 100%;
-    height: 270px;
+    height: auto;
     background-color: aliceblue;
     margin-top: 5%;
     padding: 15px 10px;
@@ -191,9 +183,7 @@ section.slider {
 }
 
 button {
-    position: absolute;
-    top: 35%;
-    transform: translateY(-50% -50);
+    transform: translateY(-50%);  /* Corrigir erro no transform */
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
     border: none;
@@ -335,10 +325,25 @@ button.next {
 }
 
 @media screen and (max-width:490px) {
+    .line{display: none;}
+    .nav-manual, .nav-auto{
+        display: none;
+    }
+    .nav-manual .manual-btn, .nav-auto div{
+        background-color: none;
+    }
     .primeiro-rodape {
         width: 100%;
         color: white;
         
+    }
+    .carrosel {
+        display: grid;
+        place-items: center;
+        margin: 20px;
+    }
+    .slider-box {
+        height: auto;
     }
 
     .img-dados {
@@ -372,7 +377,15 @@ button.next {
     .copyright p{
         font-size: 10px;
     }
-
+    
+    .profilesec {height: auto;}
+    .circle {
+        width: 80px;
+        height: 80px;
+    }
+    .profilesec p {
+        font-size: 13px;
+    }
 }
 
 
