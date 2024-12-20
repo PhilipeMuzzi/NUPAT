@@ -3,12 +3,12 @@
 {% block content %}
 <head>
     <link rel="stylesheet" href="{% static 'css/projetos_iniciados.css' %}">
-    <title>Projetos em Andamento</title>
+    <title>NUPAT - Todos os projetos</title>
 </head>
 
 <main>
     <h1>
-        <strong>Projetos em Andamento</strong>
+        <strong>Projetos</strong>
         <hr class="linha-fina">
     </h1>
     <article>
@@ -20,7 +20,7 @@
 
 <br><br><br>
 
-<form id="filterForm" action="{% url 'projetos_andamento' %}" method="GET" class="filter-form">
+<form id="filterForm" action="{% url 'todos_projetos' %}" method="GET" class="filter-form">
     <ul class="filter-list">
         <li>
             <h2><strong >Filtros:</strong></h2>
@@ -80,24 +80,30 @@
 
 
         </section>
-        <section class="proj">
-            <h1><strong>Resultados</strong></h1>
-            <div class="cards-container">
-        {% for projeto in projetos %}
-        <div class="card">
-            <a href="{% url 'detalhes_projeto' projeto.id %}" class="card-link">
-                <div class="card-image">
-                    <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
-                    <h3 class="card-title">{{ projeto.titulo }}</h3>
-                </div>
-            </a>
-        </div>
-        {% empty %}
-        <p class="no-projects">Nenhum projeto encontrado.</p>
-        {% endfor %}
 
+
+<section class="proj">
+    <h1><strong>Resultados</strong></h1>
+    <div class="cards-container">
+{% for projeto in projetos %}
+    <div class="card">
+<a href="{% url 'detalhes_projeto' projeto.id %}" class="card-link">
+
+            <div class="card-image">
+                <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                <h3 class="card-title">{{ projeto.titulo }}</h3>
             </div>
-        </section>
+        </a>
+    </div>
+{% empty %}
+    <p class="no-projects">Nenhum projeto encontrado.</p>
+{% endfor %}
+
+    </div>
+</section>
+
+
+
     </article>
 </main>
 
@@ -107,7 +113,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     gap: 20px;
-    padding: 50px;
+    padding: 70px;
     }
 
     .card {

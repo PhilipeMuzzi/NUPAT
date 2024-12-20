@@ -392,6 +392,7 @@ def listar_parceiros(request):
     return render(request, 'parceiros/lista_parceiros.html', {'parceiros': parceiros})
 
 
+
 # Adicionar novo parceiro
 @login_required
 def adicionar_parceiro(request):

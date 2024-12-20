@@ -20,8 +20,8 @@ urlpatterns = [
     path('atendimento-virtual/', atendimento_virtual, name='atendimento_virtual'),
 
     path('projetos/', views.projetos_por_status, name='todos_projetos'),
-    path('projetos/<str:status>/', views.projetos_por_status, name='projetos_por_status'),
-    path('projetos/andamento/', views.projetos_por_status, name='projetos_andamento'),
+
+
 
 
     # gerenciamento de usuários
