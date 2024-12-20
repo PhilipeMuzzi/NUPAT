@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,50 +12,80 @@
     <script src="https://kit.fontawesome.com/af6c14a78e.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display&display=swap" rel="stylesheet">
 </head>
+
 <body>
     {% include 'base-header.html' %}
 
     <div class="container">
         <div class="primeiro-corpo">
-<div class="carrosel">
-    <button class="prev" onclick="moverCarrossel(-1)">❮</button>
-    <div class="slider">
-        <div class="slider-content">
             {% if ultimos_projetos %}
-                {% for projeto in ultimos_projetos|slice:":6" %}
-                    <div class="slider-box">
-                        <div class="img-container">
-                            {% if projeto.fotos %}
-                                <img class="img-desktop" src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
-                            {% else %}
-                                <img class="img-desktop" src="{% static 'images/default_project.png' %}" alt="Imagem padrão">
-                            {% endif %}
+            <article class="second">
+                <h1 class="title2">Adicionados Recentemente</h1>
+                <div class="cards-container">
+                    {% for projeto in ultimos_projetos|slice:":6" %}
+                    <div class="card">
+                        {% if projeto.fotos %}
+                        <img src="{{ projeto.fotos.url }}" alt="{{ projeto.titulo }}">
+                        {% else %}
+                        <img src="{% static 'images/default_project.png' %}" alt="Imagem padrão">
+                        {% endif %}
+                        <nav>
+                            <p>{{ projeto.titulo }}</p>
+                            <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>
+                        </nav>
+                    </div>
+                    {% endfor %}
+                </div>
+            </article>
+            {% else %}
+            <p>Nenhum projeto cadastrado no momento.</p>
+            {% endif %}
+
+            <div class="carrosel">
+                <section class="slider">
+                    <div class="slider-content">
+                        <input type="radio" name="btn-radio" id="radio1" checked>
+                        <input type="radio" name="btn-radio" id="radio2">
+                        <input type="radio" name="btn-radio" id="radio3">
+                        <!--As imagens abaixo vai ser alterada para fotos posteriores dos componentes dos grupos em atividades relacionada ao NUPAT-->
+                        <div class="slider-box primeiro">
+                            <div class="img-container">
+                                <img class="img-desktop" src="{% static 'img/carrosel2.png' %}" alt="">
+                            </div>
                         </div>
-                        <div class="overlay">
-                            <h2>{{ projeto.titulo }}</h2>
-                            <p>{{ projeto.descricao|truncatewords:20 }}</p>
-                          <a href="{% url 'detalhes_projeto' projeto.id %}">Acessar</a>
+                        <div class="slider-box">
+                            <div class="img-container">
+                                <img class="img-desktop" src="{% static 'img/carrosel2.png' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="slider-box">
+                            <div class="img-container">
+                                <img class="img-desktop" src="{% static 'img/carrosel2.png' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="nav-auto">
+                            <div class="auto-btn1"></div>
+                            <div class="auto-btn2"></div>
+                            <div class="auto-btn3"></div>
+                        </div>
+                        <div class="nav-manual">
+                            <label for="radio1" class="manual-btn"></label>
+                            <label for="radio2" class="manual-btn"></label>
+                            <label for="radio3" class="manual-btn"></label>
                         </div>
                     </div>
-                {% endfor %}
-            {% else %}
-                <p>Nenhum projeto cadastrado no momento.</p>
-            {% endif %}
-        </div>
-    </div>
-    <button class="next" onclick="moverCarrossel(1)">❯</button>
-</div>
-
-        </div>
-
-        <div class="segundo-corpo">
-            <div class="nupat" style="text-align: right;">
-                <a href="{% url 'quem_somos' %}">
-                    <h2>Quem Somos?</h2>
-                </a>
+                </section>
             </div>
         </div>
-    </div> <br><br><br>
+
+    <div class="segundo-corpo">
+        <div class="nupat" style="text-align: right;">
+            <a href="{% url 'quem_somos' %}">
+                <h2>Quem Somos?</h2>
+            </a>
+        </div>
+    </div>
+    </div>
 
     {% include 'base-footer.html' %}
 
@@ -63,17 +94,18 @@
     <script src="{% static 'js/main.js' %}"></script>
 
     <script>
-let currentIndex = 0;
+        let currentIndex = 0;
 
-function moverCarrossel(direction) {
-    const sliderContent = document.querySelector('.slider-content');
-    const totalItems = document.querySelectorAll('.slider-box').length;
+        function moverCarrossel(direction) {
+            const sliderContent = document.querySelector('.slider-content');
+            const totalItems = document.querySelectorAll('.slider-box').length;
 
-    currentIndex = (currentIndex + direction + totalItems) % totalItems;
-    const offset = -currentIndex * 100; // Move 100% para cada slide
-    sliderContent.style.transform = `translateX(${offset}%)`;
-}
+            currentIndex = (currentIndex + direction + totalItems) % totalItems;
+            const offset = -currentIndex * 100; // Move 100% para cada slide
+            sliderContent.style.transform = `translateX(${offset}%)`;
+        }
 
     </script>
 </body>
+
 </html>

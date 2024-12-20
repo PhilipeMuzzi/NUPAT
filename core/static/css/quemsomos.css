@@ -25,7 +25,16 @@ body {
 ul {
     list-style: none;
 }
+main {
+    display: grid;
+    place-items: center;
 
+}
+.container {
+    background-color: #afc9afa8;
+    width: 90%;
+    height: auto;
+}
 .lyste {
     font-size: 38px;
     font-weight: bolder;
@@ -41,12 +50,8 @@ ul {
     margin-left: 23%;
 }
 .text1 { 
-    position: absolute;
-    margin-top: -12%;
-    left: 50%;
     width: 90%;
     text-align: justify;
-    transform: translate(-50%, -50%);
     border-style: inherit;
     color: var(--verde);
 }
