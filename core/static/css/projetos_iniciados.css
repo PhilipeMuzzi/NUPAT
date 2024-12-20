@@ -213,8 +213,12 @@ main article
 
 .projetos>nav>.conteudo a 
 {
-    color: #000000;
+    color: #fff;
     text-decoration: none;
+    background-color: #083a08;
+    padding: 5px;
+    height: auto;
+    border-radius: 5px;
 }
 
 
