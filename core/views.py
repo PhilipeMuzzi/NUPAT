@@ -96,7 +96,7 @@ def projetos_andamento(request):
         projetos_andamento = Projeto.objects.filter(situacao='andamento', titulo__icontains=pesquisa)
     else:
         projetos_andamento = Projeto.objects.filter(situacao='andamento')
-    return render(request, 'projetos/projetos_andamento.html', {'projetos_andamento': projetos_andamento})
+    return render(request, 'projetos/todos_projetos.html', {'projetos_andamento': projetos_andamento})
 
 # Projetos marcados pelo admin como "Concluídos"
 def projetos_concluidos(request):
@@ -392,6 +392,7 @@ def listar_parceiros(request):
     return render(request, 'parceiros/lista_parceiros.html', {'parceiros': parceiros})
 
 
+
 # Adicionar novo parceiro
 @login_required
 def adicionar_parceiro(request):
@@ -536,6 +537,32 @@ def resultados_pesquisa(request):
     }
 
     return render(request, 'admin/pesquisa_opiniao_usuario.html', contexto)
+def projetos_por_status(request, status=None):
+    if status:
+        projetos = Projeto.objects.filter(situacao=status)
+    else:
+        projetos = Projeto.objects.all()
+
+    # Filtros por texto
+    instituicao_nome = request.GET.get('instituicoes_nome', '').strip()
+    pesquisador_nome = request.GET.get('pesquisador_nome', '').strip()
+
+    if instituicao_nome:
+        projetos = projetos.filter(instituicao__nome__icontains=instituicao_nome)
+    if pesquisador_nome:
+        projetos = projetos.filter(pesquisadores__nome__icontains=pesquisador_nome)
+
+    # Obter filtros adicionais
+    instituicoes = Instituicao.objects.all()
+    pesquisadores = Pesquisador.objects.all()
+
+    return render(request, 'projetos/todos_projetos.html', {
+        'projetos': projetos,
+        'instituicoes': instituicoes,
+        'pesquisadores': pesquisadores,
+        'status': status,
+    })
+
 
 #logout
 @login_required
