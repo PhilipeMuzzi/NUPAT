@@ -536,28 +536,24 @@ def resultados_pesquisa(request):
     }
 
     return render(request, 'admin/pesquisa_opiniao_usuario.html', contexto)
-
 def projetos_por_status(request, status=None):
     if status:
         projetos = Projeto.objects.filter(situacao=status)
     else:
         projetos = Projeto.objects.all()
 
+    # Filtros por texto
+    instituicao_nome = request.GET.get('instituicoes_nome', '').strip()
+    pesquisador_nome = request.GET.get('pesquisador_nome', '').strip()
+
+    if instituicao_nome:
+        projetos = projetos.filter(instituicao__nome__icontains=instituicao_nome)
+    if pesquisador_nome:
+        projetos = projetos.filter(pesquisadores__nome__icontains=pesquisador_nome)
+
+    # Obter filtros adicionais
     instituicoes = Instituicao.objects.all()
     pesquisadores = Pesquisador.objects.all()
-
-    instituicao_selecionada = request.GET.getlist('instituicoes')
-    pesquisador_selecionado = request.GET.getlist('pesquisadores')
-
-    if instituicao_selecionada:
-        projetos = projetos.filter(instituicao__id__in=instituicao_selecionada)
-    if pesquisador_selecionado:
-        projetos = projetos.filter(pesquisadores__id__in=pesquisador_selecionado)
-
-
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        return render(request, 'projetos/partials/projetos_list.html', {'projetos': projetos})
-
 
     return render(request, 'projetos/todos_projetos.html', {
         'projetos': projetos,
