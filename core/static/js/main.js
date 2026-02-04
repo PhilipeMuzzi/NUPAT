@@ -36,3 +36,22 @@ document.querySelector(".sb-ab-ft-normal").addEventListener("click", function(){
     tamanho_fonte = tamanho_padrao;
     document.body.style.fontSize = tamanho_padrao + "px";
 });
+
+function mudarTema(tema) {
+    if (tema === 'escuro') {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('nupat-tema', 'escuro');
+    } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('nupat-tema', 'claro');
+    }
+}
+
+function aplicarTemaAoCarregar() {
+    const temaSalvo = localStorage.getItem('nupat-tema');
+    if (temaSalvo === 'escuro') {
+        document.body.classList.add('dark-mode');
+    }
+}
+
+aplicarTemaAoCarregar();

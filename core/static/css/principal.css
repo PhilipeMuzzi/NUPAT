@@ -13,6 +13,33 @@
     margin:0;
     padding:0;
 }
+
+/* modo noturno 
+/* Estilo para o Modo Escuro */
+body.dark-mode {
+    background-color: #121212 !important; /* Cor preta/grafite para o fundo */
+    color: #ffffff; /* Cor do texto para branco para não sumir */
+}
+
+/* Opcional: Ajuste os containers para que fiquem visíveis no fundo preto */
+body.dark-mode .container {
+    background-color: #121212;
+}
+
+/* Exemplo de como mudar os cards no modo escuro */
+body.dark-mode .card {
+    background-color: #1e1e1e;
+    color: white;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+/* Ajuste do título para não sumir */
+body.dark-mode h1, body.dark-mode h2, body.dark-mode p {
+    color: #ffffff;
+}
+
+/*
+
 /* INICIO DO CORPO DO SITE*/
 .container {
     display: grid;
