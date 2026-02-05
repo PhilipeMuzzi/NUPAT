@@ -17,25 +17,39 @@
 /* modo noturno 
 /* Estilo para o Modo Escuro */
 body.dark-mode {
-    background-color: #121212 !important; /* Cor preta/grafite para o fundo */
-    color: #ffffff; /* Cor do texto para branco para não sumir */
+    background-color: #818181 !important; /* Cor preta/grafite para o fundo */
+    transition: 0.5s;
+
 }
 
 /* Opcional: Ajuste os containers para que fiquem visíveis no fundo preto */
 body.dark-mode .container {
-    background-color: #121212;
+    background-color: #818181 ;
+    transition: 0.5s;
 }
 
 /* Exemplo de como mudar os cards no modo escuro */
 body.dark-mode .card {
-    background-color: #1e1e1e;
-    color: white;
+    background-color: #3a3a3a ;
     box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
 }
 
 /* Ajuste do título para não sumir */
-body.dark-mode h1, body.dark-mode h2, body.dark-mode p {
-    color: #ffffff;
+body.dark-mode .cbc-acessibilidade {
+    background-color: #b3b3b3;
+    transition: 0.5s;
+}
+body.dark-mode .submenu {
+    background-color: #b3b3b3;
+    transition: 0.5s;
+}
+body.dark-mode .card {
+    background-color: #b3b3b3;
+    transition: 0.5s;
+}
+body.dark-mode .title2 {
+    color: #fff;
+    transition: 0.5s;
 }
 
 /*
@@ -49,6 +63,7 @@ body.dark-mode h1, body.dark-mode h2, body.dark-mode p {
     grid-template-areas:
         "primeiro-corpo segundo-corpo";
     padding: 20px;
+    transition: 0.5s;
 
 
 }

@@ -124,40 +124,6 @@
         </ul>
     </div>
 
-    <script>
-
-
-        document.querySelectorAll('.btn-a').forEach(function (btn) {
-            btn.addEventListener('click', function (event) {
-                if (btn.classList.contains('sb-ab-ft-menor')) {
-                    document.body.style.fontSize = 'small';
-                } else if (btn.classList.contains('sb-ab-ft-normal')) {
-                    document.body.style.fontSize = 'medium';
-                } else if (btn.classList.contains('sb-ab-ft-maior')) {
-                    document.body.style.fontSize = 'large';
-                }
-            });
-        });
-
-        function mudarTema(tema) {
-            if (tema === 'escuro') {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('nupat-tema', 'escuro');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('nupat-tema', 'claro');
-            }
-        }
-
-        // Executa imediatamente para evitar o "clarão" ao recarregar a página
-        (function () {
-            const temaSalvo = localStorage.getItem('nupat-tema');
-            if (temaSalvo === 'escuro') {
-                document.body.classList.add('dark-mode');
-            }
-        })();
-
-    </script>
 
     <script src="{% static 'js/main.js' %}"></script>
 

@@ -18,7 +18,7 @@ body {
     font-family: "Red Hat Display",
         sans-serif;
     font-size: 16px;
-    background-color: var(--brancogelo);
+    background-color: white;
     overflow-x: hidden;
     scroll-behavior: smooth;
 
@@ -41,6 +41,7 @@ body {
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
+    transition: 0.5s;
 }
 
 .cbc-acessibilidade ul {

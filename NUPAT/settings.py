@@ -135,3 +135,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+# Custom authentication backend to allow login using email
+AUTHENTICATION_BACKENDS = [
+    'core.auth_backend.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
